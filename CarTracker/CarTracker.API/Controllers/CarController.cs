@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarTracker.Common.Mappers;
+using CarTracker.Common.Services;
 using CarTracker.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,18 +14,18 @@ namespace CarTracker.API.Controllers
     public class CarController : Controller
     {
 
-        private readonly CarTrackerDbContext _dbContext;
+        private readonly ICarService _carService;
 
-        public CarController(CarTrackerDbContext dbContext)
+        public CarController(ICarService carService)
         {
-            this._dbContext = dbContext;
+            this._carService = carService;
         }
          
         [HttpGet]
         [Route("{id}")]
         public IActionResult Get(long id)
         {
-            var car = _dbContext.Cars.FirstOrDefault(c => c.CarId == id);
+            var car = _carService.Get(id);
             if (null == car)
             {
                 return NotFound();
@@ -36,7 +37,7 @@ namespace CarTracker.API.Controllers
         [Route("vin/{vin}")]
         public IActionResult GetByVin(string vin)
         {
-            var car = _dbContext.Cars.FirstOrDefault(c => c.Vin == vin);
+            var car = _carService.Get(vin);
             if (null == car)
             {
                 return NotFound();
@@ -48,7 +49,7 @@ namespace CarTracker.API.Controllers
         [Route("")]
         public IActionResult GetAll()
         {
-            var cars = _dbContext.Cars.ToList();
+            var cars = _carService.GetAll();
             return Ok(cars.ToViewModel());
         }
 
@@ -56,7 +57,7 @@ namespace CarTracker.API.Controllers
         [Route("registered/{vin}")]
         public IActionResult IsRegistered(string vin)
         {
-            var exists = _dbContext.Cars.Any(c => c.Vin == vin);
+            var exists = null != _carService.Get(vin);
             return Ok(exists);
         }
     }

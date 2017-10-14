@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarTracker.Common.Services;
 using CarTracker.Data;
+using CarTracker.Logic.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +35,8 @@ namespace CarTracker.API
 
             services.AddDbContext<CarTrackerDbContext>(
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
+
+            services.AddTransient<ICarService, CarService>();
 
             services.AddMvc();
         }

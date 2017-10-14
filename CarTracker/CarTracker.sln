@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarTracker.Common", "CarTra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarTracker.Data", "CarTracker.Data\CarTracker.Data.csproj", "{6D666297-6470-4BFD-8322-8045C3FBCEE2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarTracker.Logic", "CarTracker.Logic\CarTracker.Logic.csproj", "{E130F805-30BB-4432-A409-A94243BAE5C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{6D666297-6470-4BFD-8322-8045C3FBCEE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D666297-6470-4BFD-8322-8045C3FBCEE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D666297-6470-4BFD-8322-8045C3FBCEE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E130F805-30BB-4432-A409-A94243BAE5C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E130F805-30BB-4432-A409-A94243BAE5C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E130F805-30BB-4432-A409-A94243BAE5C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E130F805-30BB-4432-A409-A94243BAE5C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

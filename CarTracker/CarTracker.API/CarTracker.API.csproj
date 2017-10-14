@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CarTracker.Common\CarTracker.Common.csproj" />
     <ProjectReference Include="..\CarTracker.Data\CarTracker.Data.csproj" />
+    <ProjectReference Include="..\CarTracker.Logic\CarTracker.Logic.csproj" />
   </ItemGroup>
 
 </Project>
