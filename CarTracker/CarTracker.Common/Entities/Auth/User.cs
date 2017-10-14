@@ -13,8 +13,8 @@ namespace CarTracker.Common.Entities
         public string Email { get; set; }
         public bool Active { get; set; }
         public bool Locked { get; set; }
-        public DateTime ExpirationDate { get; set; }
-        public DateTime PasswordExpirationDate { get; set; }
+        public DateTime? ExpirationDate { get; set; }
+        public DateTime? PasswordExpirationDate { get; set; }
 
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }

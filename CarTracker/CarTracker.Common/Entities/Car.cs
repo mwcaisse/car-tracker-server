@@ -13,11 +13,11 @@ namespace CarTracker.Common.Entities
         
         public string Name { get; set; }
 
-        public long OwnerId { get; set; }
+        public long? OwnerId { get; set; }
 
-        public double Mileage { get; set; }
+        public double? Mileage { get; set; }
 
-        public DateTime MileageLastUserSet { get; set; }
+        public DateTime? MileageLastUserSet { get; set; }
 
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
