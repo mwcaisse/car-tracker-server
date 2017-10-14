@@ -119,7 +119,53 @@ namespace CarTracker.Logic.Services
 
         protected double CalculateDistanceBetweenReadings(Reading prev, Reading current)
         {
-            return 0;
+            if (ToRadians(current.Latitude) == 0 || ToRadians(prev.Latitude) == 0)
+            {
+                return 0; // if either of the latitudes are 0 then return 0. 0 is an incorrect reading
+            }
+
+            return CalculateDistanceBetweenLocations(
+                new LocationModel()
+                {
+                    Latitude = prev.Latitude,
+                    Longitude = prev.Longitude
+                },
+                new LocationModel()
+                {
+                    Latitude  = current.Latitude,
+                    Longitude = current.Longitude
+                });
+        }
+
+        private const double EarthRadidus = 6371.0;
+
+        protected double CalculateDistanceBetweenLocations(LocationModel start, LocationModel end)
+        {
+
+            double startLat = ToRadians(start.Latitude);
+            double endLat = ToRadians(end.Latitude);
+            double deltaLat = ToRadians(end.Latitude - start.Latitude);
+            double deltaLong = ToRadians(end.Longitude - start.Longitude);
+
+            double a = Math.Pow(Math.Sin(deltaLat / 2.0), 2.0) +
+                       Math.Pow(Math.Sin(deltaLong / 2.0), 2.0) *
+                       Math.Cos(startLat) * Math.Cos(endLat);
+
+            double c = 2.0 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1.0 - a));
+            double distance = EarthRadidus * c;
+
+            return Math.Abs(distance);
+        }
+
+        protected double ToRadians(decimal degrees)
+        {
+            return (Math.PI / 180.0) * Convert.ToDouble(degrees);
+        }
+
+        protected class LocationModel
+        {
+            public decimal Latitude { get; set; }
+            public decimal Longitude { get; set; }
         }
 
         
