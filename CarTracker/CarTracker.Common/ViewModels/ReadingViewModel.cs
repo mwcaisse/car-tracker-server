@@ -2,34 +2,39 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarTracker.Common.Entities
+namespace CarTracker.Common.ViewModels
 {
-    public class Reading : ITrackedEntity
+    public class ReadingViewModel
     {
-        public long ReadingId { get; set; }
+
+        public long Id { get; set; }
 
         public DateTime ReadDate { get; set; }
 
         public long TripId { get; set; }
 
         public decimal Latitude { get; set; }
+
         public decimal Longitude { get; set; }
+
         public double? AirIntakeTemperature { get; set; }
+
         public double? AmbientAirTemperature { get; set; }
+
         public double? EngineCoolantTemperature { get; set; }
+
         public double? OilTemperature { get; set; }
+
         public double? EngineRpm { get; set; }
+
         public double? Speed { get; set; }
+
         public double? MassAirFlow { get; set; }
+
         public double? ThrottlePosition { get; set; }
+
         public string FuelType { get; set; }
+
         public double? FuelLevel { get; set; }
-
-        public DateTime CreateDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
-
-        public virtual Trip Trip { get; set; }
-
-       
     }
 }

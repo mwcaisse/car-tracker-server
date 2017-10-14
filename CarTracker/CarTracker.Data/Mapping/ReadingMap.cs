@@ -57,7 +57,7 @@ namespace CarTracker.Data.Mapping
             builder.Property(r => r.MassAirFlow)
                 .HasColumnName("MASS_AIR_FLOW");
 
-            builder.Property(r => r.ReadDate)
+            builder.Property(r => r.ThrottlePosition)
                 .HasColumnName("THROTTLE_POSITION");
 
             builder.Property(r => r.FuelType)
