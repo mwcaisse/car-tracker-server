@@ -16,6 +16,16 @@ namespace CarTracker.Common.Services
         IEnumerable<Car> GetAll();
 
         /// <summary>
+        /// Fetches all cars with the given paging + sorting
+        /// </summary>
+        /// <param name="skip"></param>
+        /// <param name="take"></param>
+        /// <param name="sortParam"></param>
+        /// <returns></returns>
+        PagedViewModel<Car> GetAllPaged(int skip = 0, int take = 10,
+            SortParam sortParam = null);
+
+        /// <summary>
         /// Fetches the car with the given id
         /// </summary>
         /// <param name="id"></param>

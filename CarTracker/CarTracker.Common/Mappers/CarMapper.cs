@@ -30,5 +30,16 @@ namespace CarTracker.Common.Mappers
             return cars.Select(c => c.ToViewModel());
         }
 
+        public static PagedViewModel<CarViewModel> ToViewModel(this PagedViewModel<Car> pagedCars)
+        {
+            return new PagedViewModel<CarViewModel>()
+            {
+                Data = pagedCars.Data.ToViewModel(),
+                Skip = pagedCars.Skip,
+                Take = pagedCars.Take,
+                Count = pagedCars.Count
+            };
+        }
+
     }
 }

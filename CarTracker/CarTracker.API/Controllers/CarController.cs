@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarTracker.Common.Mappers;
 using CarTracker.Common.Services;
+using CarTracker.Common.ViewModels;
 using CarTracker.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,10 +48,9 @@ namespace CarTracker.API.Controllers
 
         [HttpGet]
         [Route("")]
-        public IActionResult GetAll()
+        public IActionResult GetAllPaged(int skip, int take, SortParam sort = null)
         {
-            var cars = _carService.GetAll();
-            return Ok(cars.ToViewModel());
+            return Ok(_carService.GetAllPaged(skip, take, sort).ToViewModel());
         }
 
         [HttpGet]
