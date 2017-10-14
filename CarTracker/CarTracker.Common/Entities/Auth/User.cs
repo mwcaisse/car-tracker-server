@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarTracker.Common.Entities
 {
-    public class User
+    public class User : ITrackedEntity
     {
         public long UserId { get; set; }
         public string Username { get; set; }
@@ -16,7 +16,12 @@ namespace CarTracker.Common.Entities
         public DateTime ExpirationDate { get; set; }
         public DateTime PasswordExpirationDate { get; set; }
 
+        public DateTime CreateDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+
         public virtual ICollection<Car> Cars { get; set; }
         public virtual ICollection<UserAuthenticationToken> UserAuthenticationTokens { get; set; }
+        public virtual ICollection<UserRegistrationKeyUse> UserRegistrationKeyUses { get; set; }
+        
     }
 }
