@@ -60,5 +60,19 @@ namespace CarTracker.API.Controllers
             var exists = null != _carService.Get(vin);
             return Ok(exists);
         }
+
+        [HttpPost]
+        [Route("")]
+        public IActionResult Create(CarViewModel car)
+        {
+            return Ok(_carService.Create(car).ToViewModel());
+        }
+
+        [HttpPut]
+        [Route("")]
+        public IActionResult Update(CarViewModel car)
+        {
+            return Ok(_carService.Update(car).ToViewModel());
+        }
     }
 }
