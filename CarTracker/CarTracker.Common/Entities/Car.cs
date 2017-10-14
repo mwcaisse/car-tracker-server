@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarTracker.Common.Entities
 {
-    public class Car
+    public class Car : ITrackedEntity
     {
 
         public long CarId { get; set; }
@@ -23,6 +23,10 @@ namespace CarTracker.Common.Entities
         public DateTime ModifiedDate { get; set; }
 
         public virtual User Owner { get; set; }
+
+        public virtual CarSupportedCommands CarSupportedCommands { get; set; }
+
+        public virtual ICollection<Trip> Trips { get; set; }
 
     }
 }

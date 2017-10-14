@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CarTracker.Common.Entities
 {
-    public class Place
+    public class Place : ITrackedEntity
     {
 
         public long PlaceId { get; set; }
@@ -13,10 +13,20 @@ namespace CarTracker.Common.Entities
 
         public string GooglePlaceId { get; set; }
 
-        public double Latitude { get; set; }
+        public decimal Latitude { get; set; }
 
-        public double Longitude { get; set; }
+        public decimal Longitude { get; set; }
 
         public bool Active { get; set; }
+
+        public DateTime CreateDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+
+
+        public ICollection<Trip> TripStarts { get; set; }
+        public ICollection<Trip> TripDestinations { get; set; }
+
+        public ICollection<TripPossiblePlace> TripPossiblePlaces { get; set; }
+
     }
 }
