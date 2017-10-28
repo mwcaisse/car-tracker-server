@@ -37,6 +37,9 @@ namespace CarTracker.API
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
 
             services.AddTransient<ICarService, CarService>();
+            services.AddTransient<ITripService, TripService>();
+            services.AddTransient<IReaderLogService, ReaderLogService>();
+            services.AddTransient<ITripProcessor, TripProcessor>();
 
             services.AddMvc();
         }

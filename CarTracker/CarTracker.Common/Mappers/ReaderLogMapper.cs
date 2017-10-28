@@ -27,5 +27,17 @@ namespace CarTracker.Common.Mappers
         {
             return logs.Select(l => l.ToViewModel());
         }
+
+        public static PagedViewModel<ReaderLogViewModel> ToViewModel(
+            this PagedViewModel<ReaderLog> pagedReaderLogs)
+        {
+            return new PagedViewModel<ReaderLogViewModel>()
+            {
+                Data = pagedReaderLogs.Data.ToViewModel(),
+                Count = pagedReaderLogs.Count,
+                Take = pagedReaderLogs.Take,
+                Skip = pagedReaderLogs.Skip
+            };            
+        }
     }
 }
