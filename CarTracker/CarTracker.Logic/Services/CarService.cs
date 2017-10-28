@@ -33,8 +33,6 @@ namespace CarTracker.Logic.Services
         public PagedViewModel<Car> GetAllPaged(int skip = 0, int take = 10, 
             SortParam sortParam = null)
         {
-            var query = _db.Cars.AsQueryable();
-
             if (string.IsNullOrWhiteSpace(sortParam?.ColumnName))
             {
                 sortParam = new SortParam()
