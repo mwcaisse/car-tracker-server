@@ -35,40 +35,15 @@ namespace CarTracker.Logic.Services
         {
             var query = _db.Cars.AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(sortParam?.ColumnName))
+            if (string.IsNullOrWhiteSpace(sortParam?.ColumnName))
             {
-                if (sortParam.Ascending)
+                sortParam = new SortParam()
                 {
-                    query = query.OrderBy(sortParam.ColumnName);
-                }
-                else
-                {
-                    query = query.OrderByDescending(sortParam.ColumnName);
-                }
+                    ColumnName = "Vin",
+                    Ascending = true
+                };
             }
-            else
-            {
-                query = query.OrderBy(x => x.Vin);
-            }
-
-            int count = query.Count();
-
-            if (take <= 0 || take > 100)
-            {
-                throw new EntityValidationException("Invalid page size. Take must be between 1 and 100.");
-            }
-            if (skip < 0)
-            {
-                throw new EntityValidationException("Invalid skip. Skip must be >= 0.");
-            }
-
-            return new PagedViewModel<Car>()
-            {
-                Data = query.Skip(skip).Take(take),
-                Count = count,
-                Skip = skip,
-                Take = take
-            };
+            return _db.Cars.PageAndSort(skip, take, sortParam);
         }
 
         /// <summary>

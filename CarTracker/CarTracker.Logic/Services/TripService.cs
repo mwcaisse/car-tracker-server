@@ -28,42 +28,16 @@ namespace CarTracker.Logic.Services
 
         public PagedViewModel<Trip> GetForCar(long carId, int skip, int take, SortParam sort)
         {
-            var query = _db.Trips.Where(x => x.CarId == carId).AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(sort?.ColumnName))
+            if (string.IsNullOrWhiteSpace(sort?.ColumnName))
             {
-                if (sort.Ascending)
+                sort = new SortParam()
                 {
-                    query = query.OrderBy(sort.ColumnName);
-                }
-                else
-                {
-                    query = query.OrderByDescending(sort.ColumnName);
-                }
-            }
-            else
-            {
-                query = query.OrderByDescending(x => x.StartDate);
+                    ColumnName = "StartDate",
+                    Ascending = false
+                };
             }
 
-            int count = query.Count();
-
-            if (take <= 0 || take > 100)
-            {
-                throw new EntityValidationException("Invalid page size. Take must be between 1 and 100.");
-            }
-            if (skip < 0)
-            {
-                throw new EntityValidationException("Invalid skip. Skip must be >= 0.");
-            }
-
-            return new PagedViewModel<Trip>()
-            {
-                Data = query.Skip(skip).Take(take),
-                Count = count,
-                Skip = skip,
-                Take = take
-            };
+            return _db.Trips.Where(t => t.CarId == carId).PageAndSort(skip, take, sort);
         }
 
         protected void ValidateTrip(TripViewModel trip)
