@@ -38,7 +38,7 @@ namespace CarTracker.Common.Services
         /// <param name="carId"></param>
         /// <param name="toUpdate"></param>
         /// <returns></returns>
-        CarSupportedCommands CreateOrUpdate(int carId, CarSupportedCommands toUpdate);
+        CarSupportedCommands CreateOrUpdate(long carId, CarSupportedCommands toUpdate);
 
         /// <summary>
         /// Creates or Updates the supported commands for the car with the given VIN

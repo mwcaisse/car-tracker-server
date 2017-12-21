@@ -33,22 +33,45 @@ namespace CarTracker.Logic.Services
             return _db.CarSupportedCommands.FirstOrDefault(c => c.Car.Vin == vin);
         }
 
-        public CarSupportedCommands CreateOrUpdate(int carId, CarSupportedCommands toUpdate)
+        public CarSupportedCommands CreateOrUpdate(long carId, CarSupportedCommands toUpdate)
         {
-            throw new NotImplementedException();
+            var car = _db.Cars.FirstOrDefault(c => c.CarId == carId);
+            if (null == car)
+            {
+                throw new EntityValidationException(string.Format("No car with the ID: {0} exists.", carId));
+            }
+            return CreateOrUpdate(car, toUpdate);
         }
 
         public CarSupportedCommands CreateOrUpdate(string vin, CarSupportedCommands toUpdate)
         {
-            throw new NotImplementedException();
+            var car = _db.Cars.FirstOrDefault(c => c.Vin == vin);
+            if (null == car)
+            {
+                throw new EntityValidationException(string.Format("No car with the VIN: {0} exists.", vin));
+            }
+            return CreateOrUpdate(car, toUpdate);
         }
 
         protected CarSupportedCommands CreateOrUpdate(Car car, CarSupportedCommands toUpdate)
         {
-            if (null == car)
+            var supportedCommands = _db.CarSupportedCommands.FirstOrDefault(s => s.CarId == car.CarId);
+
+            if (null == supportedCommands)
             {
-                throw new EntityValidationException("Car not found!");
+                supportedCommands = new CarSupportedCommands()
+                {
+                    Car = car
+                };
             }
+
+            supportedCommands.Pids0120Bitmask = toUpdate.Pids0120Bitmask;
+            supportedCommands.Pids2140Bitmask = toUpdate.Pids2140Bitmask;
+            supportedCommands.Pids4160Bitmask = toUpdate.Pids4160Bitmask;
+            supportedCommands.Pids6180Bitmask = toUpdate.Pids6180Bitmask;
+            supportedCommands.Pids81A0Bitmask = toUpdate.Pids81A0Bitmask;
+
+            _db.SaveChanges();
 
             return toUpdate;
         }
