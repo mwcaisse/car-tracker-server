@@ -142,6 +142,38 @@ namespace CarTracker.Common.Enums
 
     public static class ObdPidExtensions
     {
+
+        private static readonly Dictionary<ObdPid, Tuple<ObdCommand, uint>> PidMapping =
+            new Dictionary<ObdPid, Tuple<ObdCommand, uint>>()
+            {
+                {ObdPid.Pid01, new Tuple<ObdCommand, uint>(ObdCommand.MonitorStatus, (uint) 1 << 31)},
+                {ObdPid.Pid02, new Tuple<ObdCommand, uint>(ObdCommand.FreezeDtc, (uint) 1 << 30)}
+            };
+
+        public static uint GetBitmask(this ObdPid pid)
+        {
+            var map = PidMapping[pid];
+            if (null != map)
+            {
+                return map.Item2;
+            }
+            return 0;
+        }
+
+        public static ObdCommand GetCommand(this ObdPid pid)
+        {
+            var map = PidMapping[pid];
+            if (null != map)
+            {
+                return map.Item1;
+            }
+            return 0;
+        }
+
+        public static string GetName(this ObdPid pid)
+        {
+            return string.Empty;
+        }
         
     }
 }

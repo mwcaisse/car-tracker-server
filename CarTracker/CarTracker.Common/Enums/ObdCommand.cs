@@ -14,7 +14,7 @@ namespace CarTracker.Common.Enums
 
     public static class ObdCommandExtensions
     {
-        public static string ToString(this ObdCommand command)
+        public static string GetName(this ObdCommand command)
         {
             switch (command)
             {
