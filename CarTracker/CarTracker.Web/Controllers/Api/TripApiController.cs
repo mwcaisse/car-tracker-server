@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarTracker.Web.Controllers.Api
 {
     [Route("api")]
-    public class TripApiController : Controller
+    public class TripApiController : BaseApiController
     {
 
         private readonly ITripService _tripService;

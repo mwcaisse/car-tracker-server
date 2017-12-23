@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarTracker.Web.Controllers.Api
 {
     [Route("api/log/reader")]
-    public class ReaderLogApiController : Controller
+    public class ReaderLogApiController : BaseApiController
     {
 
         private readonly IReaderLogService _readerLogService;

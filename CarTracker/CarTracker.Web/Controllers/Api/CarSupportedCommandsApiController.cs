@@ -11,7 +11,7 @@ namespace CarTracker.Web.Controllers.Api
 {
 
     [Route("api/car/")]
-    public class CarSupportedCommandsApiController : Controller
+    public class CarSupportedCommandsApiController : BaseApiController
     {
 
         private readonly ICarSupportedCommandsService _carSupportedCommandsService;

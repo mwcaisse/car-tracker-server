@@ -12,7 +12,7 @@ namespace CarTracker.Web.Controllers.Api
 {
 
     [Route("api/car/")]
-    public class CarApiController : Controller
+    public class CarApiController : BaseApiController
     {
 
         private readonly ICarService _carService;
