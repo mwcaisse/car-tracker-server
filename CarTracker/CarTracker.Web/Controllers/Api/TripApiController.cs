@@ -3,15 +3,15 @@ using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarTracker.API.Controllers
+namespace CarTracker.Web.Controllers.Api
 {
     [Route("api")]
-    public class TripController : Controller
+    public class TripApiController : Controller
     {
 
         private readonly ITripService _tripService;
 
-        public TripController(ITripService tripService)
+        public TripApiController(ITripService tripService)
         {
             this._tripService = tripService;
         }

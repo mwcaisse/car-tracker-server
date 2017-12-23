@@ -7,15 +7,15 @@ using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarTracker.API.Controllers
+namespace CarTracker.Web.Controllers.Api
 {
     [Route("api/log/reader")]
-    public class ReaderLogController : Controller
+    public class ReaderLogApiController : Controller
     {
 
         private readonly IReaderLogService _readerLogService;
 
-        public ReaderLogController(IReaderLogService readerLogService)
+        public ReaderLogApiController(IReaderLogService readerLogService)
         {
             this._readerLogService = readerLogService;
         }

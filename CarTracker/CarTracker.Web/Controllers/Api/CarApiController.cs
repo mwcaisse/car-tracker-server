@@ -8,16 +8,16 @@ using CarTracker.Common.ViewModels;
 using CarTracker.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CarTracker.API.Controllers
+namespace CarTracker.Web.Controllers.Api
 {
 
     [Route("api/car/")]
-    public class CarController : Controller
+    public class CarApiController : Controller
     {
 
         private readonly ICarService _carService;
 
-        public CarController(ICarService carService)
+        public CarApiController(ICarService carService)
         {
             this._carService = carService;
         }

@@ -39,6 +39,7 @@ namespace CarTracker.Web
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IReaderLogService, ReaderLogService>();
             services.AddTransient<ITripProcessor, TripProcessor>();
+            services.AddTransient<ICarSupportedCommandsService, CarSupportedCommandsService>();
 
             services.AddMvc();
         }

@@ -302,7 +302,7 @@ namespace CarTracker.Common.Enums
 
         public static string GetName(this ObdPid pid)
         {
-            return string.Empty;
+            return string.Format("PID {0}", pid.ToString().Replace("Pid", ""));
         }
         
     }

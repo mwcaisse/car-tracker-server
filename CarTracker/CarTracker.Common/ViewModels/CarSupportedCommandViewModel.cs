@@ -8,6 +8,6 @@ namespace CarTracker.Common.ViewModels
     {
         public string Name { get; set; }
         public string Pid { get; set; }
-        public bool Supportd { get; set; }
+        public bool Supported { get; set; }
     }
 }

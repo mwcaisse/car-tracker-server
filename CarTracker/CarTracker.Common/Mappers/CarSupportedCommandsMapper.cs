@@ -12,12 +12,16 @@ namespace CarTracker.Common.Mappers
         public static IEnumerable<CarSupportedCommandViewModel> ToViewModel(this CarSupportedCommands supportedCommands)
         {
             var vm = new List<CarSupportedCommandViewModel>();
+            if (null == supportedCommands)
+            {
+                return vm;
+            }
 
-            vm.AddRange(GetSupportedCommands(Pids0120, Convert.ToUInt32(supportedCommands.Pids0120Bitmask)));
-            vm.AddRange(GetSupportedCommands(Pids2140, Convert.ToUInt32(supportedCommands.Pids2140Bitmask)));
-            vm.AddRange(GetSupportedCommands(Pids4160, Convert.ToUInt32(supportedCommands.Pids4160Bitmask)));
-            vm.AddRange(GetSupportedCommands(Pids6180, Convert.ToUInt32(supportedCommands.Pids6180Bitmask)));
-            vm.AddRange(GetSupportedCommands(Pids81A0, Convert.ToUInt32(supportedCommands.Pids81A0Bitmask)));
+            vm.AddRange(GetSupportedCommands(Pids0120, supportedCommands.Pids0120Bitmask ?? 0));
+            vm.AddRange(GetSupportedCommands(Pids2140, supportedCommands.Pids2140Bitmask ?? 0));
+            vm.AddRange(GetSupportedCommands(Pids4160, supportedCommands.Pids4160Bitmask ?? 0));
+            vm.AddRange(GetSupportedCommands(Pids6180, supportedCommands.Pids6180Bitmask ?? 0));
+            vm.AddRange(GetSupportedCommands(Pids81A0, supportedCommands.Pids81A0Bitmask ?? 0));
 
             return vm;
         }
@@ -167,14 +171,14 @@ namespace CarTracker.Common.Mappers
             // No 81 to A0 PIDS yet
         };
 
-        private static IEnumerable<CarSupportedCommandViewModel> GetSupportedCommands(IEnumerable<ObdPid> pids, uint bitmask)
+        private static IEnumerable<CarSupportedCommandViewModel> GetSupportedCommands(IEnumerable<ObdPid> pids, int bitmask)
         {
 
             return pids.Select(p => new CarSupportedCommandViewModel()
             {
                 Name = p.GetCommand().GetName(), 
                 Pid = p.GetName(), 
-                Supportd = (bitmask & p.GetBitmask()) > 0
+                Supported = (bitmask & p.GetBitmask()) != 0
             });
         }
     }
