@@ -43,6 +43,8 @@ namespace CarTracker.Web
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IReaderLogService, ReaderLogService>();
             services.AddTransient<ITripProcessor, TripProcessor>();
+            services.AddTransient<ITripPossiblePlaceService, TripPossiblePlaceService>();
+            services.AddTransient<IPlaceService, PlaceService>();
             services.AddTransient<ICarSupportedCommandsService, CarSupportedCommandsService>();
             services.AddTransient<IPlaceRequester>(s => new GooglePlaceRequester.GooglePlaceRequester(apiKeys.GoogleMapsApiKey));
 

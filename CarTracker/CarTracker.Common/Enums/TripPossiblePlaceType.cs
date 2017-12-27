@@ -28,5 +28,10 @@ namespace CarTracker.Common.Enums
 
             return str;
         }
+
+        public static string ToDatabaseValue(this TripPossiblePlaceType type)
+        {
+            return type.ToString().ToUpper();
+        }
     }
 }
