@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarTracker.Common", "CarTracker.Common\CarTracker.Common.csproj", "{9B0D90E6-5C11-4A47-ACB4-4326A0D7B635}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarTracker.Logic", "CarTracker.Logic\CarTracker.Logic.csproj", "{E130F805-30BB-4432-A409-A94243BAE5C7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarTracker.Web", "CarTracker.Web\CarTracker.Web.csproj", "{06EEADD3-6F73-4B85-9E38-0E1FDD382198}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarTracker.GooglePlaceRequester", "CarTracker.GooglePlaceRequester\CarTracker.GooglePlaceRequester.csproj", "{D4F60B59-E721-4C9B-82C6-7D5231CE1484}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{06EEADD3-6F73-4B85-9E38-0E1FDD382198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06EEADD3-6F73-4B85-9E38-0E1FDD382198}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06EEADD3-6F73-4B85-9E38-0E1FDD382198}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4F60B59-E721-4C9B-82C6-7D5231CE1484}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4F60B59-E721-4C9B-82C6-7D5231CE1484}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4F60B59-E721-4C9B-82C6-7D5231CE1484}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4F60B59-E721-4C9B-82C6-7D5231CE1484}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
