@@ -36,5 +36,12 @@ namespace CarTracker.Common.Services
         /// <param name="id"></param>
         /// <returns></returns>
         TripPossiblePlace Get(long id);
+
+        /// <summary>
+        /// Creates the given trip possible place
+        /// </summary>
+        /// <param name="toCreate"></param>
+        /// <returns></returns>
+        TripPossiblePlace Create(TripPossiblePlace toCreate);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CarTracker.Common.Entities;
 using CarTracker.Common.Enums;
+using CarTracker.Common.Exceptions;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
@@ -45,6 +46,19 @@ namespace CarTracker.Logic.Services
         public TripPossiblePlace Get(long id)
         {
             return _db.TripPossiblePlaces.FirstOrDefault(x => x.TripPossiblePlaceId == id);
+        }
+
+        public TripPossiblePlace Create(TripPossiblePlace toCreate)
+        {
+            if (string.IsNullOrWhiteSpace(toCreate.PlaceType))
+            {
+                throw new EntityValidationException("Trip Possible Place must have a Place Type");
+            }
+
+            _db.TripPossiblePlaces.Add(toCreate);
+            _db.SaveChanges();
+
+            return toCreate;
         }
     }
 }

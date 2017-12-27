@@ -16,9 +16,18 @@ namespace CarTracker.Logic.Services
 
         private readonly CarTrackerDbContext _db;
 
-        public TripProcessor(CarTrackerDbContext db)
+        private readonly IPlaceRequester _placeRequester;
+        private readonly IPlaceService _placeService;
+        private readonly ITripPossiblePlaceService _tripPossiblePlaceService;
+
+        public TripProcessor(CarTrackerDbContext db,
+            IPlaceRequester placeRequester, IPlaceService placeService, 
+            ITripPossiblePlaceService tripPossiblePlaceService)
         {
             this._db = db;
+            this._placeRequester = placeRequester;
+            this._placeService = placeService;
+            this._tripPossiblePlaceService = tripPossiblePlaceService;
         }
 
         public void ProcessUnprocessedTrips()
@@ -112,6 +121,8 @@ namespace CarTracker.Logic.Services
                 }
 
                 _db.SaveChanges();
+
+                AddPossiblePlacesToTrip(trip, readings);
             }
 
             return trip;
@@ -166,6 +177,49 @@ namespace CarTracker.Logic.Services
         {
             public decimal Latitude { get; set; }
             public decimal Longitude { get; set; }
+        }
+
+        protected void AddPossiblePlacesToTrip(Trip trip, IEnumerable<Reading> readings)
+        {
+            var nonZeroReadings = readings.Where(r => r.Latitude != 0 && r.Longitude != 0).ToList();
+            if (!nonZeroReadings.Any())
+            {
+                return;
+            }
+
+            AddPossiblePlaceToTrip(trip, nonZeroReadings.First(), TripPossiblePlaceType.Start);
+            AddPossiblePlaceToTrip(trip, nonZeroReadings.Last(), TripPossiblePlaceType.Destination);
+        }
+
+        protected void AddPossiblePlaceToTrip(Trip trip, Reading reading, TripPossiblePlaceType type)
+        {
+            var possiblePlaces = _placeRequester.GetPlacesNearby(Convert.ToDouble(reading.Latitude),
+                Convert.ToDouble(reading.Longitude), 150);
+            foreach (var placeModel in possiblePlaces)
+            {
+                var place = _placeService.CreateOrGetPlace(placeModel);
+
+                var possiblePlace = new TripPossiblePlace()
+                {
+                    Trip = trip,
+                    TripId = trip.TripId,
+                    Place = place,
+                    PlaceType = type.ToDatabaseValue(),
+                    Distance = Convert.ToDecimal(CalculateDistanceBetweenLocations(
+                        new LocationModel()
+                        {
+                            Latitude = reading.Latitude,
+                            Longitude = reading.Longitude
+                        },
+                        new LocationModel()
+                        {
+                            Latitude = place.Latitude,
+                            Longitude = place.Longitude
+                        }))
+                };
+
+                _tripPossiblePlaceService.Create(possiblePlace);
+            }
         }
 
         
