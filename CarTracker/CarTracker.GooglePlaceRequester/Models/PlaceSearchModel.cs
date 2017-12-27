@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CarTracker.Common.Models.PlaceRequester;
 
 namespace CarTracker.GooglePlaceRequester.Models
 {
-    public class PlaceSearchModel
+    public class PlaceSearchModel : IPlaceModel
     {
 
         public PlaceGeometry Geometry { get; set; }
@@ -22,5 +23,6 @@ namespace CarTracker.GooglePlaceRequester.Models
             Types = new List<string>();
         }
 
+        public ILocation Location => Geometry?.Location;
     }
 }

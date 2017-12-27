@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarTracker.Common.Services;
 using CarTracker.Data;
 using CarTracker.Logic.Services;
+using CarTracker.Web.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +20,8 @@ namespace CarTracker.Web
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("dbConfig.json");
+                .AddJsonFile("dbConfig.json")
+                .AddJsonFile("apiKeys.json");
 
             Configuration = builder.Build();
         }
@@ -35,11 +37,14 @@ namespace CarTracker.Web
             services.AddDbContext<CarTrackerDbContext>(
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
 
+            var apiKeys = Configuration.GetValue<ApiKeysConfiguration>("apiKeys");
+
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IReaderLogService, ReaderLogService>();
             services.AddTransient<ITripProcessor, TripProcessor>();
             services.AddTransient<ICarSupportedCommandsService, CarSupportedCommandsService>();
+            services.AddTransient<IPlaceRequester>(s => new GooglePlaceRequester.GooglePlaceRequester(apiKeys.GoogleMapsApiKey));
 
             services.AddMvc();
         }

@@ -3,26 +3,29 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using CarTracker.Common.Models.PlaceRequester;
+using CarTracker.Common.Services;
 using CarTracker.GooglePlaceRequester.Models;
 using Newtonsoft.Json;
 
 namespace CarTracker.GooglePlaceRequester
 {
-    public class GooglePlaceRequester
+    public class GooglePlaceRequester : IPlaceRequester
     {
         protected HttpClient Client { get; set; }
-        
-        protected string ApiKey { get; set; }
 
-        public GooglePlaceRequester()
+        private readonly string _apiKey;
+
+        public GooglePlaceRequester(string apiKey)
         {
+            _apiKey = apiKey;
             Client = new HttpClient();
         }
 
-        public IEnumerable<PlaceSearchModel> GetPlacesNearby(double latitude, double longitude, int range)
+        public IEnumerable<IPlaceModel> GetPlacesNearby(double latitude, double longitude, int range)
         {
             string url = string.Format("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={0},{1}&radius={2}&key={3}",
-                latitude, longitude, range, ApiKey);
+                latitude, longitude, range, _apiKey);
             var results = GetRequest<PlaceSearchResult>(url);
             return results.Results;
         }
@@ -51,6 +54,6 @@ namespace CarTracker.GooglePlaceRequester
                 }
             }
         }
-
+       
     }
 }
