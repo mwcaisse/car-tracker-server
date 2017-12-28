@@ -9,6 +9,7 @@ using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
 using CarTracker.Data.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarTracker.Logic.Services
 {
@@ -39,7 +40,9 @@ namespace CarTracker.Logic.Services
                 };
             }
             return
-                _db.TripPossiblePlaces.Where(x => x.TripId == tripId && x.PlaceType == type.ToDatabaseValue())
+                _db.TripPossiblePlaces
+                    .Include(x => x.Place)
+                    .Where(x => x.TripId == tripId && x.PlaceType == type.ToDatabaseValue())
                     .PageAndSort(skip, take, sortParam);
         }
 

@@ -33,5 +33,21 @@ namespace CarTracker.Common.Enums
         {
             return type.ToString().ToUpper();
         }
+
+        public static TripPossiblePlaceType FromString(string type)
+        {
+            if (string.Equals(type, TripPossiblePlaceType.Start.ToString(),
+                StringComparison.CurrentCultureIgnoreCase))
+            {
+                return TripPossiblePlaceType.Start;
+            }
+            else if (string.Equals(type, TripPossiblePlaceType.Destination.ToString(),
+                StringComparison.CurrentCultureIgnoreCase))
+            {
+                return TripPossiblePlaceType.Destination;
+            }
+
+            throw new ArgumentException("Given type is not a valid value for Trip Possible Place type.");
+        }
     }
 }
