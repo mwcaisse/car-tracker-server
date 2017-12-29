@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using CarTracker.Common.Entities;
 using CarTracker.Common.Mappers;
 using CarTracker.Common.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarTracker.Web.Controllers.Api
 {
 
     [Route("api/car/")]
+    [Authorize]
     public class CarSupportedCommandsApiController : BaseApiController
     {
 

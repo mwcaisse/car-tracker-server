@@ -6,12 +6,14 @@ using CarTracker.Common.Mappers;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTracker.Web.Controllers.Api
 {
 
     [Route("api/car/")]
+    [Authorize]
     public class CarApiController : BaseApiController
     {
 
