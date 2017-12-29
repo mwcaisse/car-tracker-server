@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.Services;
 using CarTracker.Data;
 using CarTracker.Logic.Services;
@@ -40,8 +41,8 @@ namespace CarTracker.Web
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
 
             // Add Authentication
-            services.AddIdentity<User, IdentityRole>()
-                //.AddEntityFrameworkStores<CarTrackerDbContext>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<CarTrackerDbContext>()
                 .AddDefaultTokenProviders();
 
             services.Configure<IdentityOptions>(options =>

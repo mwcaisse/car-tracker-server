@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CarTracker.Common.Entities
+namespace CarTracker.Common.Entities.Auth
 {
     public class UserRegistrationKey : ITrackedEntity
     {
