@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarTracker.Common.Entities;
 using CarTracker.Common.Services;
 using CarTracker.Data;
 using CarTracker.Logic.Services;
 using CarTracker.Web.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
@@ -37,8 +39,39 @@ namespace CarTracker.Web
             services.AddDbContext<CarTrackerDbContext>(
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
 
-            var apiKeys = Configuration.GetValue<ApiKeysConfiguration>("apiKeys");
+            // Add Authentication
+            services.AddIdentity<User, IdentityRole>()
+                //.AddEntityFrameworkStores<CarTrackerDbContext>()
+                .AddDefaultTokenProviders();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredUniqueChars = 4;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Expiration = TimeSpan.FromDays(150);
+                options.LoginPath = "/user/login";
+                options.LogoutPath = "/user/logout";
+                options.AccessDeniedPath = "/user/access-denied";
+                options.SlidingExpiration = true;
+            });
+
+            // Add our Services
+            var apiKeys = Configuration.GetValue<ApiKeysConfiguration>("apiKeys");
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IReaderLogService, ReaderLogService>();
@@ -65,6 +98,8 @@ namespace CarTracker.Web
             }
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
