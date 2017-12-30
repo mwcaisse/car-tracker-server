@@ -59,12 +59,13 @@ obj/
 *.user
 node_modules
 
+
 # VS Update FIles #
 ###################
 Backup/
 UpgradeLog.htm
 
-CarTracker/CarTracker.UI/wwwroot/lib
+CarTracker/CarTracker.Web/wwwroot/lib
 
 *.lock.json
 
