@@ -1,0 +1,15 @@
+﻿
+
+@helper VueView(string name)
+{
+    var pageVm = "";
+    
+
+    <script type="text/javascript">
+        navigationPromise.then(function() {
+            require(['@name'], function(vm) {
+                vm('#@pageVm');
+            });
+        })
+    </script>
+}

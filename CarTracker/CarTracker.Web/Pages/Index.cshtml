@@ -1,5 +1,6 @@
 ﻿@page
 @model IndexModel
+@addTagHelper *, CarTracker.Web
 @{
     ViewData["Title"] = "Home page";
 }
@@ -105,4 +106,6 @@
             <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure App Service</a></li>
         </ul>
     </div>
+    
+    <vc:vue view-name="Views/Home/Home"></vc:vue>
 </div>

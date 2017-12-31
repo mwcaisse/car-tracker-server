@@ -1,0 +1,10 @@
+﻿@model CarTracker.Web.ViewComponents.VueViewComponent.VueElement
+
+<div id="@Model.VmElementId"></div>
+<script type="text/javascript">
+    navigationPromise.then(function() {
+        require(['@Model.ViewName'], function(vm) {
+            vm('#@Model.VmElementId');
+        });
+    })
+</script>
