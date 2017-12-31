@@ -18,7 +18,7 @@ define("Service/proxy", [], function () {
 					self.successHandler(def, data);
 				},
 				error: function(jqXHR, textStatus, error) {
-					self.errorHandler(def, textStatus, error)
+				    self.errorHandler(def, textStatus, error);
 				}				
 			};
 			var ajaxOptions =$.extend(defaults, options);
@@ -26,21 +26,15 @@ define("Service/proxy", [], function () {
 			$.ajax(ajaxOptions);
 			return def.promise;
 		};
-		
+
+        //If the server returned a 200, just return the results to the caller
 		self.successHandler = function(deferred, data) {
-			if (data && data.valid) {
-				deferred.resolve(data.data);
-			}
-			else if (data) {
-				deferred.reject(data.errorMessage);		
-			}
-			else {
-				deferred.reject("Error reading the results from the server!");
-			}
+			deferred.resolve(data);
 		};
-		
+
+        //If the server return a non 200, return the error message to the caller
 		self.errorHandler = function(deferred, textStatus, error) {
-			deferred.reject("An error occured when trying to communicate with the server!");
+			deferred.reject(error);
 		};
 		
 		self.getAsbsolute = function(url) {
