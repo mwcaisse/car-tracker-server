@@ -13,7 +13,6 @@ namespace CarTracker.Web.Controllers.Api
 {
 
     [Route("api/car/")]
-    [Authorize]
     public class CarApiController : BaseApiController
     {
 
@@ -50,7 +49,7 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpGet]
         [Route("")]
-        public IActionResult GetAllPaged(int skip, int take, SortParam sort = null)
+        public IActionResult GetAllPaged(int skip = 0, int take = 25, SortParam sort = null)
         {
             return Ok(_carService.GetAllPaged(skip, take, sort).ToViewModel());
         }

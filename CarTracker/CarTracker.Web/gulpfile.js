@@ -38,7 +38,7 @@ gulp.task('restore:font-awesome', function () {
 
 gulp.task('restore:highcharts', function () {
     var css = gulp.src([
-        'node_modules/highcharts/*.css'
+        'node_modules/highcharts/css/*.css'
     ]).pipe(gulp.dest(libs + 'highcharts/css'));
 
     var js = gulp.src([

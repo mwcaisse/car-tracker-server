@@ -5,7 +5,7 @@ define("Service/proxy", [], function () {
 	var proxy = new (function() {
 		var self = this;
 
-		self.baseUrl = "/cartracker/api/";
+		self.baseUrl = "/api/";
 		
 		self.ajax = function(options) {
 			var def = Q.defer();

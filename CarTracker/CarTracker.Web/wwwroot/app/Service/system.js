@@ -5,7 +5,7 @@ define("Service/system", ["Service/applicationProxy", "Service/customDirectives"
 	var system = new (function() {
 		var self = this;
 
-		self.baseUrl = "/cartracker/";	
+		self.baseUrl = "/";	
 		
 		self.events = $({});
 		

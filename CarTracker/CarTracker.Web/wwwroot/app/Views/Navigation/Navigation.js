@@ -60,11 +60,16 @@ define("Views/Navigation/Navigation",
 								}.bind(this));
 							}
 						},
-						fetchCurrentUser: function () {
-							return proxy.user.me().then(function (user) {
-								this.currentUserName = user.name;
-							}.bind(this));
-						}
+                        fetchCurrentUser: function () {
+                            return Q.fcall(function() {
+                                this.currentUserName = "Mitchell";
+                            }.bind(this));
+                            /*
+                                TODO: Re-implment this when we have authentication
+                            return proxy.user.me().then(function (user) {
+                                this.currentUserName = user.name;
+                            }.bind(this));*/
+                        }
 					},
 					created: function () {				
 						this.initalizeLinks();

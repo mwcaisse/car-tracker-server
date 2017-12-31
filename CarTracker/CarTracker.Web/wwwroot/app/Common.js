@@ -4,7 +4,7 @@ var googleMapsApiKey = $("#googleMapsApiKey").val();
 
 require.config({
 	
-	baseUrl: "/cartracker/app/",	
+	baseUrl: "/app/",	
 	paths: {
 		"q": "../lib/q/js/q",
 		"moment": "../lib/moment/js/moment",

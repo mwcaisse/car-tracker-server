@@ -12,7 +12,6 @@ namespace CarTracker.Web.Controllers.Api
 {
 
     [Route("api/car/")]
-    [Authorize]
     public class CarSupportedCommandsApiController : BaseApiController
     {
 
