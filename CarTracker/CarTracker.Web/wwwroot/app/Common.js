@@ -6,9 +6,9 @@ require.config({
 	
 	baseUrl: "/cartracker/app/",	
 	paths: {
-		"q": "../js/q",
-		"moment": "../js/moment",
-		"moment-duration-format": "../js/moment-duration-format"
+		"q": "../lib/q/js/q",
+		"moment": "../lib/moment/js/moment",
+		"moment-duration-format": "../lib/moment-duration-format/js/moment-duration-format"
 	},
 	googlemaps: {
 		params: {
