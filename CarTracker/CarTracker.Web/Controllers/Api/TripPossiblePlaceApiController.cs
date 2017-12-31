@@ -25,7 +25,7 @@ namespace CarTracker.Web.Controllers.Api
         [Route("trip/{tripId}/possible-places/{type}")]
         [Route("car/{carId}/trip/{tripId}/possible-places/{type}")]
         public IActionResult GetPossiblePlacesForTrip(long tripId, string type, 
-            int skip, int take, SortParam sort = null)
+            int skip = DefaultSkip, int take = DefaultTake, SortParam sort = null)
         {
             var typeEnum = TripPossiblePlaceTypeExtentions.FromString(type);
             return Ok(_tripPossiblePlaceService.GetForTripOfTypePaged(tripId, typeEnum, skip, take, sort)

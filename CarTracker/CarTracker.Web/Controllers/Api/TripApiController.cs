@@ -31,7 +31,8 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpGet]
         [Route("car/{carId}/trip/")]
-        public IActionResult GetTripsForCar(long carId, int skip, int take, SortParam sort = null)
+        public IActionResult GetTripsForCar(long carId, int skip = DefaultSkip, 
+            int take = DefaultTake, SortParam sort = null)
         {
             return Ok(_tripService.GetForCar(carId, skip, take, sort).ToViewModel());
         }

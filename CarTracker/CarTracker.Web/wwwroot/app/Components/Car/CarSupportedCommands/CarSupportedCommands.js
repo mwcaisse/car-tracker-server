@@ -29,7 +29,7 @@ define("Components/Car/CarSupportedCommands/CarSupportedCommands",
 			},	
 			update: function (data) {
 				if (data) {
-					this.supportedCommands = data.supportedCommands;
+					this.supportedCommands = data;
 				}
 				else {
 					this.supportedCommands = [];

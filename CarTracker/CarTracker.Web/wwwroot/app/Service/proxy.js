@@ -48,12 +48,12 @@ define("Service/proxy", [], function () {
 			return self.getAsbsolute(self.baseUrl + relativeUrl);
 		};
 		
-		self.getPaged = function (relativeUrl, startAt, maxResults, sort) {
+		self.getPaged = function (relativeUrl, skip, take, sort) {
 			var sortString = "";
 			if (sort) {
 				sortString = "&propertyId=" + sort.propertyId +"&ascending=" + (sort.ascending ? "true" : "false");
 			}
-			return self.get(relativeUrl + "?startAt=" + startAt + "&maxResults=" + maxResults + sortString);
+            return self.get(relativeUrl + "?skip=" + skip + "&take=" + take + sortString);
 		};
 		
 		self.postAbsolute = function(url, body) {

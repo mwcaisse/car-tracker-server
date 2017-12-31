@@ -34,7 +34,7 @@ namespace CarTracker.Common.Mappers
             return new PagedViewModel<ReaderLogViewModel>()
             {
                 Data = pagedReaderLogs.Data.ToViewModel(),
-                Count = pagedReaderLogs.Count,
+                Total = pagedReaderLogs.Total,
                 Take = pagedReaderLogs.Take,
                 Skip = pagedReaderLogs.Skip
             };            

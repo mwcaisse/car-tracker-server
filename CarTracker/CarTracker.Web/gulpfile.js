@@ -94,7 +94,7 @@ gulp.task('restore:moment-timezone', function () {
 
 gulp.task('restore:popperjs', function () {
     return gulp.src([
-        'node_modules/popper.js/dist/*.js'
+        'node_modules/popper.js/dist/umd/*.js'
     ]).pipe(gulp.dest(libs + 'popperjs/js'));
 });
 

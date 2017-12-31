@@ -34,7 +34,7 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpGet]
         [Route("")]
-        public IActionResult GetAll(int skip, int take, SortParam sort = null)
+        public IActionResult GetAll(int skip = DefaultSkip, int take = DefaultTake, SortParam sort = null)
         {
             return Ok(_readerLogService.GetAllPaged(skip, take, sort).ToViewModel());
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Enums;
 using CarTracker.Common.ViewModels;
 
 namespace CarTracker.Common.Mappers
@@ -27,7 +28,7 @@ namespace CarTracker.Common.Mappers
                 IdleTime = trip.IdleTime,
                 StartPlaceId = trip.StartPlaceId,
                 DestinationPlaceId = trip.DestinationPlaceId,
-                Status = trip.Status
+                Status = TripStatusExtensions.FromString(trip.Status).ToString()
             };
 
             return vm;
@@ -43,7 +44,7 @@ namespace CarTracker.Common.Mappers
             return new PagedViewModel<TripViewModel>()
             {
                 Data = pagedTrips.Data.ToViewModel(),
-                Count = pagedTrips.Count,
+                Total = pagedTrips.Total,
                 Take = pagedTrips.Take,
                 Skip = pagedTrips.Skip
             };

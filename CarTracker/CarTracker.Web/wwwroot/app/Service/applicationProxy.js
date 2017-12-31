@@ -25,7 +25,7 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 				return core.put("car/", car);
 			},
 			getSupportedCommands: function (id) {
-				return core.get("car/" + id + "/supportedCommands/");
+				return core.get("car/" + id + "/supported-commands/");
 			}
 		};
 		
@@ -64,7 +64,7 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 		
 		self.tripPossiblePlaces = {
 			getForTrip: function (tripId, type, startAt, maxResults, sort) {
-				return core.getPaged("trip/" + tripId + "/possibleplaces/" + type, startAt, maxResults, sort);
+				return core.getPaged("trip/" + tripId + "/possible-places/" + type, startAt, maxResults, sort);
 			}
 		};
 		
@@ -114,8 +114,7 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 			getAllPaged: function (startAt, maxResults, sort) {
 				return core.getPaged("log/reader/", startAt, maxResults, sort);
 			}
-		};
-				 
+		};	 
 		
 	})();
 	

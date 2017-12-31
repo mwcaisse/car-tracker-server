@@ -37,7 +37,7 @@ namespace CarTracker.Common.Mappers
             return new PagedViewModel<TripPossiblePlaceViewModel>()
             {
                 Data = pagedPlaces.Data.ToViewModel(),
-                Count = pagedPlaces.Count,
+                Total = pagedPlaces.Total,
                 Take = pagedPlaces.Take,
                 Skip = pagedPlaces.Skip
             };

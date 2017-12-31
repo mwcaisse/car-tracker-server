@@ -79,7 +79,7 @@ namespace CarTracker.Data.Extensions
             return new PagedViewModel<T>()
             {
                 Data = query.Skip(skip).Take(take),
-                Count = count,
+                Total = count,
                 Skip = skip,
                 Take = take
             };

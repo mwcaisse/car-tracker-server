@@ -26,7 +26,7 @@ define("Components/Car/CarDetails/CarDetails",
 				}.bind(this),
 				function (error) {
 					alert("error fetching car!");
-				})
+				});
 			},
 			update: function (car) {
 				this.name = car.name;

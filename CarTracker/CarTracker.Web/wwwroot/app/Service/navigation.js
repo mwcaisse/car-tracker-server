@@ -11,30 +11,18 @@ define("Service/navigation", ["Service/system"], function (system) {
 		
 		self.homeLink = function() {
 			return system.baseUrl;
-		};
-		
-		self.carsLink = function() {
-			return system.baseUrl + "car/";
-		};
-		
-		self.tripsLink = function() {
-			return system.baseUrl + "trip/";
-		};
-		
+        };
+
 		self.readerLogLink = function () {
 			return system.baseUrl + "log/reader";
 		};
 		
 		self.viewTripLink = function (tripId) {
-			return system.baseUrl + "trip/details?tripId=" + tripId;
+			return system.baseUrl + "trip/?tripId=" + tripId;
 		};
 		
 		self.viewCarLink = function (carId) {
-			return system.baseUrl + "car/details?carId=" + carId;
-		};
-		
-		self.tripGridLink = function () {
-			return system.baseUrl + "trip/";
+			return system.baseUrl + "car/?carId=" + carId;
 		};
 		
 		self.logoutLink = function () {

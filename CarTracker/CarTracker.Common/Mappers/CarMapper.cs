@@ -37,7 +37,7 @@ namespace CarTracker.Common.Mappers
                 Data = pagedCars.Data.ToViewModel(),
                 Skip = pagedCars.Skip,
                 Take = pagedCars.Take,
-                Count = pagedCars.Count
+                Total = pagedCars.Total
             };
         }
 
