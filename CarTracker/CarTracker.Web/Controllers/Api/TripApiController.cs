@@ -53,6 +53,14 @@ namespace CarTracker.Web.Controllers.Api
         }
 
         [HttpPost]
+        [Route("trip/process/unprocessed")]
+        public IActionResult ProcessUnprocessedTrips()
+        {
+            _tripService.ProcessUnprocessedTrips();
+            return Ok(true);
+        }
+
+        [HttpPost]
         [Route("car/{carId}/trip/{id}/process")]
         [Route("trip/{id}/process")]
         public IActionResult ProcessTrip(long id)

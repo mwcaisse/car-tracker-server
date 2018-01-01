@@ -15,10 +15,12 @@ namespace CarTracker.Logic.Services
     {
 
         private readonly CarTrackerDbContext _db;
+        private readonly ITripProcessor _tripProcessor;
 
-        public TripService(CarTrackerDbContext db)
+        public TripService(CarTrackerDbContext db, ITripProcessor tripProcessor)
         {
             this._db = db;
+            this._tripProcessor = tripProcessor;
         }
 
         public Trip Get(long id)
@@ -97,9 +99,19 @@ namespace CarTracker.Logic.Services
             return trip;
         }
 
+        public void ProcessUnprocessedTrips()
+        {
+            _tripProcessor.ProcessUnprocessedTrips();
+        }
+
         public Trip ProcessTrip(long id)
         {
-            throw new NotImplementedException();
+            var trip = Get(id);
+            if (null == trip)
+            {
+                throw new EntityValidationException("The specified trip does not exist.");
+            }
+            return _tripProcessor.ProcessTrip(trip);
         }
 
         protected void ValidatePlace(long placeId)

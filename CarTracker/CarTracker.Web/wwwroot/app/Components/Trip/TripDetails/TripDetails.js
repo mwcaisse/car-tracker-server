@@ -14,8 +14,8 @@ define("Components/Trip/TripDetails/TripDetails",
 				endDate: moment(),
 				averageSpeed: 0,
 				maximumSpeed: 0,
-				averageEngineRPM: 0,
-				maxEngineRPM: 0,
+				averageEngineRpm: 0,
+				maxEngineRpm: 0,
 				distanceTraveled: 0,
 				idleTime: 0,
 				status: ""
@@ -56,8 +56,8 @@ define("Components/Trip/TripDetails/TripDetails",
 				this.endDate = moment(trip.endDate);
 				this.averageSpeed = trip.averageSpeed;
 				this.maximumSpeed = trip.maximumSpeed;
-				this.averageEngineRPM = trip.averageEngineRPM;
-				this.maxEngineRPM = trip.maxEngineRPM;
+                this.averageEngineRpm = trip.averageEngineRpm;
+                this.maxEngineRpm = trip.maxEngineRpm;
 				this.distanceTraveled = trip.distanceTraveled;
 				this.idleTime = moment.duration(trip.idleTime);
 				this.status = trip.status;
@@ -72,8 +72,8 @@ define("Components/Trip/TripDetails/TripDetails",
 					endDate: this.endDate.toDate().getTime(),
 					averageSpeed: this.averageSpeed,
 					maximumSpeed: this.maximumSpeed,
-					averageEngineRPM: this.averageEngineRPM,
-					maxEngineRPM: this.maxEngineRPM,
+                    averageEngineRpm: this.averageEngineRpm,
+                    maxEngineRpm: this.maxEngineRpm,
 					distanceTraveled: this.distanceTraveled,
 					idleTime: this.idleTime.asMilliseconds(),
 					status: this.status					
