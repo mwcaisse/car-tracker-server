@@ -72,8 +72,11 @@ namespace CarTracker.Web
                 options.SlidingExpiration = true;
             });
 
+            //Load in some confiugration options
+            var googleMapsApiKey = Configuration.GetValue<string>("googleMapsApiKey");
+
             // Add our Services
-            var apiKeys = Configuration.GetValue<ApiKeysConfiguration>("apiKeys");
+            
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IReaderLogService, ReaderLogService>();
@@ -82,7 +85,12 @@ namespace CarTracker.Web
             services.AddTransient<ITripPossiblePlaceService, TripPossiblePlaceService>();
             services.AddTransient<IPlaceService, PlaceService>();
             services.AddTransient<ICarSupportedCommandsService, CarSupportedCommandsService>();
-            services.AddTransient<IPlaceRequester>(s => new GooglePlaceRequester.GooglePlaceRequester(apiKeys.GoogleMapsApiKey));
+            services.AddTransient<IPlaceRequester>(s => new GooglePlaceRequester.GooglePlaceRequester(googleMapsApiKey));
+
+            services.AddSingleton(s => new ApplicationConfiguration()
+            {
+                GoogleMapsAPiKey = googleMapsApiKey
+            });
 
             services.AddMvc().AddJsonOptions(options =>
                 options.SerializerSettings.Converters.Add(new JsonDateEpochConverter())

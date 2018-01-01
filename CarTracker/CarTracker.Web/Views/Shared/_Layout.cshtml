@@ -4,6 +4,9 @@
     {
         title += ViewData["Title"];
     }
+
+
+    var googleMapsApiKey = ViewBag.GoogleMapsApiKey;
 }
 
 <!DOCTYPE html>
@@ -43,10 +46,7 @@
 </head>
 
 <body>
-
-    @*<input id="isAuthenticated" sec:authorize="isAuthenticated()" type="hidden" value="true" />
-    <input id="googleMapsApiKey" type="hidden" value="${googleMapsApiKey}" />*@
-    
+    <input id="googleMapsApiKey" type="hidden" value="@googleMapsApiKey" />
     <input id ="isAuthenticated" value="true" type="hidden" />
 
     <!--  need to load up the requrie config, after the google map api key -->
