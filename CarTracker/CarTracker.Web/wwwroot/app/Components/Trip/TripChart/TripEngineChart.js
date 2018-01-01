@@ -21,7 +21,7 @@ define("Components/Trip/TripChart/TripEngineChart",
 				};				
 				
 				var data = $.map(this.readings, function (elm, ind) {
-					return {x: elm.readDate, y: elm.engineRPM };
+					return {x: elm.readDate, y: elm.engineRpm };
 				});
 				
 				opts.plotOptions = {

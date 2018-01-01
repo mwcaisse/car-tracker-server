@@ -26,7 +26,7 @@ define("Components/Trip/TripChart/TripChartMixin",
 				}.bind(this),
 				function (error) {
 					alert("error fetching trip readings!");
-				})
+				});
 			},	
 			refresh: function () {
 				this.fetch();

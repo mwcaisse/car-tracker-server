@@ -8,6 +8,7 @@ using CarTracker.Common.Services;
 using CarTracker.Data;
 using CarTracker.Logic.Services;
 using CarTracker.Web.Configuration;
+using CarTracker.Web.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -76,13 +77,16 @@ namespace CarTracker.Web
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IReaderLogService, ReaderLogService>();
+            services.AddTransient<IReadingService, ReadingService>();
             services.AddTransient<ITripProcessor, TripProcessor>();
             services.AddTransient<ITripPossiblePlaceService, TripPossiblePlaceService>();
             services.AddTransient<IPlaceService, PlaceService>();
             services.AddTransient<ICarSupportedCommandsService, CarSupportedCommandsService>();
             services.AddTransient<IPlaceRequester>(s => new GooglePlaceRequester.GooglePlaceRequester(apiKeys.GoogleMapsApiKey));
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options =>
+                options.SerializerSettings.Converters.Add(new JsonDateEpochConverter())
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,6 +105,7 @@ namespace CarTracker.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
 
             app.UseMvc(routes =>
             {
