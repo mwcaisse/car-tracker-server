@@ -11,7 +11,7 @@ namespace CarTracker.Common.ViewModels
 
         public long PlaceId { get; set; }
 
-        public TripPossiblePlaceType Type { get; set; }
+        public TripPossiblePlaceType PlaceType { get; set; }
 
         public decimal Distance { get; set; }
 

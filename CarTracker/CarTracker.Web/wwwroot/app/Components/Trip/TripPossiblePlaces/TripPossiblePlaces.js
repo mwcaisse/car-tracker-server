@@ -28,20 +28,22 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 				}
 			},
 			computed: {
-				
-			},
+				placeTypeDisplay: function() {
+				    return system.enums.TripPossiblePlaceType[this.placeType] || "";
+				}
+	        },
 			methods: {
 				setPlace: function () {
 					var promise;
-					if (this.placeType === "START") {
+					if (this.placeType === system.constants.TRIP_POSSIBLE_PLACE_TYPE.START) {
 						promise = proxy.trip.setStartingPlace(this.tripId, this.placeId);
 					}
 					else {
 						promise = proxy.trip.setDestinationPlace(this.tripId, this.placeId);
-					}					
-					promise.then(function (res) {
-						
-					}.bind(this));
+					}
+				    promise.then(function(res) {
+
+				    }.bind(this));
 				},
 				update: function (data) {
 					this.id = data.id;

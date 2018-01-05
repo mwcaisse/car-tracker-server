@@ -1,7 +1,7 @@
 "use strict";
 
 define("Service/customDirectives", 
-		["moment", "Service/util"], function (moment, util) {
+		["moment", "Service/util", "Service/enums"], function (moment, util, enums) {
 	
 	Vue.directive("tooltip", {
 		bind: function (el, binding) {
@@ -69,7 +69,15 @@ define("Service/customDirectives",
 			return "";
 		}
 		return util.convertKmToMi(value);
-	});	
+    });	
+
+    Vue.filter("enum", function (value, enumName) {
+        var e = enums[enumName];
+        if (e) {
+            return e[value] || "";
+        }
+        return "";
+    });
 	
 	return {};	
 });

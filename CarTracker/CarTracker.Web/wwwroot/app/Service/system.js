@@ -1,6 +1,7 @@
 "use strict";
 
-define("Service/system", ["Service/applicationProxy", "Service/customDirectives"], function (proxy) {
+define("Service/system", ["Service/enums", "Service/constants", "Service/customDirectives"],
+    function (enums, constants) {
 	
 	var system = new (function() {
 		var self = this;
@@ -20,7 +21,10 @@ define("Service/system", ["Service/applicationProxy", "Service/customDirectives"
 		self.EVENT_ALERT_DISPLAY = "alert:display";
 		self.EVENT_ALERT_CLEAR = "alert:clear";
 		
-		self.isAuthenticated = $("#isAuthenticated").val() === "true";		
+        self.isAuthenticated = $("#isAuthenticated").val() === "true";	
+
+        self.enums = enums;
+        self.constants = constants;
 		
 	})();
 	

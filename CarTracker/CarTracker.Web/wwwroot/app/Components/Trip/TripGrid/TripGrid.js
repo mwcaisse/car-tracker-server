@@ -31,17 +31,17 @@ define("Components/Trip/TripGrid/TripGrid",
 		},
 		computed: {
 			canProcess: function() {
-				return this.status !== util.TRIP_STATUS_PROCESSED;
+				return this.status !== system.constants.TRIP_STATUS.PROCESSED;
 			},
 			rowCss: function () {
 				switch (this.status) {
-					case util.TRIP_STATUS_NEW:
+					case system.constants.TRIP_STATUS.NEW:
 						return "table-danger";
-					case util.TRIP_STATUS_STARTED:
+                    case system.constants.TRIP_STATUS.STARTED:
 						return "table-warning";				
-					case util.TRIP_STATUS_FINISHED:
+                    case system.constants.TRIP_STATUS.FINISHED:
 						return "table-info";			
-					case util.TRIP_STATUS_PROCESSED:
+                    case system.constants.TRIP_STATUS.PROCESSED:
 						return "";			
 					default:
 						return "table-danger";				

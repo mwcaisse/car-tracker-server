@@ -9,17 +9,7 @@ define("Service/util", ["moment", "moment-duration-format"], function () {
 		
 		self.DEGREE_SYMBOL = String.fromCharCode(176);
 		
-		self.TRIP_STATUS_NEW = "New";
-		self.TRIP_STATUS_STARTED = "Started";
-		self.TRIP_STATUS_FINISHED = "Finished";
-		self.TRIP_STATUS_PROCESSED = "Processed";
 		
-		self.TRIP_STATUSES = [
-		                      self.TRIP_STATUS_NEW,
-		                      self.TRIP_STATUS_STARTED,
-		                      self.TRIP_STATUS_FINISHED,
-		                      self.TRIP_STATUS_PROCESSED
-		                      ];
 	
 		
 		self.convertKmToMi = function (km) {
