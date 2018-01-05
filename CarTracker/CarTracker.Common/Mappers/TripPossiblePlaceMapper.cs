@@ -17,7 +17,7 @@ namespace CarTracker.Common.Mappers
             {
                 TripId = possiblePlace.TripId,
                 PlaceId = possiblePlace.PlaceId,
-                Type = TripPossiblePlaceTypeExtentions.FromString(possiblePlace.PlaceType),
+                Type = possiblePlace.PlaceType,
                 Distance = possiblePlace.Distance,
                 Place = possiblePlace.Place?.ToViewModel()
             };

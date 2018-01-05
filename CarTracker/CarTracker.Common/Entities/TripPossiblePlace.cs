@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CarTracker.Common.Enums;
 
 namespace CarTracker.Common.Entities
 {
@@ -15,7 +16,7 @@ namespace CarTracker.Common.Entities
 
         public decimal Distance { get; set; }
 
-        public string PlaceType { get; set; }
+        public TripPossiblePlaceType PlaceType { get; set; }
 
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }

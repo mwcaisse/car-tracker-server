@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Enums;
 
 namespace CarTracker.Common.ViewModels
 {
@@ -33,6 +34,6 @@ namespace CarTracker.Common.ViewModels
 
         public long? DestinationPlaceId { get; set; }
 
-        public string Status { get; set; }
+        public TripStatus Status { get; set; }
     }
 }

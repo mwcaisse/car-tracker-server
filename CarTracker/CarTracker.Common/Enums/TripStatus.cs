@@ -35,11 +35,6 @@ namespace CarTracker.Common.Enums
             return StatusNames[tripStatus];
         }
 
-        public static string ToDatabaseValue(this TripStatus status)
-        {
-            return status.ToString().ToUpper();
-        }
-
         public static TripStatus FromString(string status)
         {
             status = status.ToUpper();

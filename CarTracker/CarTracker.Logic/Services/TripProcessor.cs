@@ -34,8 +34,8 @@ namespace CarTracker.Logic.Services
         {
             var cutoffDate = DateTime.Now.AddMinutes(-30);
 
-            var trips = _db.Trips.Where(t => t.Status != TripStatus.Processed.ToString().ToUpper())
-                .Where(t => t.Status == TripStatus.Finished.ToString().ToUpper() ||
+            var trips = _db.Trips.Where(t => t.Status != TripStatus.Processed)
+                .Where(t => t.Status == TripStatus.Finished ||
                             t.Readings.Max(r => r.ReadDate) < cutoffDate);
 
             foreach (var trip in trips)
@@ -46,8 +46,7 @@ namespace CarTracker.Logic.Services
 
         public Trip ProcessTrip(Trip trip)
         {
-            if (string.Equals(trip.Status, TripStatus.Processed.ToString()
-                , StringComparison.OrdinalIgnoreCase))
+            if (trip.Status == TripStatus.Processed)
             {
                 throw new EntityValidationException("Trip has already been processed.");
             }
@@ -104,7 +103,7 @@ namespace CarTracker.Logic.Services
                 trip.MaximumSpeed = maxSpeed;
                 trip.DistanceTraveled = totalDistance;
                 trip.IdleTime = Convert.ToInt64(idleTime.TotalMilliseconds);
-                trip.Status = TripStatus.Processed.ToString().ToUpper();
+                trip.Status = TripStatus.Processed;
 
                 //if the end date of the trip is null, set its end date to the read date of the
                 //  last reading
@@ -204,7 +203,7 @@ namespace CarTracker.Logic.Services
                     Trip = trip,
                     TripId = trip.TripId,
                     Place = place,
-                    PlaceType = type.ToDatabaseValue(),
+                    PlaceType = type,
                     Distance = Convert.ToDecimal(CalculateDistanceBetweenLocations(
                         new LocationModel()
                         {

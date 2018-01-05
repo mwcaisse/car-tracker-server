@@ -28,8 +28,7 @@ namespace CarTracker.Data.Mapping
 
             builder.Property(p => p.PlaceType)
                 .HasColumnName("PLACE_TYPE")
-                .IsRequired()
-                .HasMaxLength(50);
+                .IsRequired();
 
             builder.Property(p => p.Distance)
                 .HasColumnName("DISTANCE")

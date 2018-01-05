@@ -59,8 +59,7 @@ namespace CarTracker.Data.Mapping
                 .HasColumnName("DESTINATION_PLACE");
 
             builder.Property(t => t.Status)
-                .HasColumnName("STATUS")
-                .HasMaxLength(50);
+                .HasColumnName("STATUS");
 
             builder.HasOne(t => t.StartPlace)
                 .WithMany(p => p.TripStarts)

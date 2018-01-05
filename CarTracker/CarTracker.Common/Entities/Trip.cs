@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CarTracker.Common.Enums;
 
 namespace CarTracker.Common.Entities
 {
@@ -21,7 +22,7 @@ namespace CarTracker.Common.Entities
         public long? IdleTime { get; set; }
         public long? StartPlaceId { get; set; }
         public long? DestinationPlaceId { get; set; }
-        public string Status { get; set; }
+        public TripStatus Status { get; set; }
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
 

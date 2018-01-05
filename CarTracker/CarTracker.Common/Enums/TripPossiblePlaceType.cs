@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CarTracker.Common.Enums
@@ -12,39 +13,28 @@ namespace CarTracker.Common.Enums
 
     public static class TripPossiblePlaceTypeExtentions
     {
+
+        private static readonly Dictionary<TripPossiblePlaceType, string> PlaceTypeNames = new Dictionary
+            <TripPossiblePlaceType, string>()
+            {
+                {TripPossiblePlaceType.Start, "Start"},
+                {TripPossiblePlaceType.Destination, "Destination"}
+            };
+
+        private static readonly Dictionary<string, TripPossiblePlaceType> NamesToPlaceType = 
+            PlaceTypeNames.ToDictionary(x => x.Value.ToUpper(), x => x.Key);
+
         public static string ToString(this TripPossiblePlaceType type)
         {
-            var str = "";
-
-            switch (type)
-            {
-                case TripPossiblePlaceType.Start:
-                    str = "Start";
-                    break;
-                case TripPossiblePlaceType.Destination:
-                    str = "Destination";
-                    break;
-            }
-
-            return str;
-        }
-
-        public static string ToDatabaseValue(this TripPossiblePlaceType type)
-        {
-            return type.ToString().ToUpper();
+            return PlaceTypeNames[type];
         }
 
         public static TripPossiblePlaceType FromString(string type)
         {
-            if (string.Equals(type, TripPossiblePlaceType.Start.ToString(),
-                StringComparison.CurrentCultureIgnoreCase))
+            type = type.ToUpper();
+            if (NamesToPlaceType.ContainsKey(type))
             {
-                return TripPossiblePlaceType.Start;
-            }
-            else if (string.Equals(type, TripPossiblePlaceType.Destination.ToString(),
-                StringComparison.CurrentCultureIgnoreCase))
-            {
-                return TripPossiblePlaceType.Destination;
+                return NamesToPlaceType[type];
             }
 
             throw new ArgumentException("Given type is not a valid value for Trip Possible Place type.");

@@ -25,7 +25,7 @@ namespace CarTracker.Logic.Services
 
         public IEnumerable<TripPossiblePlace> GetForTripOfType(long tripId, TripPossiblePlaceType type)
         {
-            return _db.TripPossiblePlaces.Where(x => x.TripId == tripId && x.PlaceType == type.ToDatabaseValue());
+            return _db.TripPossiblePlaces.Where(x => x.TripId == tripId && x.PlaceType == type);
         }
 
         public PagedViewModel<TripPossiblePlace> GetForTripOfTypePaged(long tripId, TripPossiblePlaceType type, int skip = 0, int take = 10,
@@ -42,7 +42,7 @@ namespace CarTracker.Logic.Services
             return
                 _db.TripPossiblePlaces
                     .Include(x => x.Place)
-                    .Where(x => x.TripId == tripId && x.PlaceType == type.ToDatabaseValue())
+                    .Where(x => x.TripId == tripId && x.PlaceType ==  type)
                     .PageAndSort(skip, take, sortParam);
         }
 
@@ -53,12 +53,7 @@ namespace CarTracker.Logic.Services
 
         public TripPossiblePlace Create(TripPossiblePlace toCreate)
         {
-            if (string.IsNullOrWhiteSpace(toCreate.PlaceType))
-            {
-                throw new EntityValidationException("Trip Possible Place must have a Place Type");
-            }
-
-            _db.TripPossiblePlaces.Add(toCreate);
+           _db.TripPossiblePlaces.Add(toCreate);
             _db.SaveChanges();
 
             return toCreate;
