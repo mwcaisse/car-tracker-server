@@ -14,7 +14,7 @@ define("Components/Log/ReaderLogGrid/ReaderLogGrid",
 		data: function() {
 			return {
 				logs: [],
-				currentSort: { propertyId: "DATE", ascending: false},			
+				currentSort: { propertyId: "Date", ascending: false}			
 			}
 		},			
 		template: template,

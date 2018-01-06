@@ -87,7 +87,7 @@ define("Components/Trip/TripGrid/TripGrid",
 		data: function() {
 			return {
 				trips: [],
-				currentSort: { propertyId: "START_DATE", ascending: false}			
+				currentSort: { propertyId: "StartDate", ascending: false}			
 			}
 		},	
 		props: {

@@ -51,7 +51,7 @@ define("Service/proxy", [], function () {
 		self.getPaged = function (relativeUrl, skip, take, sort) {
 			var sortString = "";
 			if (sort) {
-				sortString = "&propertyId=" + sort.propertyId +"&ascending=" + (sort.ascending ? "true" : "false");
+				sortString = "&columnName=" + sort.propertyId +"&ascending=" + (sort.ascending ? "true" : "false");
 			}
             return self.get(relativeUrl + "?skip=" + skip + "&take=" + take + sortString);
 		};

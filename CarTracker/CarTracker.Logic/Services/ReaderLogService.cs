@@ -32,7 +32,7 @@ namespace CarTracker.Logic.Services
             {
                 sortParam = new SortParam()
                 {
-                    ColumnName = "CreateDate",
+                    ColumnName = "Date",
                     Ascending = false
                 };
             }
