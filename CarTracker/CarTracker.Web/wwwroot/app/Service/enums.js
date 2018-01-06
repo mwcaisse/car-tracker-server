@@ -16,6 +16,12 @@ define("Service/enums", ["Service/constants"], function (constants) {
         self.TripPossiblePlaceType[constants.TRIP_POSSIBLE_PLACE_TYPE.START] = "Start";
         self.TripPossiblePlaceType[constants.TRIP_POSSIBLE_PLACE_TYPE.DESTINATION] = "Destination";
 
+        self.LogType = {};
+        self.LogType[constants.LOG_TYPE.DEBUG] = "Debug";
+        self.LogType[constants.LOG_TYPE.INFO] = "Info";
+        self.LogType[constants.LOG_TYPE.WARN] = "Warn";
+        self.LogType[constants.LOG_TYPE.ERROR] = "Error";
+
     })();
 
     return enums;

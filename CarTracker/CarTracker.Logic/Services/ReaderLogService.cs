@@ -115,10 +115,6 @@ namespace CarTracker.Logic.Services
             {
                 throw new EntityValidationException("The message cannot be blank.");
             }
-            if (string.IsNullOrWhiteSpace(readerLog.Type))
-            {
-                throw new EntityValidationException("The log must have a type.");
-            }
         }
     }
 }

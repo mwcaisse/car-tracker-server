@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CarTracker.Common.Enums
@@ -15,27 +16,31 @@ namespace CarTracker.Common.Enums
 
     public static class LogTypeExtensions
     {
+
+        private static readonly Dictionary<LogType, string> LogTypeNames = new Dictionary<LogType, string>()
+        {
+            {LogType.Debug, "Debug" },
+            {LogType.Info, "Info" },
+            {LogType.Warn, "Warn" },
+            {LogType.Error, "Error" }
+        };
+
+        private static readonly Dictionary<string, LogType> NamesToLogType = LogTypeNames.ToDictionary(
+            x => x.Value.ToUpper(), x => x.Key);
+
         public static string ToString(this LogType logType)
         {
-            var str = "";
+            return LogTypeNames[logType];
+        }
 
-            switch (logType)
+        public static LogType FromString(string logType)
+        {
+            logType = logType.ToUpper();
+            if (NamesToLogType.ContainsKey(logType))
             {
-                case LogType.Debug:
-                    str = "Debug";
-                    break;
-                case LogType.Info:
-                    str = "Info";
-                    break;
-                case LogType.Warn:
-                    str = "Warn";
-                    break;
-                case LogType.Error:
-                    str = "Error";
-                    break;
+                return NamesToLogType[logType];
             }
-
-            return str;
+            throw new ArgumentException($"{logType} is not a valid value for Log Type");
         }
     }
 }

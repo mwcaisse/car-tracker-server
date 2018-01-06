@@ -16,7 +16,7 @@
 		</thead>
 		<tbody>
 			<tr v-for="log in logs">
-				<td> {{ log.type }} </td>
+				<td> {{ log.type | enum("LogType") }} </td>
 				<td> {{ log.date | formatDate }} </td>
 				<td> {{ log.message }} </td>				
 			</tr>

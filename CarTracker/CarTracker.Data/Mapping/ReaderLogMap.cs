@@ -21,8 +21,7 @@ namespace CarTracker.Data.Mapping
                 .ValueGeneratedOnAdd();
 
             builder.Property(l => l.Type)
-                .HasColumnName("TYPE")
-                .HasMaxLength(50);
+                .HasColumnName("TYPE");
 
             builder.Property(l => l.Message)
                 .HasColumnName("MESSAGE")

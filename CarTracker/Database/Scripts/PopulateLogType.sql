@@ -1,6 +1,6 @@
-INSERT INTO LOG_TYPE (ID) VALUES 
-	('DEBUG'),
-	('INFO'),
-	('WARN'),
-	('ERROR')
+INSERT INTO LOG_TYPE (ID, NAME) VALUES 
+	(1, 'DEBUG'),
+	(2, 'INFO'),
+	(3, 'WARN'),
+	(4, 'ERROR');
 	

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CarTracker.Common.Enums;
 
 namespace CarTracker.Common.Entities
 {
@@ -9,7 +10,7 @@ namespace CarTracker.Common.Entities
 
         public long ReaderLogId { get; set; }
 
-        public string Type { get; set; }
+        public LogType Type { get; set; }
 
         public string Message { get; set; }
         

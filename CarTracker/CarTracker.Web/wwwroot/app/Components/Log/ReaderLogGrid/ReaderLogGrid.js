@@ -25,7 +25,7 @@ define("Components/Log/ReaderLogGrid/ReaderLogGrid",
 				}.bind(this),
 				function (error) {
 					alert("error fetching reader log!");
-				})
+				});
 			},		
 			update: function (data) {			
 				this.logs = $.map(data.data, function (elm, ind) {

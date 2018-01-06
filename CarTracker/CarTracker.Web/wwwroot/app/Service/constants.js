@@ -29,6 +29,20 @@ define("Service/constants", [], function () {
             self.TRIP_POSSIBLE_PLACE_TYPE.DESTINATION
         ];
 
+        self.LOG_TYPE = {
+            DEBUG: 1,
+            INFO: 2,
+            WARN: 3,
+            ERROR: 4
+        };
+
+        self.LOG_TYPES = [
+            self.LOG_TYPE.DEBUG,
+            self.LOG_TYPE.INFO,
+            self.LOG_TYPE.WARN,
+            self.LOG_TYPE.ERROR
+        ];
+
     })();
 
     return constants;
