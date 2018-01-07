@@ -14,11 +14,14 @@ namespace CarTracker.Logic.Services
 
         private readonly CarTrackerDbContext _db;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IRegistrationKeyService _registrationKeyService;
 
-        public UserService(CarTrackerDbContext db, IPasswordHasher passwordHasher)
+        public UserService(CarTrackerDbContext db, IPasswordHasher passwordHasher,
+            IRegistrationKeyService registrationKeyService)
         {
             this._db = db;
             this._passwordHasher = passwordHasher;
+            this._registrationKeyService = registrationKeyService;
         }
 
         public User Get(long id)
@@ -33,7 +36,6 @@ namespace CarTracker.Logic.Services
 
         public User RegisterUser(UserRegistrationViewModel registration)
         {
-            //TODO: Add Registration Key check
             ValidateRegistration(registration);
             User user = new User()
             {
@@ -44,9 +46,22 @@ namespace CarTracker.Logic.Services
                 Active = true,
                 Locked = false
             };
-
             _db.Users.Add(user);
-            _db.SaveChanges();
+
+            var registrationKeyValid = false;
+            try
+            {
+                registrationKeyValid = _registrationKeyService.UseKey(registration.RegistrationKey, user);
+            }
+            finally
+            {
+                if (!registrationKeyValid)
+                {
+                    //if we failed to use the registration key, delete the user
+                    _db.Users.Remove(user);
+                }
+                _db.SaveChanges();
+            }
 
             return user;
         }
@@ -83,6 +98,11 @@ namespace CarTracker.Logic.Services
             {
                 throw new EntityValidationException("Email must not be blank!");
             }
+            if (!_registrationKeyService.IsValid(registration.RegistrationKey))
+            {
+                throw new EntityValidationException("Registration Key is not valid!");
+            }
+
         }
          
     }

@@ -15,7 +15,7 @@ namespace CarTracker.Common.Services
 
         bool IsValid(string key);
 
-        void UseKey(string keyValue, User user);
+        bool UseKey(string keyValue, User user);
 
         UserRegistrationKey Create(UserRegistrationKeyViewModel model);
 

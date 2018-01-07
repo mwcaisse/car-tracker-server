@@ -52,24 +52,24 @@ namespace CarTracker.Logic.Services
             return false;
         }
 
-        public void UseKey(string keyValue, User user)
+        public bool UseKey(string keyValue, User user)
         {
             if (!IsValid(keyValue))
             {
-                throw new EntityValidationException("Invalid Registration Key.");
+                return false;
             }
             var key = Get(keyValue);
 
             key.UsesRemaining--;
-            
+
             key.UserRegistrationKeyUses.Add(new UserRegistrationKeyUse()
             {
                 User = user,
                 UserRegistrationKey = key
             });
-
+     
             _db.SaveChanges();
-
+            return true;
         }
 
         public UserRegistrationKey Create(UserRegistrationKeyViewModel model)
