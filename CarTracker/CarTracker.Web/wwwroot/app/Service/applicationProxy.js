@@ -91,16 +91,16 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 		
 		self.registrationKey = {
 			get: function (id) {
-				return core.get("registration/key/" + id);
+				return core.get("registration-key/" + id);
 			},
 			getAllPaged: function (startAt, maxResults, sort) {
-				return core.getPaged("registration/key/", startAt, maxResults, sort);						
+				return core.getPaged("registration-key/", startAt, maxResults, sort);						
 			},
 			create: function (toCreate) {
-				return core.post("registration/key/", toCreate);
+				return core.post("registration-key/", toCreate);
 			},
 			update: function (toUpdate) {
-				return core.put("registration/key/", toUpdate);
+				return core.put("registration-key/", toUpdate);
 			}
 		};
 		
