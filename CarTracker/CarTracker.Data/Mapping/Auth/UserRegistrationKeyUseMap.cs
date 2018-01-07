@@ -30,7 +30,7 @@ namespace CarTracker.Data.Mapping.Auth
 
             builder.HasOne(u => u.UserRegistrationKey)
                 .WithMany(k => k.UserRegistrationKeyUses)
-                .HasForeignKey(u => u.UserRegistrationKeyUseId);
+                .HasForeignKey(u => u.UserRegistrationKeyId);
 
             builder.HasOne(ur => ur.User)
                 .WithMany(u => u.UserRegistrationKeyUses)

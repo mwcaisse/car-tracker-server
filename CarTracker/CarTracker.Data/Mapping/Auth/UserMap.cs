@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

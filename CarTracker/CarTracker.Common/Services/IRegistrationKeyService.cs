@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CarTracker.Common.Entities;
-using CarTracker.Common.Entities.Auth;
+﻿using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.ViewModels;
+using CarTracker.Common.ViewModels.Auth;
 
 namespace CarTracker.Common.Services
 {
@@ -20,9 +17,9 @@ namespace CarTracker.Common.Services
 
         void UseKey(string keyValue, User user);
 
-        UserRegistrationKey Create(UserRegistrationKeyViewModel toCreate);
+        UserRegistrationKey Create(UserRegistrationKeyViewModel model);
 
-        UserRegistrationKey Update(UserRegistrationKeyViewModel toUpdate);
+        UserRegistrationKey Update(UserRegistrationKeyViewModel model);
 
     }
 }

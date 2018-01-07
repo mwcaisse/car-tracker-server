@@ -91,7 +91,10 @@ namespace CarTracker.Web
             });
 
             services.AddMvc().AddJsonOptions(options =>
-                options.SerializerSettings.Converters.Add(new JsonDateEpochConverter())
+                {
+                    options.SerializerSettings.Converters.Add(new JsonDateEpochConverter());
+                    options.SerializerSettings.Converters.Add(new JsonUserConverter());
+                }
             );
         }
 

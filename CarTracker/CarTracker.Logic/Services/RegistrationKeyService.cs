@@ -1,40 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using CarTracker.Common.Entities;
 using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.Exceptions;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
+using CarTracker.Common.ViewModels.Auth;
 using CarTracker.Data;
 using CarTracker.Data.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarTracker.Logic.Services
 {
     public class RegistrationKeyService : IRegistrationKeyService
     {
 
-        private CarTrackerDbContext _db;
+        private readonly CarTrackerDbContext _db;
 
         public RegistrationKeyService(CarTrackerDbContext db)
         {
             this._db = db;
         }
 
+        protected IQueryable<UserRegistrationKey> GetRegistrationKeysIncluding()
+        {
+            return _db.UserRegistrationKeys.Include(u => u.UserRegistrationKeyUses)
+                .ThenInclude(ku => ku.User);
+        }
+
         public UserRegistrationKey Get(long id)
         {
-            return _db.UserRegistrationKeys.FirstOrDefault(x => x.UserRegistrationKeyId == id);
+            return GetRegistrationKeysIncluding().FirstOrDefault(x => x.UserRegistrationKeyId == id);
         }
 
         public UserRegistrationKey Get(string key)
         {
-            return _db.UserRegistrationKeys.FirstOrDefault(x => x.Key == key);
+            return GetRegistrationKeysIncluding().FirstOrDefault(x => x.Key == key);
         }
 
         public PagedViewModel<UserRegistrationKey> GetAll(int skip, int take, SortParam sort)
         {
-            return _db.UserRegistrationKeys.PageAndSort(skip, take, sort);
+            return GetRegistrationKeysIncluding().PageAndSort(skip, take, sort);
         }
 
         public bool IsValid(string key)
@@ -84,7 +89,7 @@ namespace CarTracker.Logic.Services
             _db.UserRegistrationKeys.Add(toCreate);
             _db.SaveChanges();
 
-            return toCreate;
+            return Get(toCreate.UserRegistrationKeyId);
         }
 
         public UserRegistrationKey Update(UserRegistrationKeyViewModel model)
@@ -103,7 +108,7 @@ namespace CarTracker.Logic.Services
             toUpdate.Active = model.Active;
             toUpdate.UsesRemaining = model.UsesRemaining;
 
-            return toUpdate;
+            return Get(toUpdate.UserRegistrationKeyId);
         }
     }
 }

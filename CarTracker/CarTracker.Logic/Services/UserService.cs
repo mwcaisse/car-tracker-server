@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CarTracker.Common.Auth;
-using CarTracker.Common.Entities;
 using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.Exceptions;
 using CarTracker.Common.Services;
-using CarTracker.Common.ViewModels;
+using CarTracker.Common.ViewModels.Auth;
 using CarTracker.Data;
 
 namespace CarTracker.Logic.Services

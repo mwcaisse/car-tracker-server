@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using CarTracker.Common.Entities.Auth;
 
-namespace CarTracker.Common.Entities
+namespace CarTracker.Common.Entities.Auth
 {
+
+    
     public class User : ITrackedEntity
     {
         public long UserId { get; set; }

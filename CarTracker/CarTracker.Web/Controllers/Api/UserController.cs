@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarTracker.Common.Services;
-using CarTracker.Common.ViewModels;
-using CarTracker.Web.Auth;
-using Microsoft.AspNetCore.Http;
+﻿using CarTracker.Common.Services;
+using CarTracker.Common.ViewModels.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTracker.Web.Controllers.Api

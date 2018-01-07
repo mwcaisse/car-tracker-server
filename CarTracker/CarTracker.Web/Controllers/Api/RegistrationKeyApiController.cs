@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarTracker.Common.Mappers;
+﻿using CarTracker.Common.Mappers.Auth;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
+using CarTracker.Common.ViewModels.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

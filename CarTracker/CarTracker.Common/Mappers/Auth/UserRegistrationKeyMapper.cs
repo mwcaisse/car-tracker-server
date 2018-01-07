@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.ViewModels;
+using CarTracker.Common.ViewModels.Auth;
 
-namespace CarTracker.Common.Mappers
+namespace CarTracker.Common.Mappers.Auth
 {
     public static class UserRegistrationKeyMapper
     {
@@ -16,7 +15,8 @@ namespace CarTracker.Common.Mappers
                 UsesRemaining = key.UsesRemaining,
                 Active = key.Active,
                 Key = key.Key,
-                UserRegistrationKeyId = key.UserRegistrationKeyId
+                UserRegistrationKeyId = key.UserRegistrationKeyId,
+                UserRegistrationKeyUses = key.UserRegistrationKeyUses.ToViewModel()
             };
 
             return vm;

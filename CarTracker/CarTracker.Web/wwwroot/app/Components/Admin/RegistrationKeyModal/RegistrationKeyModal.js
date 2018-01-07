@@ -16,7 +16,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 				key: "",
 				usesRemaining: 0,
 				active: false,
-				keyUses: []
+                userRegistrationKeyUses: []
 			}
 		},			
 		template: template,
@@ -34,14 +34,14 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 				this.key = key.key;
 				this.usesRemaining = key.usesRemaining;
 				this.active = key.active;
-				this.keyUses = key.keyUses;
+                this.userRegistrationKeyUses = key.userRegistrationKeyUses;
 			},
 			clear: function () {
                 this.userRegistrationKeyId = -1;
 				this.key = "";
 				this.usesRemaining = 0;
 				this.active = false;
-				this.keyUses = [];
+                this.userRegistrationKeyUses = [];
 			},
 			createModel: function () {
 				return {

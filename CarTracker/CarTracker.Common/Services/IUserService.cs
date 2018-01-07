@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CarTracker.Common.Entities;
-using CarTracker.Common.Entities.Auth;
-using CarTracker.Common.ViewModels;
+﻿using CarTracker.Common.Entities.Auth;
+using CarTracker.Common.ViewModels.Auth;
 
 namespace CarTracker.Common.Services
 {

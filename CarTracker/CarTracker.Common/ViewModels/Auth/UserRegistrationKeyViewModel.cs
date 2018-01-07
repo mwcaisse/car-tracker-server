@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarTracker.Common.ViewModels
+namespace CarTracker.Common.ViewModels.Auth
 {
     public class UserRegistrationKeyViewModel
     {
@@ -11,6 +11,8 @@ namespace CarTracker.Common.ViewModels
         public string Key { get; set; }
         public int UsesRemaining { get; set; }
         public bool Active { get; set; }
+
+        public IEnumerable<UserRegistrationKeyUseViewModel> UserRegistrationKeyUses { get; set; }
 
     }
 }
