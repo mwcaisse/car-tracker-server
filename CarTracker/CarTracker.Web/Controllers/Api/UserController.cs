@@ -24,7 +24,7 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpPost]
         [Route("register")]
-        public IActionResult Register(UserRegistrationViewModel registration)
+        public IActionResult Register([FromBody]UserRegistrationViewModel registration)
         {
             var user = _userService.RegisterUser(registration);
             return Ok(null != user);

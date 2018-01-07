@@ -55,5 +55,20 @@ namespace CarTracker.Web.Controllers.View
             //TODO: Add error hanlding/message showing here
             return View();
         }
+
+        [Route("register")]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [Route("logout")]
+        [HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
+        }
     }
 }

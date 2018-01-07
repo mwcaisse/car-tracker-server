@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarTracker.Web.Controllers.Api
 {
 
+    [Authorize]
     [Route("api/car/")]
     public class CarApiController : BaseApiController
     {

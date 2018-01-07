@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using CarTracker.Common.Mappers;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTracker.Web.Controllers.Api
 {
+    [Authorize]
     [Route("api/log/reader")]
     public class ReaderLogApiController : BaseApiController
     {

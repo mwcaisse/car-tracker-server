@@ -21,6 +21,12 @@ namespace CarTracker.Web.Controllers.View
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             ViewBag.GoogleMapsApiKey = _applicationConfiguration.GoogleMapsAPiKey;
+            ViewBag.IsAuthenticated = IsAuthenticated();
+        }
+
+        protected bool IsAuthenticated()
+        {
+            return null != User && User.Identity.IsAuthenticated;
         }
     }
 }

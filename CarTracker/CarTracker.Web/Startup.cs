@@ -62,7 +62,7 @@ namespace CarTracker.Web
                         }
                         else
                         {
-                            context.RedirectUri = options.LoginPath;
+                            context.Response.Redirect(options.LoginPath);
                         }
                         return Task.CompletedTask;
                     };

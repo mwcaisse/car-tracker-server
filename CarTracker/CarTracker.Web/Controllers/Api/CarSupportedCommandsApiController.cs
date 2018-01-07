@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace CarTracker.Web.Controllers.Api
 {
 
+    [Authorize]
     [Route("api/car/")]
     public class CarSupportedCommandsApiController : BaseApiController
     {
