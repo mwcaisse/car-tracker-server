@@ -11,16 +11,16 @@
 		<thead>
 			<tr>
 				<th style="width: 1%;"></th> <!-- actions column -->
-			    <th><app-column-header columnId="KEY_VAL" 			columnName="Key" 			:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-				<th><app-column-header columnId="USES_REMAINING" 	columnName="Uses Remaining" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared" ></app-column-header></th>
-				<th><app-column-header columnId="ACTIVE"   			columnName="Active" 		:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-				<th><app-column-header columnId="CREATE_DATE"   	columnName="Create Date" 	:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
+			    <th><app-column-header columnId="Key" 			    columnName="Key" 			:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
+				<th><app-column-header columnId="UsesRemaining" 	columnName="Uses Remaining" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared" ></app-column-header></th>
+				<th><app-column-header columnId="Active"   			columnName="Active" 		:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
+				<th><app-column-header columnId="CreateDate"   	    columnName="Create Date" 	:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr v-for="key in keys" :class="key.rowCss">
 				<td>
-					<i class="fa fa-th-list action-icon" aria-hidden="true" v-on:click="viewKey(key.id)" v-tooltip title="View Registration Key"></i>
+					<i class="fa fa-th-list action-icon" aria-hidden="true" v-on:click="viewKey(key.userRegistrationKeyId)" v-tooltip title="View Registration Key"></i>
 				</td>			
 				<td> {{ key.key }}</td>			
 				<td> {{ key.usesRemaining }}</td>			

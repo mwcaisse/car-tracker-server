@@ -30,7 +30,7 @@ define("Service/navigation", ["Service/system"], function (system) {
 		};
 		
 		self.adminRegistrationKeyLink = function () {
-			return system.baseUrl + "admin/registrationKeys";
+			return system.baseUrl + "admin/registration-keys";
 		};
 		
 		self.loginLink = function (param) {

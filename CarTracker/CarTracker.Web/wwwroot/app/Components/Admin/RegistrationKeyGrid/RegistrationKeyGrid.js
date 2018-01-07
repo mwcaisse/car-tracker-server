@@ -15,7 +15,7 @@ define("Components/Admin/RegistrationKeyGrid/RegistrationKeyGrid",
 		data: function() {
 			return {
 				keys: [],
-				currentSort: { propertyId: "CREATE_DATE", ascending: false}		
+				currentSort: { propertyId: "CreateDate", ascending: false}		
 			}
 		},			
 		template: template,

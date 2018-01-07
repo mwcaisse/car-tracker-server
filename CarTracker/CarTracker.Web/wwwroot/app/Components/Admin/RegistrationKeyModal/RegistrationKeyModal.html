@@ -33,7 +33,7 @@
 			</div>
 		</form>
 		
-		<app-registration-key-uses :uses="keyUses" v-if="id > 0"></app-registration-key-uses>
+		<app-registration-key-uses :uses="keyUses" v-if="userRegistrationKeyId > 0"></app-registration-key-uses>
 		
 		<button slot="footer" type="button" class="btn btn-primary" v-on:click="save">Save</button>
 	</app-modal>

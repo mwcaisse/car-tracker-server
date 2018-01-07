@@ -12,7 +12,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 		data: function() {
 			return {
 				title: "Create Registration Key",			
-				id: -1,
+                userRegistrationKeyId: -1,
 				key: "",
 				usesRemaining: 0,
 				active: false,
@@ -22,7 +22,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 		template: template,
 		methods: {
 			fetchKey: function () {							
-				proxy.registrationKey.get(this.id).then(function (data) {					
+                proxy.registrationKey.get(this.userRegistrationKeyId).then(function (data) {					
 					this.update(data);
 				}.bind(this),
 				function (error) {
@@ -30,14 +30,14 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 				})
 			},
 			update: function (key) {
-				this.id = key.id;
+                this.userRegistrationKeyId = key.userRegistrationKeyId;
 				this.key = key.key;
 				this.usesRemaining = key.usesRemaining;
 				this.active = key.active;
 				this.keyUses = key.keyUses;
 			},
 			clear: function () {
-				this.id = -1;
+                this.userRegistrationKeyId = -1;
 				this.key = "";
 				this.usesRemaining = 0;
 				this.active = false;
@@ -45,7 +45,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 			},
 			createModel: function () {
 				return {
-					id: this.id,
+                    userRegistrationKeyId: this.userRegistrationKeyId,
 					key: this.key,
 					usesRemaining: this.usesRemaining,
 					active: this.active
@@ -53,7 +53,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 			},
 			save: function () {
 				var func;
-				if (this.id < 0) {
+                if (this.userRegistrationKeyId < 0) {
 					func = proxy.registrationKey.create;
 				}
 				else {
@@ -72,7 +72,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 				this.fetchKey();
 			},
 			generateKey: function () {
-				this.key = util.generateUuid();
+				this.key = util.generatkeUuid();
 			}
 		},
 		created: function () {
@@ -82,7 +82,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 			}.bind(this));
 			
 			system.bus.$on("registrationKey:edit", function (keyId) {
-				this.id = keyId;
+                this.userRegistrationKeyId = keyId;
 				this.fetchKey();
 				this.title = "Edit Registration Key";
 				this.$refs.modal.open();
