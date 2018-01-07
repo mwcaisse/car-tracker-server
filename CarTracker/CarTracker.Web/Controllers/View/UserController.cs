@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CarTracker.Web.Auth;
 using CarTracker.Web.Configuration;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Constraints;
@@ -15,6 +16,9 @@ namespace CarTracker.Web.Controllers.View
     [Route("")]
     public class UserController : BaseViewController
     {
+
+        private static readonly string SOURCE_LOGOUT = "logout";
+        private static readonly string SOURCE_ERROR = "error";
 
         private readonly UserAuthenticationManager _authenticationManager;
 
@@ -27,8 +31,16 @@ namespace CarTracker.Web.Controllers.View
 
         [HttpGet]
         [Route("login")]
-        public IActionResult Login()
+        public IActionResult Login(string source = "")
         {
+            ViewBag.IsLogout = ContainsUrlParameter("logout") || 
+                string.Equals(SOURCE_LOGOUT, source, StringComparison.CurrentCultureIgnoreCase);
+
+            ViewBag.IsError = ContainsUrlParameter("error") ||
+                string.Equals(SOURCE_ERROR, source, StringComparison.CurrentCultureIgnoreCase);
+
+            ViewBag.IsRegistered = ContainsUrlParameter("registered");
+
             return View();
         }
 
@@ -52,8 +64,7 @@ namespace CarTracker.Web.Controllers.View
             }
 
             //Login failed, redirect them to login page
-            //TODO: Add error hanlding/message showing here
-            return View();
+            return Login(SOURCE_ERROR);
         }
 
         [Route("register")]
@@ -68,7 +79,8 @@ namespace CarTracker.Web.Controllers.View
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return Redirect("/");
+            return RedirectToAction("Login", new RouteValueDictionary(
+                new {action = "Login", source = SOURCE_LOGOUT }));
         }
     }
 }

@@ -28,5 +28,10 @@ namespace CarTracker.Web.Controllers.View
         {
             return null != User && User.Identity.IsAuthenticated;
         }
+
+        protected bool ContainsUrlParameter(string parameterName)
+        {
+            return Request.Query.ContainsKey(parameterName);
+        }
     }
 }

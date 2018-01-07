@@ -9,6 +9,30 @@
         <fieldset>
 
             <legend>Please Login</legend>
+            
+            @if (ViewBag.IsError)
+            {
+                <!-- If there was an error logging in, show an error alert -->
+                <div th:if="${param.error}" class="alert alert-danger">
+                    Invalid username and/or password.
+                </div>
+            }
+            
+            @if (ViewBag.IsLogout)
+            {
+                <!-- Show a message if you have been logged out -->
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out!
+                </div>
+            }
+            
+            @if (ViewBag.IsRegistered)
+            {
+                <!-- Show a message if you have registered successfully -->
+                <div th:if="${param.registered}" class="alert alert-success">
+                    Registered Successfully! You can now log in!
+                </div>
+            }
 
             <!-- username input -->
             <div class="control-group">
