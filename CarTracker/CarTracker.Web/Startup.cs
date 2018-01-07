@@ -41,37 +41,6 @@ namespace CarTracker.Web
             services.AddDbContext<CarTrackerDbContext>(
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
 
-            // Add Authentication
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<CarTrackerDbContext>()
-                .AddDefaultTokenProviders();
-
-            services.Configure<IdentityOptions>(options =>
-            {
-                options.Password.RequireDigit = true;
-                options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = 4;
-
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.AllowedForNewUsers = true;
-
-                options.User.RequireUniqueEmail = true;
-            });
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Expiration = TimeSpan.FromDays(150);
-                options.LoginPath = "/user/login";
-                options.LogoutPath = "/user/logout";
-                options.AccessDeniedPath = "/user/access-denied";
-                options.SlidingExpiration = true;
-            });
-
             //Load in some confiugration options
             var googleMapsApiKey = Configuration.GetValue<string>("googleMapsApiKey");
 
@@ -111,9 +80,6 @@ namespace CarTracker.Web
             }
 
             app.UseStaticFiles();
-
-            app.UseAuthentication();
-
 
             app.UseMvc(routes =>
             {
