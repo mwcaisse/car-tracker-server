@@ -48,15 +48,9 @@ namespace CarTracker.Web.Controllers.View
         [Route("login")]
         public async Task<IActionResult> Login(string username, string password)
         {
-            if (_authenticationManager.LoginPassword(username, password))
+            var principal = _authenticationManager.LoginPasswordForPrincipal(username, password);
+            if (null != principal)
             {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, username)
-                };
-                var userIdentity = new ClaimsIdentity(claims, "login");
-
-                ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
                 await HttpContext.SignInAsync(principal);
 
                 //Redirect the user to the home page after login

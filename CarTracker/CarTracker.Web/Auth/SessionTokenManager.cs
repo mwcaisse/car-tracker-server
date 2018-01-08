@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 
@@ -52,11 +53,17 @@ namespace CarTracker.Web.Auth
             return null;
         }
 
-        public ISessionToken CreateToken(string username, AuthenticationTicket ticket)
+        public ISessionToken CreateToken(string username, ClaimsPrincipal principal)
         {
-            var token = new SessionToken(CreateTokenId(), username, ticket, CreateExpirationDate());
+            var token = new SessionToken(CreateTokenId(), username, CreateAuthenticationTicket(principal), 
+                CreateExpirationDate());
             _tokens.Add(token.Id, token);
             return token;
+        }
+
+        private AuthenticationTicket CreateAuthenticationTicket(ClaimsPrincipal principal)
+        {
+            return new AuthenticationTicket(principal, TokenAuthenticationOptions.AuthenticationScheme);
         }
 
         private string CreateTokenId()

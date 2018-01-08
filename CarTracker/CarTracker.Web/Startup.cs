@@ -12,6 +12,7 @@ using CarTracker.Logic.Services;
 using CarTracker.Web.Auth;
 using CarTracker.Web.Configuration;
 using CarTracker.Web.Util;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,14 +50,8 @@ namespace CarTracker.Web
             var googleMapsApiKey = Configuration.GetValue<string>("googleMapsApiKey");
 
             //Authentication Services
-            services.AddAuthentication(TokenAuthenticationOptions.AuthenticationScheme)
-                .AddTokenAuthentication(options =>
-                    {
-                        options.TokenHeader = "CT_SESSION";
-                    }
-                );
-
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddTokenAuthentication(options => { })
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/login";
@@ -75,7 +70,6 @@ namespace CarTracker.Web
                     };
                 });
 
-
             // Add our Services
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ITripService, TripService>();
@@ -91,7 +85,7 @@ namespace CarTracker.Web
             services.AddTransient<IPasswordHasher, ArgonPasswordHasher>();
 
             services.AddTransient<UserAuthenticationManager>();
-            services.AddTransient<SessionTokenManager>();
+            services.AddSingleton<SessionTokenManager>();
 
             services.AddSingleton(s => new ApplicationConfiguration()
             {
@@ -122,6 +116,23 @@ namespace CarTracker.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            //Middleware to use the Session Token Header authentication scheme, if it's header is present
+            //  otherwise we use Cookie Authentication Scheme
+            app.Use(async (context, next) =>
+            {
+                var scheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                if (context.Request.Headers.ContainsKey(TokenAuthenticationOptions.SessionTokenHeader))
+                {
+                    scheme = TokenAuthenticationOptions.AuthenticationScheme;
+                }
+                var result = await context.AuthenticateAsync(scheme);
+                if (result.Succeeded)
+                {
+                    context.User = result.Principal;
+                }
+                await next();
+            });
 
             app.UseMvc(routes =>
             {

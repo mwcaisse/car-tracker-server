@@ -12,24 +12,10 @@ namespace CarTracker.Web.Auth
     public class TokenAuthenticationHandler : AuthenticationHandler<TokenAuthenticationOptions>
     {
 
-        private const string DefaultSessionTokenHeader = "CT_SESSION";
-
-        private readonly SessionTokenManager _tokenManager;
+       private readonly SessionTokenManager _tokenManager;
 
         private readonly TokenAuthenticationOptions _options;
 
-        private string SessionTokenHeader
-        {
-            get
-            {
-                var header = _options.TokenHeader;
-                if (string.IsNullOrWhiteSpace(header))
-                {
-                    header = DefaultSessionTokenHeader;
-                }
-                return header;
-            }
-        }
 
         public TokenAuthenticationHandler(IOptionsMonitor<TokenAuthenticationOptions> options, 
             ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, 
@@ -42,9 +28,9 @@ namespace CarTracker.Web.Auth
 
         protected override Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            if (Request.Headers.ContainsKey(SessionTokenHeader))
+            if (Request.Headers.ContainsKey(TokenAuthenticationOptions.SessionTokenHeader))
             {
-                var sessionTokenKey = Request.Headers[SessionTokenHeader];
+                var sessionTokenKey = Request.Headers[TokenAuthenticationOptions.SessionTokenHeader];
                 var token = _tokenManager.Get(sessionTokenKey);
                 if (null != token)
                 {
