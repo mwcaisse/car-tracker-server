@@ -122,7 +122,7 @@ namespace CarTracker.Web
             app.Use(async (context, next) =>
             {
                 var scheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                if (context.Request.Headers.ContainsKey(TokenAuthenticationOptions.SessionTokenHeader))
+                if (TokenAuthenticationOptions.IsRequestCanidate(context))
                 {
                     scheme = TokenAuthenticationOptions.AuthenticationScheme;
                 }
