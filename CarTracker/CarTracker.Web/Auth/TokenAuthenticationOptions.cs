@@ -10,7 +10,7 @@ namespace CarTracker.Web.Auth
     public class TokenAuthenticationOptions : AuthenticationSchemeOptions
     {
 
-        public const string AuthenticationScheme = "AUTHENTICATION_SESSION_SCHEME";
+        public const string AuthenticationScheme = "AUTHENTICATION_SCHEME_SESSION_TOKEN";
 
         public const string SessionTokenHeader = "CT_SESSION";
 
