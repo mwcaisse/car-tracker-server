@@ -33,5 +33,10 @@ namespace CarTracker.Web.Auth
             _passwordHasher.VerifyPassword("", password);
             return false;
         }
+
+        public bool LoginToken(string username, string token)
+        {
+            return true; // for now lets just always return true. Most secure, I promise.
+        }
     }
 }

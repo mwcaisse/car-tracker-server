@@ -49,6 +49,13 @@ namespace CarTracker.Web
             var googleMapsApiKey = Configuration.GetValue<string>("googleMapsApiKey");
 
             //Authentication Services
+            services.AddAuthentication(TokenAuthenticationOptions.AuthenticationScheme)
+                .AddTokenAuthentication(options =>
+                    {
+                        options.TokenHeader = "CT_SESSION";
+                    }
+                );
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -84,6 +91,7 @@ namespace CarTracker.Web
             services.AddTransient<IPasswordHasher, ArgonPasswordHasher>();
 
             services.AddTransient<UserAuthenticationManager>();
+            services.AddTransient<SessionTokenManager>();
 
             services.AddSingleton(s => new ApplicationConfiguration()
             {
