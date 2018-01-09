@@ -5,7 +5,7 @@ namespace CarTracker.Common.Entities.Auth
 {
 
     
-    public class User : ITrackedEntity
+    public class User : ITrackedEntity, IActiveEntity
     {
         public long UserId { get; set; }
         public string Username { get; set; }

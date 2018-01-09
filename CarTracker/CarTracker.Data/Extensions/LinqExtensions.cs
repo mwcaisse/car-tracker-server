@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
+using CarTracker.Common.Entities;
 using CarTracker.Common.Exceptions;
 using CarTracker.Common.ViewModels;
 
@@ -83,6 +85,11 @@ namespace CarTracker.Data.Extensions
                 Skip = skip,
                 Take = take
             };
+        }
+
+        public static IQueryable<T> Active<T>(this IQueryable<T> query) where T : IActiveEntity
+        {
+            return query.Where(e => e.Active);
         }
     }
 }
