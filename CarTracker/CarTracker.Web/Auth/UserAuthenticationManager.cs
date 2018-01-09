@@ -82,7 +82,7 @@ namespace CarTracker.Web.Auth
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, username),
-                new Claim(ClaimTypes.Sid,user.UserId.ToString())
+                new Claim(ClaimTypes.Sid, user.UserId.ToString())
 
             };
             var userIdentity = new ClaimsIdentity(claims, "login");

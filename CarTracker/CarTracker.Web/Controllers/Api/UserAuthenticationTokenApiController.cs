@@ -27,16 +27,14 @@ namespace CarTracker.Web.Controllers.Api
         public IActionResult GetActiveForUser(int skip = DefaultSkip, int take = DefaultTake,
             SortParam sort = null)
         {
-            var userId = 1;
-            return Ok(_tokenService.GetActiveForUser(userId, skip, take, sort));
+            return Ok(_tokenService.GetActiveForUser(GetCurrentUserId(), skip, take, sort));
         }
 
         [HttpPost]
         [Route("")]
         public IActionResult CreateToken([FromBody]string deviceUuid)
         {
-            var userId = 1;
-            return Ok(_tokenService.CreateToken(userId, deviceUuid));
+            return Ok(_tokenService.CreateToken(GetCurrentUserId(), deviceUuid));
         }
 
     }
