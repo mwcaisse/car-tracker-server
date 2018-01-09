@@ -21,7 +21,8 @@ namespace CarTracker.Common.Mappers.Auth
                 UserId = token.UserId,
                 UserAuthenticationTokenId = token.UserAuthenticationTokenId,
                 LastLogin = token.LastLogin,
-                LastLoginAddress = token.LastLoginAddress
+                LastLoginAddress = token.LastLoginAddress,
+                CreateDate = token.CreateDate
             };
             return vm;
         }

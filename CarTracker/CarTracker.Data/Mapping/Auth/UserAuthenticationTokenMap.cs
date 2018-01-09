@@ -22,6 +22,7 @@ namespace CarTracker.Data.Mapping.Auth
                 .ValueGeneratedOnAdd();
 
             builder.Property(u => u.UserId)
+                .HasColumnName("USER_ID")
                 .IsRequired();
 
             builder.Property(u => u.Token)

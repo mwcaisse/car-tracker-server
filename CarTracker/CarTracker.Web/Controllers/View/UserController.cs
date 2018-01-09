@@ -76,5 +76,11 @@ namespace CarTracker.Web.Controllers.View
             return RedirectToAction("Login", new RouteValueDictionary(
                 new {action = "Login", source = SOURCE_LOGOUT }));
         }
+
+        [Route("user/tokens")]
+        public IActionResult Tokens()
+        {
+            return View();
+        }
     }
 }

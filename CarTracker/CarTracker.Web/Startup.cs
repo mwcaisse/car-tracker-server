@@ -82,6 +82,7 @@ namespace CarTracker.Web
             services.AddTransient<IPlaceRequester>(s => new GooglePlaceRequester.GooglePlaceRequester(googleMapsApiKey));
             services.AddTransient<IRegistrationKeyService, RegistrationKeyService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserAuthenticationTokenService, UserAuthenticationTokenService>();
             services.AddTransient<IPasswordHasher, ArgonPasswordHasher>();
 
             services.AddTransient<UserAuthenticationManager>();

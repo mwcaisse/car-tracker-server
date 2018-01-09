@@ -14,7 +14,7 @@ define("Components/User/AuthTokenGrid/AuthTokenGrid",
 		data: function() {
 			return {
 				tokens: [],
-				currentSort: { propertyId: "LAST_LOGIN", ascending: false}		
+				currentSort: { propertyId: "LastLogin", ascending: false}		
 			}
 		},			
 		template: template,
