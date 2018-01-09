@@ -61,14 +61,9 @@ define("Views/Navigation/Navigation",
 							}
 						},
                         fetchCurrentUser: function () {
-                            return Q.fcall(function() {
-                                this.currentUserName = "Mitchell";
-                            }.bind(this));
-                            /*
-                                TODO: Re-implment this when we have authentication
                             return proxy.user.me().then(function (user) {
                                 this.currentUserName = user.name;
-                            }.bind(this));*/
+                            }.bind(this));
                         }
 					},
 					created: function () {				

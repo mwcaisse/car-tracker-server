@@ -1,4 +1,5 @@
-﻿using CarTracker.Common.Services;
+﻿using CarTracker.Common.Mappers.Auth;
+using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels.Auth;
 using CarTracker.Web.Auth;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,13 @@ namespace CarTracker.Web.Controllers.Api
         public IActionResult IsUsernameAvailable(string username)
         {
             return Ok(_userService.IsUsernameAvailable(username));
+        }
+
+        [HttpGet]
+        [Route("me")]
+        public IActionResult GetCurrentUser()
+        {
+            return Ok(_userService.Get(GetCurrentUsername()).ToViewModel());
         }
 
         [HttpPost]
