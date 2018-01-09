@@ -78,9 +78,12 @@ namespace CarTracker.Web.Auth
 
         private ClaimsPrincipal GetPrincipalForUser(string username)
         {
+            var user = _userService.Get(username);
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, username)
+                new Claim(ClaimTypes.Name, username),
+                new Claim(ClaimTypes.Sid,user.UserId.ToString())
+
             };
             var userIdentity = new ClaimsIdentity(claims, "login");
             return new ClaimsPrincipal(userIdentity);
