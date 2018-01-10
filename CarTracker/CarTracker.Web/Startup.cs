@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 using CarTracker.Common.Auth;
 using CarTracker.Common.Entities;
 using CarTracker.Common.Entities.Auth;
+using CarTracker.Common.Models;
 using CarTracker.Common.Services;
 using CarTracker.Data;
 using CarTracker.Logic.Services;
 using CarTracker.Web.Auth;
 using CarTracker.Web.Configuration;
+using CarTracker.Web.Model;
 using CarTracker.Web.Util;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -99,6 +103,9 @@ namespace CarTracker.Web
                     options.SerializerSettings.Converters.Add(new JsonUserConverter());
                 }
             );
+
+            services.AddScoped<IRequestInformation, ServerRequestInformation>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
