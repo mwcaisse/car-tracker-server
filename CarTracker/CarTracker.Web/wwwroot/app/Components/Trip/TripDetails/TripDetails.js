@@ -18,7 +18,9 @@ define("Components/Trip/TripDetails/TripDetails",
 				maxEngineRpm: 0,
 				distanceTraveled: 0,
 				idleTime: 0,
-				status: ""
+                status: "",
+                startingPlaceName: "",
+                destinationNamePlace: ""
 			}
 		},	
 		props: {
@@ -49,18 +51,20 @@ define("Components/Trip/TripDetails/TripDetails",
 					self.update(data);
 				}.bind(this));
 			},
-			update: function (trip) {
-				this.name = trip.name;
-				this.carId = trip.carId;
-				this.startDate = moment(trip.startDate);
-				this.endDate = moment(trip.endDate);
-				this.averageSpeed = trip.averageSpeed;
-				this.maximumSpeed = trip.maximumSpeed;
-                this.averageEngineRpm = trip.averageEngineRpm;
-                this.maxEngineRpm = trip.maxEngineRpm;
-				this.distanceTraveled = trip.distanceTraveled;
-				this.idleTime = moment.duration(trip.idleTime);
-				this.status = trip.status;
+			update: function(trip) {
+		        this.name = trip.name;
+		        this.carId = trip.carId;
+		        this.startDate = moment(trip.startDate);
+		        this.endDate = moment(trip.endDate);
+		        this.averageSpeed = trip.averageSpeed;
+		        this.maximumSpeed = trip.maximumSpeed;
+		        this.averageEngineRpm = trip.averageEngineRpm;
+		        this.maxEngineRpm = trip.maxEngineRpm;
+		        this.distanceTraveled = trip.distanceTraveled;
+		        this.idleTime = moment.duration(trip.idleTime);
+		        this.status = trip.status;
+		        this.startingPlaceName = (trip.startingPlace || {}).name || "";
+			    this.destinationPlaceName = (trip.destinationPlace || {}).name || "";
 			},	
 			/** TODO: When saving probaly shouldn't save all of the data. especially the dates. could overwrite */
 			toTripObject: function () { 

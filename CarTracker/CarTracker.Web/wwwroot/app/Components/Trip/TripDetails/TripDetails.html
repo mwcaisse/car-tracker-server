@@ -71,12 +71,24 @@
 					<p class="form-control-plaintext"> {{ distanceTraveled | kmToMi | round(2) }} mi</p>
 				</div>
 			</div>
-			<div class="form-group row">
-				<label class="col-md-5 col-form-label">Idle Time</label>
-				<div class="col-md-7">
-					<p class="form-control-plaintext"> {{ idleTime | formatDuration }}</p>
-				</div>
-			</div>
+		    <div class="form-group row">
+		        <label class="col-md-5 col-form-label">Idle Time</label>
+		        <div class="col-md-7">
+		            <p class="form-control-plaintext"> {{ idleTime | formatDuration }}</p>
+		        </div>
+		    </div>
+		    <div class="form-group row" v-if="startingPlaceName.length > 0">
+		        <label class="col-md-5 col-form-label">Start</label>
+		        <div class="col-md-7">
+		            <p class="form-control-plaintext"> {{ startingPlaceName }}</p>
+		        </div>
+		    </div>
+		    <div class="form-group row" v-if="destinationPlaceName.length > 0">
+		        <label class="col-md-5 col-form-label">Destination</label>
+		        <div class="col-md-7">
+		            <p class="form-control-plaintext"> {{ destinationPlaceName }}</p>
+		        </div>
+		    </div>
 		</form>
 	</div>
 </div>

@@ -28,7 +28,9 @@ namespace CarTracker.Common.Mappers
                 IdleTime = trip.IdleTime,
                 StartPlaceId = trip.StartPlaceId,
                 DestinationPlaceId = trip.DestinationPlaceId,
-                Status = trip.Status
+                Status = trip.Status,
+                StartingPlace = trip.StartPlace.ToViewModel(),
+                DestinationPlace = trip.DestinationPlace.ToViewModel()
             };
 
             return vm;

@@ -12,6 +12,10 @@ namespace CarTracker.Common.Mappers
 
         public static PlaceViewModel ToViewModel(this Place place)
         {
+            if (null == place)
+            {
+                return null;
+            }
             var vm = new PlaceViewModel()
             {
                 Id = place.PlaceId,

@@ -35,5 +35,9 @@ namespace CarTracker.Common.ViewModels
         public long? DestinationPlaceId { get; set; }
 
         public TripStatus Status { get; set; }
+
+        public PlaceViewModel StartingPlace { get; set; }
+        
+        public PlaceViewModel DestinationPlace { get; set; }
     }
 }
