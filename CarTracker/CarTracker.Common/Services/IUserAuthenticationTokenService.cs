@@ -43,5 +43,12 @@ namespace CarTracker.Common.Services
         /// <returns></returns>
         string CreateToken(long userId, string deviceUuid);
 
+        /// <summary>
+        /// Updates the given User Authentication Token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        UserAuthenticationToken Update(UserAuthenticationToken token);
+
     }
 }

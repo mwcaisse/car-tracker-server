@@ -9,6 +9,7 @@ using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
 using CarTracker.Data.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarTracker.Logic.Services
 {
@@ -69,6 +70,13 @@ namespace CarTracker.Logic.Services
         private string CreateRandomTokenValue()
         {
             return Guid.NewGuid().ToString();
+        }
+
+        public UserAuthenticationToken Update(UserAuthenticationToken token)
+        {
+            _db.Entry(token).State = EntityState.Modified;
+            _db.SaveChanges();
+            return token;
         }
     }
 }

@@ -5,7 +5,9 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using CarTracker.Common.Auth;
+using CarTracker.Common.Models;
 using CarTracker.Common.Services;
+using CarTracker.Common.ViewModels.Auth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
@@ -15,20 +17,26 @@ namespace CarTracker.Web.Auth
     {
 
         private readonly IUserService _userService;
+        private readonly IUserAuthenticationTokenService _userAuthenticationTokenService;
         private readonly IPasswordHasher _passwordHasher;
         private readonly SessionTokenManager _sessionTokenManager;
+        private readonly IRequestInformation _requestInformation;
 
-        public UserAuthenticationManager(IUserService userService, IPasswordHasher passwordHasher,
-            SessionTokenManager sessionTokenManager)
+        public UserAuthenticationManager(IUserService userService, 
+            IUserAuthenticationTokenService userAuthenticationTokenService,
+            IPasswordHasher passwordHasher,
+            SessionTokenManager sessionTokenManager, 
+            IRequestInformation requestInformation)
         {
             this._userService = userService;
+            this._userAuthenticationTokenService = userAuthenticationTokenService;
             this._passwordHasher = passwordHasher;
             this._sessionTokenManager = sessionTokenManager;
+            this._requestInformation = requestInformation;
         }
 
         private bool LoginPassword(string username, string password)
         {
-            
             var user = _userService.Get(username);
             if (null != user)
             {
@@ -37,6 +45,30 @@ namespace CarTracker.Web.Auth
             //If no user with the given username exists, still run the password hasher 
             // to avoid timing attacks
             _passwordHasher.VerifyPassword("", password);
+            return false;
+        }
+
+        public bool LoginToken(string username, string deviceUuid, string token)
+        {
+            var user = _userService.Get(username);
+            if (null != user)
+            {
+                var authenticationTokens = 
+                    _userAuthenticationTokenService.GetActiveTokensForUserDevice(user.UserId, deviceUuid);
+
+                foreach (var authenticationToken in authenticationTokens)
+                {
+                    if (_passwordHasher.VerifyPassword(authenticationToken.Token, token))
+                    {
+                        authenticationToken.LastLogin = DateTime.Now;
+                        authenticationToken.LastLoginAddress = _requestInformation.ClientAddress;
+                        _userAuthenticationTokenService.Update(authenticationToken);
+                        return true;
+                    }
+                }
+            }
+            
+            _passwordHasher.VerifyPassword("", token);
             return false;
         }
 
@@ -56,6 +88,15 @@ namespace CarTracker.Web.Auth
                 return null;
             }
             //login was sucessful
+            return GetTokenForUser(username);
+        }
+
+        public ISessionToken LoginTokenForSessionToken(string username, string deviceUuid, string token)
+        {
+            if (!LoginToken(username, deviceUuid, token))
+            {
+                return null;
+            }
             return GetTokenForUser(username);
         }
 

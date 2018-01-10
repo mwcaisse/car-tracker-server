@@ -56,5 +56,19 @@ namespace CarTracker.Web.Controllers.Api
             return Ok(false);
         }
 
+        [HttpPost]
+        [Route("login/token")]
+        public IActionResult LoginToken([FromBody] AuthenticationTokenViewModel token)
+        {
+            var sessionToken = _authenticationManager.LoginTokenForSessionToken(token.Username, token.DeviceUuid,
+                token.AuthenticationToken);
+            if (null != sessionToken)
+            {
+                Response.Headers.Add(TokenAuthenticationOptions.SessionTokenHeader, sessionToken.Id);
+                return Ok(true);
+            }
+            return Ok(false);
+        }
+
     }
 }
