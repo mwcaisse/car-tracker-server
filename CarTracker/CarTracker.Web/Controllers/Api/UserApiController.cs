@@ -48,12 +48,7 @@ namespace CarTracker.Web.Controllers.Api
         public IActionResult LoginPassword([FromBody] AuthenticationUserViewModel user)
         {
             var sessionToken = _authenticationManager.LoginPasswordForSessionToken(user.Username, user.Password);
-            if (null != sessionToken)
-            {
-                Response.Headers.Add(TokenAuthenticationOptions.SessionTokenHeader, sessionToken.Id);
-                return Ok(true);
-            }
-            return Ok(false);
+            return Ok(HandleLoginResponse(sessionToken));
         }
 
         [HttpPost]
@@ -62,12 +57,17 @@ namespace CarTracker.Web.Controllers.Api
         {
             var sessionToken = _authenticationManager.LoginTokenForSessionToken(token.Username, token.DeviceUuid,
                 token.AuthenticationToken);
+            return Ok(HandleLoginResponse(sessionToken));
+        }
+
+        protected bool HandleLoginResponse(ISessionToken sessionToken)
+        {
             if (null != sessionToken)
             {
                 Response.Headers.Add(TokenAuthenticationOptions.SessionTokenHeader, sessionToken.Id);
-                return Ok(true);
+                return true;
             }
-            return Ok(false);
+            return false;
         }
 
     }
