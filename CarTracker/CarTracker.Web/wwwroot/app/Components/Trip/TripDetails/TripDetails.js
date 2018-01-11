@@ -20,7 +20,7 @@ define("Components/Trip/TripDetails/TripDetails",
 				idleTime: 0,
                 status: "",
                 startingPlaceName: "",
-                destinationNamePlace: ""
+				destinationPlaceName: ""
 			}
 		},	
 		props: {
