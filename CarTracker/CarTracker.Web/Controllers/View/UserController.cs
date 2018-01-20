@@ -73,8 +73,7 @@ namespace CarTracker.Web.Controllers.View
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return RedirectToAction("Login", new RouteValueDictionary(
-                new {action = "Login", source = SOURCE_LOGOUT }));
+            return Redirect(ApplicationConfiguration.PrefixUrl("/Login?source=" + SOURCE_LOGOUT));
         }
 
         [Route("user/tokens")]
