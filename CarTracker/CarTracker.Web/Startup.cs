@@ -35,7 +35,8 @@ namespace CarTracker.Web
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("dbConfig.json")
-                .AddJsonFile("apiKeys.json");
+                .AddJsonFile("apiKeys.json")
+                .AddJsonFile("deploymentConfiguration.json");
 
             Configuration = builder.Build();
         }
@@ -53,14 +54,22 @@ namespace CarTracker.Web
 
             //Load in some confiugration options
             var googleMapsApiKey = Configuration.GetValue<string>("googleMapsApiKey");
+            var rootPathPrefix = Configuration.GetValue<string>("rootPathPrefix", ""); ;
+
+            var applicationConfig = new ApplicationConfiguration()
+            {
+                GoogleMapsAPiKey = googleMapsApiKey,
+                RootPathPrefix = rootPathPrefix
+            };
+            services.AddSingleton(applicationConfig);
 
             //Authentication Services
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddTokenAuthentication(options => { })
                 .AddCookie(options =>
                 {
-                    options.LoginPath = "/login";
-                    options.LogoutPath = "/logout";
+                    options.LoginPath = applicationConfig.PrefixUrl("/login");
+                    options.LogoutPath = applicationConfig.PrefixUrl("/logout");
                     options.Events.OnRedirectToLogin = (context) =>
                     {
                         if (context.Request.Path.Value.Contains("/api/"))
@@ -92,11 +101,6 @@ namespace CarTracker.Web
 
             services.AddTransient<UserAuthenticationManager>();
             services.AddSingleton<SessionTokenManager>();
-
-            services.AddSingleton(s => new ApplicationConfiguration()
-            {
-                GoogleMapsAPiKey = googleMapsApiKey
-            });
 
             services.AddMvc().AddJsonOptions(options =>
                 {

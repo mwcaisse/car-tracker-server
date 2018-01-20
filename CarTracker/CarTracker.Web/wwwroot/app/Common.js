@@ -1,14 +1,15 @@
 "use strict";
 
 var googleMapsApiKey = $("#googleMapsApiKey").val();
+var rootPathPrefix = $("#rootPathPrefix").val();
 
 require.config({
 	
-	baseUrl: "/app/",	
+    baseUrl: rootPathPrefix + "/app/",	
 	paths: {
-		"q": "../lib/q/js/q",
-		"moment": "../lib/moment/js/moment",
-		"moment-duration-format": "../lib/moment-duration-format/js/moment-duration-format"
+        "q": rootPathPrefix + "/lib/q/js/q",
+        "moment": rootPathPrefix +"/lib/moment/js/moment",
+        "moment-duration-format": rootPathPrefix + "/lib/moment-duration-format/js/moment-duration-format"
 	},
 	googlemaps: {
 		params: {

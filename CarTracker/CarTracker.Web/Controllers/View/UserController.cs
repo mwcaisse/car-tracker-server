@@ -54,7 +54,7 @@ namespace CarTracker.Web.Controllers.View
                 await HttpContext.SignInAsync(principal);
 
                 //Redirect the user to the home page after login
-                return Redirect("/");
+                return Redirect(ApplicationConfiguration.PrefixUrl("/"));
             }
 
             //Login failed, redirect them to login page

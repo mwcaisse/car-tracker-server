@@ -5,8 +5,6 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
 	
 	var system = new (function() {
 		var self = this;
-
-		self.baseUrl = "/";	
 		
 		self.events = $({});
 		
@@ -22,6 +20,9 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
 		self.EVENT_ALERT_CLEAR = "alert:clear";
 		
         self.isAuthenticated = $("#isAuthenticated").val() === "true";	
+        self.rootPathPrefix = $("#rootPathPrefix").val();
+
+        self.baseUrl = self.rootPathPrefix + "/";	
 
         self.enums = enums;
         self.constants = constants;

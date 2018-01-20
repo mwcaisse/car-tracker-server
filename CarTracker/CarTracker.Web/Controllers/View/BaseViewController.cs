@@ -11,17 +11,18 @@ namespace CarTracker.Web.Controllers.View
     public class BaseViewController : Controller
     {
 
-        private readonly ApplicationConfiguration _applicationConfiguration;
+        protected readonly ApplicationConfiguration ApplicationConfiguration;
 
         public BaseViewController(ApplicationConfiguration applicationConfiguration)
         {
-            this._applicationConfiguration = applicationConfiguration;
+            this.ApplicationConfiguration = applicationConfiguration;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            ViewBag.GoogleMapsApiKey = _applicationConfiguration.GoogleMapsAPiKey;
+            ViewBag.GoogleMapsApiKey = ApplicationConfiguration.GoogleMapsAPiKey;
             ViewBag.IsAuthenticated = IsAuthenticated();
+            ViewBag.RootPathPrefix = ApplicationConfiguration.RootPathPrefix;
         }
 
         protected bool IsAuthenticated()
