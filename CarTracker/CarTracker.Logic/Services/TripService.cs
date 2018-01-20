@@ -8,6 +8,7 @@ using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
 using CarTracker.Data.Extensions;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarTracker.Logic.Services
 {
@@ -25,7 +26,9 @@ namespace CarTracker.Logic.Services
 
         public Trip Get(long id)
         {
-            return _db.Trips.FirstOrDefault(x => x.TripId == id);
+            return _db.Trips.Include(t => t.StartPlace)
+                            .Include(t => t.DestinationPlace)
+                            .FirstOrDefault(x => x.TripId == id);
         }
 
         public PagedViewModel<Trip> GetForCar(long carId, int skip, int take, SortParam sort)
