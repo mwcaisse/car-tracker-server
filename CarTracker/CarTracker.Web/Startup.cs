@@ -84,6 +84,9 @@ namespace CarTracker.Web
                     };
                 });
 
+            //Add HttpContextAccessor as a Service
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             // Add our Services
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ITripService, TripService>();
