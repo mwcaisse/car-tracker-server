@@ -15,7 +15,7 @@
             @if (ViewBag.IsError)
             {
                 <!-- If there was an error logging in, show an error alert -->
-                <div th:if="${param.error}" class="alert alert-danger">
+                <div class="alert alert-danger">
                     Invalid username and/or password.
                 </div>
             }
@@ -23,7 +23,7 @@
             @if (ViewBag.IsLogout)
             {
                 <!-- Show a message if you have been logged out -->
-                <div th:if="${param.logout}" class="alert alert-success">
+                <div class="alert alert-success">
                     You have been logged out!
                 </div>
             }
@@ -31,7 +31,7 @@
             @if (ViewBag.IsRegistered)
             {
                 <!-- Show a message if you have registered successfully -->
-                <div th:if="${param.registered}" class="alert alert-success">
+                <div class="alert alert-success">
                     Registered Successfully! You can now log in!
                 </div>
             }
@@ -61,7 +61,7 @@
 
     <div style="padding-top: 15px"></div>
     <div id="divRegisterInfo" class="alert alert-info">
-        Don't have an account? <a href="/register">Register</a>
+        Don't have an account? <a href="@rootPathPrefix/register">Register</a>
     </div>
 
 </div>

@@ -1,12 +1,13 @@
 "use strict";
 
 define("Views/Navigation/Navigation", 
-		["Service/navigation", 
-		 "Components/Navigation/NavigationLink/NavigationLink",
-		 "Service/applicationProxy",
-		 "AMD/text!Views/Navigation/Navigation.html"], 
+    ["Service/system",
+     "Service/navigation", 
+	 "Components/Navigation/NavigationLink/NavigationLink",
+	 "Service/applicationProxy",
+	 "AMD/text!Views/Navigation/Navigation.html"], 
 		
-		function(navigation, navLink, proxy, template) {
+		function(system, navigation, navLink, proxy, template) {
 			
 			var isAuthenticated = $("#isAuthenticated").val() === "true";
 	
@@ -17,7 +18,8 @@ define("Views/Navigation/Navigation",
 					data: {
 						navigationLinks: [],
 						rightNavigationLinks: [],
-						currentUserName: "User"
+                        currentUserName: "User",
+                        homeUrl: system.baseUrl
 					},
 					methods: {
 						initalizeLinks: function () {
