@@ -1,11 +1,13 @@
 ﻿
 @{
     ViewData["Title"] = "Login";
+
+    var rootPathPrefix = ViewBag.RootPathPrefix;
 }
 
 <div class="container" style="width:500px">
 
-    <form name="f" action="/login" method="post">
+    <form name="f" action="@rootPathPrefix/login" method="post">
         <fieldset>
 
             <legend>Please Login</legend>
