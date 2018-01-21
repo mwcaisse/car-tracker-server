@@ -46,13 +46,13 @@ namespace CarTracker.Web.Controllers.Api
         }
 
         [HttpPost("{carId:int}/supported-commands")]
-        public IActionResult CreateOrUpdateByCarId(long carId, CarSupportedCommands model)
+        public IActionResult CreateOrUpdateByCarId(long carId, [FromBody] CarSupportedCommands model)
         {
             return Ok(_carSupportedCommandsService.CreateOrUpdate(carId, model).ToViewModel());
         }
 
         [HttpPost("{vin}/supported-commands")]
-        public IActionResult CreateOrUpdateByVin(string vin, CarSupportedCommands model)
+        public IActionResult CreateOrUpdateByVin(string vin, [FromBody] CarSupportedCommands model)
         {
             return Ok(_carSupportedCommandsService.CreateOrUpdate(vin, model).ToViewModel());
         }

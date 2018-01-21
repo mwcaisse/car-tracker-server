@@ -41,14 +41,14 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(UserRegistrationKeyViewModel toCreate)
+        public IActionResult Create([FromBody] UserRegistrationKeyViewModel toCreate)
         {
             return Ok(_registrationKeyService.Create(toCreate).ToViewModel());
         }
 
         [HttpPut]
         [Route("")]
-        public IActionResult Update(UserRegistrationKeyViewModel toUpdate)
+        public IActionResult Update([FromBody] UserRegistrationKeyViewModel toUpdate)
         {
             return Ok(_registrationKeyService.Update(toUpdate).ToViewModel());
         }

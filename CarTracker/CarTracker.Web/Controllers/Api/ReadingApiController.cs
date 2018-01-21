@@ -42,7 +42,7 @@ namespace CarTracker.Web.Controllers.Api
         [Route("car/{carId}/trip/{tripId}/reading/bulk")]
         [Route("trip/{tripId}/reading/bulk")]
         public IActionResult BulkUpload(long tripId,
-            IEnumerable<BulkUploadViewModel<ReadingViewModel>> readings)
+            [FromBody] IEnumerable<BulkUploadViewModel<ReadingViewModel>> readings)
         {
             return Ok(_readingService.BulkUpload(tripId, readings));
         }

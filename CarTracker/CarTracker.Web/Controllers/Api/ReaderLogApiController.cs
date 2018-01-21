@@ -43,21 +43,21 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(ReaderLogViewModel readerLog)
+        public IActionResult Create([FromBody] ReaderLogViewModel readerLog)
         {
             return Ok(_readerLogService.Create(readerLog));
         }
 
         [HttpPut]
         [Route("")]
-        public IActionResult Update(ReaderLogViewModel readerLog)
+        public IActionResult Update([FromBody] ReaderLogViewModel readerLog)
         {
             return Ok(_readerLogService.Update(readerLog));
         }
 
         [HttpPost]
         [Route("bulk")]
-        public IActionResult BulkUpload(
+        public IActionResult BulkUpload([FromBody]
             IEnumerable<BulkUploadViewModel<ReaderLogViewModel>> readerLogs)
         {
             return Ok(_readerLogService.BulkUpload(readerLogs));            

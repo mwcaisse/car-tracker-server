@@ -65,14 +65,14 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(CarViewModel car)
+        public IActionResult Create([FromBody] CarViewModel car)
         {
             return Ok(_carService.Create(car).ToViewModel());
         }
 
         [HttpPut]
         [Route("")]
-        public IActionResult Update(CarViewModel car)
+        public IActionResult Update([FromBody] CarViewModel car)
         {
             return Ok(_carService.Update(car).ToViewModel());
         }
