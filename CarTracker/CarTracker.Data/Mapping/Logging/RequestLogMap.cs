@@ -40,12 +40,18 @@ namespace CarTracker.Data.Mapping.Logging
                 .HasColumnName("REQUEST_METHOD")
                 .HasMaxLength(50);
 
+            builder.Property(r => r.RequestHeaders)
+                .HasColumnName("REQUEST_HEADERS");
+
             builder.Property(r => r.RequestBody)
                 .HasColumnName("REQUEST_BODY");
 
             builder.Property(r => r.ResponseStatus)
                 .HasColumnName("RESPONSE_STATUS")
                 .HasMaxLength(10);
+
+            builder.Property(r => r.ResponseHeaders)
+                .HasColumnName("RESPONSE_HEADERS");
 
             builder.Property(r => r.ResponseBody)
                 .HasColumnName("RESPONSE_BODY");

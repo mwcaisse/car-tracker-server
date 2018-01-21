@@ -140,22 +140,7 @@ namespace CarTracker.Web
 
             app.UseAuthentication();
 
-            //Middleware to use the Session Token Header authentication scheme, if it's header is present
-            //  otherwise we use Cookie Authentication Scheme
-            app.Use(async (context, next) =>
-            {
-                var scheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                if (TokenAuthenticationOptions.IsRequestCanidate(context))
-                {
-                    scheme = TokenAuthenticationOptions.AuthenticationScheme;
-                }
-                var result = await context.AuthenticateAsync(scheme);
-                if (result.Succeeded)
-                {
-                    context.User = result.Principal;
-                }
-                await next();
-            });
+            app.UseTokenAuthentication();
 
             app.UseMvc(routes =>
             {

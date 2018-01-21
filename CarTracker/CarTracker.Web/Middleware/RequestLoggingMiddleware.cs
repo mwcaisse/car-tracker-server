@@ -53,8 +53,10 @@ namespace CarTracker.Web.Middleware
                clientAddress: context.Connection.RemoteIpAddress.ToString(),
                requestUrl: context.Request.GetDisplayUrl(),
                requestMethod: context.Request.Method,
+               requestHeaders: context.Request.Headers,
                requestBody: requestBody,
                responseStatus: context.Response.StatusCode.ToString(),
+               responseHeaders: context.Response.Headers,
                responseBody: responseBody);
         }
 

@@ -14,8 +14,10 @@ namespace CarTracker.Common.Entities.Logging
         public string ClientAddress { get; set; }
         public string RequestUrl { get; set; }
         public string RequestMethod { get; set; }
+        public string RequestHeaders { get; set; }
         public string RequestBody { get; set; }
         public string ResponseStatus { get; set; }
+        public string ResponseHeaders { get; set; }
         public string ResponseBody { get; set; }
 
         public DateTime CreateDate { get; set; }
