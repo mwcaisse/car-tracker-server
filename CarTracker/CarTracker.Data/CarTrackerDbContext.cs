@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities;
 using CarTracker.Common.Entities.Auth;
+using CarTracker.Common.Entities.Logging;
 using CarTracker.Data.Mapping;
 using CarTracker.Data.Mapping.Auth;
+using CarTracker.Data.Mapping.Logging;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarTracker.Data
@@ -34,6 +36,10 @@ namespace CarTracker.Data
 
         public DbSet<TripPossiblePlace> TripPossiblePlaces { get; set; }
 
+        public DbSet<RequestLog> RequestLogs { get; set; }
+        
+        public DbSet<ServerLog> ServerLogs { get; set; }
+
         public CarTrackerDbContext(DbContextOptions<CarTrackerDbContext> options) : base(options)
         {
             
@@ -53,6 +59,9 @@ namespace CarTracker.Data
             modelBuilder.ApplyConfiguration(new ReadingMap());
             modelBuilder.ApplyConfiguration(new TripMap());
             modelBuilder.ApplyConfiguration(new TripPossiblePlaceMap());
+
+            modelBuilder.ApplyConfiguration(new RequestLogMap());
+            modelBuilder.ApplyConfiguration(new ServerLogMap());
 
         }
 
