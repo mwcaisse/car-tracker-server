@@ -50,5 +50,12 @@ namespace CarTracker.Common.Services
         /// <returns></returns>
         UserAuthenticationToken Update(UserAuthenticationToken token);
 
+        /// <summary>
+        /// Records a log in using the given authentication token
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        UserAuthenticationToken RecordUserLogin(UserAuthenticationToken token);
+
     }
 }

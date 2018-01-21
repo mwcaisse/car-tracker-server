@@ -60,9 +60,7 @@ namespace CarTracker.Web.Auth
                 {
                     if (_passwordHasher.VerifyPassword(authenticationToken.Token, token))
                     {
-                        authenticationToken.LastLogin = DateTime.Now;
-                        authenticationToken.LastLoginAddress = _requestInformation.ClientAddress;
-                        _userAuthenticationTokenService.Update(authenticationToken);
+                        _userAuthenticationTokenService.RecordUserLogin(authenticationToken);
                         return true;
                     }
                 }

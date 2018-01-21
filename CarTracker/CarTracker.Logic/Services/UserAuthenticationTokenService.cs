@@ -5,6 +5,7 @@ using System.Text;
 using CarTracker.Common.Auth;
 using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.Exceptions;
+using CarTracker.Common.Models;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
@@ -18,11 +19,14 @@ namespace CarTracker.Logic.Services
 
         private readonly CarTrackerDbContext _db;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IRequestInformation _requestInformation;
 
-        public UserAuthenticationTokenService(CarTrackerDbContext db, IPasswordHasher passwordHasher)
+        public UserAuthenticationTokenService(CarTrackerDbContext db, IPasswordHasher passwordHasher, 
+            IRequestInformation requestInformation)
         {
             this._db = db;
             this._passwordHasher = passwordHasher;
+            this._requestInformation = requestInformation;
         }
 
         public UserAuthenticationToken Get(long id)
@@ -77,9 +81,34 @@ namespace CarTracker.Logic.Services
             return Guid.NewGuid().ToString();
         }
 
+        public UserAuthenticationToken RecordUserLogin(UserAuthenticationToken token)
+        {
+            var toUpdate = _db.UserAuthenticationTokens
+                .FirstOrDefault(t => t.UserAuthenticationTokenId == token.UserAuthenticationTokenId);
+            if (null == toUpdate)
+            {
+                throw new EntityValidationException("No User Authentication Token with the given id eixsts.");
+            }
+
+            toUpdate.LastLogin = DateTime.Now;
+            toUpdate.LastLoginAddress = _requestInformation.ClientAddress;
+
+            _db.SaveChanges();
+
+            return toUpdate;
+        }
+
         public UserAuthenticationToken Update(UserAuthenticationToken token)
         {
-            _db.Entry(token).State = EntityState.Modified;
+            var toUpdate = _db.UserAuthenticationTokens
+                .FirstOrDefault(t => t.UserAuthenticationTokenId == token.UserAuthenticationTokenId);
+            if (null == toUpdate)
+            {
+                throw new EntityValidationException("No User Authentication Token with the given id eixsts.");
+            }
+
+            toUpdate.Active = token.Active;
+
             _db.SaveChanges();
             return token;
         }
