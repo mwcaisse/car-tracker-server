@@ -2,6 +2,7 @@
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels.Auth;
 using CarTracker.Web.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTracker.Web.Controllers.Api
@@ -37,6 +38,7 @@ namespace CarTracker.Web.Controllers.Api
         }
 
         [HttpGet]
+        [Authorize]
         [Route("me")]
         public IActionResult GetCurrentUser()
         {

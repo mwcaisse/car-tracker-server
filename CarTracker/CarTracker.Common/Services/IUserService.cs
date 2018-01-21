@@ -33,14 +33,5 @@ namespace CarTracker.Common.Services
         /// <param name="username">The username to check</param>
         /// <returns>True if the usename is available, false otherwise</returns>
         bool IsUsernameAvailable(string username);
-
-        /// <summary>
-        ///  Creates an Authentication Token for the given user and device
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="deviceUuid"></param>
-        /// <returns></returns>
-        UserAuthenticationToken CreateAuthenticationToken(long userId, string deviceUuid);
-
     }
 }

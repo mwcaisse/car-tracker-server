@@ -53,6 +53,10 @@ namespace CarTracker.Logic.Services
             {
                 throw new EntityValidationException("Cannot create Authentication Token. User does not exist.");
             }
+            if (string.IsNullOrWhiteSpace(deviceUuid))
+            {
+                throw new EntityValidationException("Cannot create Authentication Token. DeviceUuid cannot be null.");
+            }
 
             var token = CreateRandomTokenValue();
             var authToken = new UserAuthenticationToken()
@@ -63,6 +67,7 @@ namespace CarTracker.Logic.Services
                 Token = _passwordHasher.HashPassword(token)
             };
             _db.UserAuthenticationTokens.Add(authToken);
+            _db.SaveChanges();
 
             return token;
         }

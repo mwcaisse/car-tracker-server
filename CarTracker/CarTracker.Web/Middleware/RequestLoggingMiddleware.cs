@@ -24,13 +24,38 @@ namespace CarTracker.Web.Middleware
 
         public async Task Invoke(HttpContext context, IRequestLogger requestLogger)
         {
+            var requestBody = ReadRequestBody(context);
+            var bodyStream = context.Response.Body;
+
+            var responseBodyStream = new MemoryStream();
+            context.Response.Body = responseBodyStream;
+
+            try
+            {
+                await _next(context);
+            }
+            finally
+            {
+                responseBodyStream.Seek(0, SeekOrigin.Begin);
+                var responseBody = new StreamReader(responseBodyStream).ReadToEnd();
+
+                CreateLog(context, requestLogger, requestBody, responseBody);
+              
+                responseBodyStream.Seek(0, SeekOrigin.Begin);
+                await responseBodyStream.CopyToAsync(bodyStream);
+            }
+        }
+
+        protected void CreateLog(HttpContext context, IRequestLogger requestLogger, string requestBody, 
+            string responseBody)
+        {
             requestLogger.LogRequest(
-                clientAddress: context.Connection.RemoteIpAddress.ToString(),
-                requestUrl: context.Request.GetDisplayUrl(),
-                requestMethod: context.Request.Method,
-                requestBody: ReadRequestBody(context),
-                responseStatus: context.Response.StatusCode.ToString(),
-                responseBody: await ReadResponseBody(context));
+               clientAddress: context.Connection.RemoteIpAddress.ToString(),
+               requestUrl: context.Request.GetDisplayUrl(),
+               requestMethod: context.Request.Method,
+               requestBody: requestBody,
+               responseStatus: context.Response.StatusCode.ToString(),
+               responseBody: responseBody);
         }
 
         protected string ReadRequestBody(HttpContext context)
@@ -40,32 +65,6 @@ namespace CarTracker.Web.Middleware
             //Move the stream back to the begining
             context.Request.Body.Position = 0;
             return body;
-        }
-
-        protected async Task<string> ReadResponseBody(HttpContext context)
-        {
-            var originalBody = context.Response.Body;
-            var responseBody = "";
-            try
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    context.Response.Body = memStream;
-                    await _next(context);
-
-                    memStream.Position = 0;
-                    responseBody = new StreamReader(memStream).ReadToEnd();
-
-                    memStream.Position = 0;
-                    await memStream.CopyToAsync(originalBody);
-                }
-            }
-            finally
-            {
-                context.Response.Body = originalBody;
-            }
-
-            return responseBody;
         }
 
     }

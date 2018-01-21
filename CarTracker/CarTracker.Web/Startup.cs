@@ -65,6 +65,7 @@ namespace CarTracker.Web
             services.AddSingleton(applicationConfig);
 
             //Authentication Services
+            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddTokenAuthentication(options => { })
                 .AddCookie(options =>
@@ -122,6 +123,11 @@ namespace CarTracker.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseStaticFiles();
+
+            // Put this after Use Static Files so we don't log the request for static files / resources
+            app.UseRequestLoggingMiddleware();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -131,13 +137,6 @@ namespace CarTracker.Web
             {
                 app.UseExceptionHandler("/Error");
             }
-
-            app.UseStaticFiles();
-
-            app.UseForwardedHeaders(new ForwardedHeadersOptions()
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
 
             app.UseAuthentication();
 
@@ -158,14 +157,13 @@ namespace CarTracker.Web
                 await next();
             });
 
-            app.UseRequestLoggingMiddleware();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
         }
     }
 }

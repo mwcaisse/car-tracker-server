@@ -71,11 +71,6 @@ namespace CarTracker.Logic.Services
             return ! _db.Users.Any(x => x.Username == username);
         }
 
-        public UserAuthenticationToken CreateAuthenticationToken(long userId, string deviceUuid)
-        {
-            throw new NotImplementedException();
-        }
-
         protected void ValidateRegistration(UserRegistrationViewModel registration)
         {
             if (string.IsNullOrWhiteSpace(registration.Username))
