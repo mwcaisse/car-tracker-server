@@ -36,6 +36,10 @@ namespace CarTracker.Data.Mapping.Logging
                 .HasColumnName("REQUEST_URL")
                 .HasMaxLength(255);
 
+            builder.Property(r => r.RequestMethod)
+                .HasColumnName("REQUEST_METHOD")
+                .HasMaxLength(50);
+
             builder.Property(r => r.RequestBody)
                 .HasColumnName("REQUEST_BODY");
 

@@ -13,6 +13,7 @@ namespace CarTracker.Common.Entities.Logging
         public LogType Type { get; set; }
         public string ClientAddress { get; set; }
         public string RequestUrl { get; set; }
+        public string RequestMethod { get; set; }
         public string RequestBody { get; set; }
         public string ResponseStatus { get; set; }
         public string ResponseBody { get; set; }

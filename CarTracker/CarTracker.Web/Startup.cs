@@ -12,6 +12,7 @@ using CarTracker.Data;
 using CarTracker.Logic.Services;
 using CarTracker.Web.Auth;
 using CarTracker.Web.Configuration;
+using CarTracker.Web.Middleware;
 using CarTracker.Web.Model;
 using CarTracker.Web.Util;
 using Microsoft.AspNetCore.Authentication;
@@ -102,6 +103,8 @@ namespace CarTracker.Web
             services.AddTransient<IUserAuthenticationTokenService, UserAuthenticationTokenService>();
             services.AddTransient<IPasswordHasher, ArgonPasswordHasher>();
 
+            services.AddScoped<IRequestLogger, RequestLogger>();
+
             services.AddTransient<UserAuthenticationManager>();
             services.AddSingleton<SessionTokenManager>();
 
@@ -154,6 +157,8 @@ namespace CarTracker.Web
                 }
                 await next();
             });
+
+            app.UseRequestLoggingMiddleware();
 
             app.UseMvc(routes =>
             {
