@@ -17,7 +17,7 @@ namespace CarTracker.Web.Util
         public override DateTime ReadJson(JsonReader reader, Type objectType, DateTime existingValue, bool hasExistingValue,
             JsonSerializer serializer)
         {
-            long milliseconds = Convert.ToInt64(reader.ReadAsString());
+            long milliseconds = Convert.ToInt64(reader.Value.ToString());
             return DateTimeOffset.FromUnixTimeMilliseconds(milliseconds).DateTime;
         }
     }
