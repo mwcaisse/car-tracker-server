@@ -104,7 +104,8 @@ namespace CarTracker.Web
             services.AddTransient<IUserAuthenticationTokenService, UserAuthenticationTokenService>();
             services.AddTransient<IPasswordHasher, ArgonPasswordHasher>();
 
-            services.AddScoped<IRequestLogger, RequestLogger>();
+            services.AddScoped<IRequestLogger, Logger>();
+            services.AddScoped<IServerLogger, Logger>();
 
             services.AddTransient<UserAuthenticationManager>();
             services.AddSingleton<SessionTokenManager>();

@@ -30,6 +30,12 @@ namespace CarTracker.Data.Mapping.Logging
             builder.Property(s => s.Message)
                 .HasColumnName("MESSAGE");
 
+            builder.Property(s => s.ExceptionMessage)
+                .HasColumnName("EXCEPTION_MESSAGE");
+
+            builder.Property(s => s.StackTrace)
+                .HasColumnName("STACK_TRACE");
+
         }
     }
 }

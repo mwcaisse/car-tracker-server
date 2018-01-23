@@ -11,6 +11,8 @@ namespace CarTracker.Common.Entities.Logging
         public Guid RequestUuid { get; set; }
         public LogType Type { get; set; }
         public string Message { get; set; }
+        public string ExceptionMessage { get; set; }
+        public string StackTrace { get; set; }
 
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
