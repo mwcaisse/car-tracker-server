@@ -18,7 +18,7 @@ namespace CarTracker.Web.Util
             JsonSerializer serializer)
         {
             long milliseconds = Convert.ToInt64(reader.Value.ToString());
-            return DateTimeOffset.FromUnixTimeMilliseconds(milliseconds).DateTime;
+            return DateTimeOffset.FromUnixTimeMilliseconds(milliseconds).DateTime.ToLocalTime();
         }
     }
     
