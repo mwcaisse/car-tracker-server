@@ -41,7 +41,7 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpPost]
         [Route("car/{carId}/trip/")]
-        public IActionResult Create(long carId, [FromBody] TripViewModel trip)
+        public IActionResult Create(long carId, [FromBody]TripViewModel trip)
         {
             return Ok(_tripService.Create(carId, trip).ToViewModel());
         }

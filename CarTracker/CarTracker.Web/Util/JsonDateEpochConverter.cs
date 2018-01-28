@@ -6,20 +6,37 @@ using Newtonsoft.Json;
 
 namespace CarTracker.Web.Util
 {
-    public class JsonDateEpochConverter : JsonConverter<DateTime>
+    public class JsonDateEpochConverter : JsonConverter
     {
-        public override void WriteJson(JsonWriter writer, DateTime value, JsonSerializer serializer)
+
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            long milliseconds = new DateTimeOffset(value.ToUniversalTime()).ToUnixTimeMilliseconds();
-            writer.WriteRawValue(milliseconds.ToString());
+            var date = value as DateTime?;
+            if (date.HasValue)
+            {
+                long milliseconds = new DateTimeOffset(date.Value.ToUniversalTime()).ToUnixTimeMilliseconds();
+                writer.WriteRawValue(milliseconds.ToString());
+            }
+            else
+            {
+                writer.WriteNull();
+            }
         }
 
-        public override DateTime ReadJson(JsonReader reader, Type objectType, DateTime existingValue, bool hasExistingValue,
-            JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            long milliseconds = Convert.ToInt64(reader.Value.ToString());
+            var stringVal = reader.Value.ToString();
+            if (string.IsNullOrWhiteSpace(stringVal))
+            {
+                return null;
+            }
+            long milliseconds = Convert.ToInt64(stringVal);
             return DateTimeOffset.FromUnixTimeMilliseconds(milliseconds).DateTime.ToLocalTime();
         }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(DateTime) || objectType == typeof(DateTime?);
+        }
     }
-    
 }

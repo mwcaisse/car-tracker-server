@@ -119,7 +119,7 @@ namespace CarTracker.Web
                 {
                     options.SerializerSettings.Converters.Add(new JsonDateEpochConverter());
                     options.SerializerSettings.Converters.Add(new JsonUserConverter());
-                    options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error; // Throw errors when a member is missing during deserialization
+                    // options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Error; // Throw errors when a member is missing during deserialization
                 }
             );
 
