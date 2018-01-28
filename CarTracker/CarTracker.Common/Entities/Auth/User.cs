@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CarTracker.Common.Entities.Logging;
 
 namespace CarTracker.Common.Entities.Auth
 {
@@ -23,6 +24,7 @@ namespace CarTracker.Common.Entities.Auth
         public virtual ICollection<Car> Cars { get; set; }
         public virtual ICollection<UserAuthenticationToken> UserAuthenticationTokens { get; set; }
         public virtual ICollection<UserRegistrationKeyUse> UserRegistrationKeyUses { get; set; }
+        public virtual ICollection<RequestLog>RequestLogs { get; set; }
         
     }
 }

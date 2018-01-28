@@ -55,6 +55,13 @@ namespace CarTracker.Data.Mapping.Logging
 
             builder.Property(r => r.ResponseBody)
                 .HasColumnName("RESPONSE_BODY");
+
+            builder.Property(r => r.UserId)
+                .HasColumnName("USER_ID");
+
+            builder.HasOne(r => r.User)
+                .WithMany(u => u.RequestLogs)
+                .HasForeignKey(r => r.UserId);
         }
 
     }

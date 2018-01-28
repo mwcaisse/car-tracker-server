@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.Enums;
 
 namespace CarTracker.Common.Entities.Logging
@@ -19,8 +20,11 @@ namespace CarTracker.Common.Entities.Logging
         public string ResponseStatus { get; set; }
         public string ResponseHeaders { get; set; }
         public string ResponseBody { get; set; }
+        public long? UserId { get; set; }
 
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

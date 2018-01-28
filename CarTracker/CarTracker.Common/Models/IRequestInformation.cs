@@ -8,7 +8,7 @@ namespace CarTracker.Common.Models
     {
 
         bool IsAuthenticated { get; }
-        long UserId { get; }
+        long? UserId { get; }
         string Username { get; }
         string ClientAddress { get; }
 

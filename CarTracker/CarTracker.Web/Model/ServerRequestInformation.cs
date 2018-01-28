@@ -15,7 +15,7 @@ namespace CarTracker.Web.Model
 
         public bool IsAuthenticated => _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
 
-        public long UserId
+        public long? UserId
         {
             get
             {
@@ -26,7 +26,14 @@ namespace CarTracker.Web.Model
                         var userIdClaim = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid);
                         _userId = Convert.ToInt64(userIdClaim.Value);
                     }
-                    _userId = 0;
+                    else
+                    {
+                        _userId = -1;
+                    }
+                }
+                if (_userId.Value < 0)
+                {
+                    return null;
                 }
                 return _userId.Value;
             }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities.Logging;
 using CarTracker.Common.Enums;
+using CarTracker.Common.Models;
 using CarTracker.Common.Services;
 using CarTracker.Data;
 using Newtonsoft.Json;
@@ -14,11 +15,13 @@ namespace CarTracker.Logic.Services
     {
 
         private readonly CarTrackerDbContext _db;
+        private readonly IRequestInformation _requestInformation;
         private readonly Guid _eventGuid;
 
-        public Logger(CarTrackerDbContext db)
+        public Logger(CarTrackerDbContext db, IRequestInformation requestInformation)
         {
             _db = db;
+            _requestInformation = requestInformation;
             _eventGuid = Guid.NewGuid();
         }
 
@@ -37,7 +40,8 @@ namespace CarTracker.Logic.Services
                 ResponseHeaders = JsonConvert.SerializeObject(responseHeaders),
                 ResponseBody = responseBody,
                 Type = LogType.Debug,
-                RequestUuid = _eventGuid
+                RequestUuid = _eventGuid,
+                UserId = _requestInformation.UserId
             };
             _db.RequestLogs.Add(requestLog);
             _db.SaveChanges();

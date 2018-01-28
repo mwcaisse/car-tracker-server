@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using CarTracker.Common.Entities;
 using CarTracker.Common.Exceptions;
+using CarTracker.Common.Models;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
@@ -15,10 +16,12 @@ namespace CarTracker.Logic.Services
     {
 
         private readonly CarTrackerDbContext _db;
+        private readonly IRequestInformation _requestInformation;
 
-        public CarService(CarTrackerDbContext db)
+        public CarService(CarTrackerDbContext db, IRequestInformation requestInformation)
         {
             this._db = db;
+            _requestInformation = requestInformation;
         }
 
         /// <summary>
@@ -81,7 +84,8 @@ namespace CarTracker.Logic.Services
                 Vin = toCreate.Vin,
                 Name = toCreate.Name,
                 Mileage = toCreate.Mileage,
-                MileageLastUserSet = DateTime.Now
+                MileageLastUserSet = DateTime.Now,
+                OwnerId = _requestInformation.UserId
             };
 
             _db.Cars.Add(car);

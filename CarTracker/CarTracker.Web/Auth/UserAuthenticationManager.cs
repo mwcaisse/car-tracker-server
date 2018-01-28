@@ -20,19 +20,16 @@ namespace CarTracker.Web.Auth
         private readonly IUserAuthenticationTokenService _userAuthenticationTokenService;
         private readonly IPasswordHasher _passwordHasher;
         private readonly SessionTokenManager _sessionTokenManager;
-        private readonly IRequestInformation _requestInformation;
 
         public UserAuthenticationManager(IUserService userService, 
             IUserAuthenticationTokenService userAuthenticationTokenService,
             IPasswordHasher passwordHasher,
-            SessionTokenManager sessionTokenManager, 
-            IRequestInformation requestInformation)
+            SessionTokenManager sessionTokenManager)
         {
             this._userService = userService;
             this._userAuthenticationTokenService = userAuthenticationTokenService;
             this._passwordHasher = passwordHasher;
             this._sessionTokenManager = sessionTokenManager;
-            this._requestInformation = requestInformation;
         }
 
         private bool LoginPassword(string username, string password)
