@@ -17,8 +17,6 @@ def runGitCommand(String command) {
   return proc.text.trim();
 }
 
-def env = System.getenv();
-
 def buildInfo = new BuildInformation()
 // Define the properies
 buildInfo.buildDate = new Date().getTime();
