@@ -11,7 +11,9 @@ namespace CarTracker.Web.Controllers.View
     [Authorize]
     public class HomeController : BaseViewController
     {
-        public HomeController(ApplicationConfiguration applicationConfiguration) : base(applicationConfiguration)
+        public HomeController(ApplicationConfiguration applicationConfiguration,
+            BuildInformation buildInformation)
+            : base(applicationConfiguration, buildInformation)
         {
         }
 

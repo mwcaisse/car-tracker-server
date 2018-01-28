@@ -12,8 +12,9 @@ namespace CarTracker.Web.Controllers.View
     [Route("admin")]
     public class AdminController : BaseViewController
     {
-        public AdminController(ApplicationConfiguration applicationConfiguration) 
-            : base(applicationConfiguration)
+        public AdminController(ApplicationConfiguration applicationConfiguration, 
+            BuildInformation buildInformation) 
+            : base(applicationConfiguration, buildInformation)
         {
         }
     

@@ -1,10 +1,22 @@
-﻿<nav class="navbar fixed-bottom navbar-light bg-light">
+﻿@{
+    var buildInformation = ViewBag.BuildInformation;
+
+    long buildDateMilli = buildInformation.BuildDate;
+    var buildDate = DateTimeOffset.FromUnixTimeMilliseconds(buildDateMilli)
+        .DateTime.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss");
+
+    var gitUrl = "https://github.com/mwcaisse/car-tracker-server/commit/" + buildInformation.GitLongHash;
+    var gitInformation = $"{buildInformation.GitBranch} {buildInformation.GitShortHash}";
+    var buildNumber = buildInformation.BuildNumber;
+    
+}
+<nav class="navbar fixed-bottom navbar-light bg-light">
 
     <div class="ml-auto" style="padding-right:15px">
-        <div class="text-right">Version</div>
-        <div class="text-right">Build Date</div>
+        <div class="text-right">0.1.0.@buildNumber</div>
+        <div class="text-right">@buildDate</div>
         <div class="text-right">
-            <a>Git Info</a>
+            <a href="@gitUrl">@gitInformation</a>
         </div>
     </div>
 

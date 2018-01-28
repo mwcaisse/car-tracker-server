@@ -23,8 +23,9 @@ namespace CarTracker.Web.Controllers.View
         private readonly UserAuthenticationManager _authenticationManager;
 
         public UserController(ApplicationConfiguration applicationConfiguration,
+            BuildInformation buildInformation,
             UserAuthenticationManager authenticationManager) : 
-            base(applicationConfiguration)
+            base(applicationConfiguration, buildInformation)
         {
             this._authenticationManager = authenticationManager;
         }

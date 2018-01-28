@@ -41,6 +41,7 @@ data-source.xml
 authentication.json
 dbConfig.json
 apiKeys.json
+buildInformation.json
 
 # Misc stuff #
 ##############

@@ -11,7 +11,9 @@ namespace CarTracker.Web.Controllers.View
     [Authorize]
     public class LogController : BaseViewController
     {
-        public LogController(ApplicationConfiguration applicationConfiguration) : base(applicationConfiguration)
+        public LogController(ApplicationConfiguration applicationConfiguration,
+            BuildInformation buildInformation)
+            : base(applicationConfiguration, buildInformation)
         {
         }
 

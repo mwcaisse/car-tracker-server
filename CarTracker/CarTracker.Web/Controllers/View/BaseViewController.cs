@@ -12,10 +12,13 @@ namespace CarTracker.Web.Controllers.View
     {
 
         protected readonly ApplicationConfiguration ApplicationConfiguration;
+        protected readonly BuildInformation BuildInformation;
 
-        public BaseViewController(ApplicationConfiguration applicationConfiguration)
+        public BaseViewController(ApplicationConfiguration applicationConfiguration,
+            BuildInformation buildInformation)
         {
             this.ApplicationConfiguration = applicationConfiguration;
+            this.BuildInformation = buildInformation;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -23,6 +26,8 @@ namespace CarTracker.Web.Controllers.View
             ViewBag.GoogleMapsApiKey = ApplicationConfiguration.GoogleMapsAPiKey;
             ViewBag.IsAuthenticated = IsAuthenticated();
             ViewBag.RootPathPrefix = ApplicationConfiguration.RootPathPrefix;
+
+            ViewBag.BuildInformation = BuildInformation;
         }
 
         protected bool IsAuthenticated()

@@ -38,7 +38,9 @@ namespace CarTracker.Web
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("dbConfig.json")
                 .AddJsonFile("apiKeys.json")
-                .AddJsonFile("deploymentConfiguration.json");
+                .AddJsonFile("deploymentConfiguration.json")
+                .AddJsonFile("buildInformation.json");
+
 
             Configuration = builder.Build();
         }
@@ -50,10 +52,12 @@ namespace CarTracker.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-
             services.AddDbContext<CarTrackerDbContext>(
                 options => options.UseMySql(Configuration.GetSection("connectionString").Value));
 
+            //Add the build information
+            var buildInformation = Configuration.GetSection("buildInformation").Get<BuildInformation>();
+            services.AddSingleton(buildInformation);
             //Load in some confiugration options
             var googleMapsApiKey = Configuration.GetValue<string>("googleMapsApiKey");
             var rootPathPrefix = Configuration.GetValue<string>("rootPathPrefix", ""); ;
