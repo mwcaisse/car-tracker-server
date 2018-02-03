@@ -8,8 +8,10 @@ using CarTracker.Common.Entities;
 using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.Models;
 using CarTracker.Common.Services;
+using CarTracker.Common.Services.Logging;
 using CarTracker.Data;
 using CarTracker.Logic.Services;
+using CarTracker.Logic.Services.Logging;
 using CarTracker.Web.Auth;
 using CarTracker.Web.Configuration;
 using CarTracker.Web.Middleware;
@@ -108,6 +110,8 @@ namespace CarTracker.Web
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserAuthenticationTokenService, UserAuthenticationTokenService>();
             services.AddTransient<IPasswordHasher, ArgonPasswordHasher>();
+            services.AddTransient<IRequestLogService, RequestLogService>();
+            services.AddTransient<IServerLogService, ServerLogService>();
 
             services.AddScoped<IRequestLogger, Logger>();
             services.AddScoped<IServerLogger, Logger>();

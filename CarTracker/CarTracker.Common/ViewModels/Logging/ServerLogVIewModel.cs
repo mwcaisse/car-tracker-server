@@ -5,7 +5,7 @@ using CarTracker.Common.Enums;
 
 namespace CarTracker.Common.ViewModels.Logging
 {
-    public class ServerLogVIewModel
+    public class ServerLogViewModel
     {
 
         public long ServerLogId { get; set; }
