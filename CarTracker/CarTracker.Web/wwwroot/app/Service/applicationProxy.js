@@ -102,7 +102,31 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 			update: function (toUpdate) {
 				return core.put("registration-key/", toUpdate);
 			}
-		};
+        };
+
+	    self.requestLog = {
+            get: function(id) {
+                return core.get("log/request/" + id);
+            },
+            getAllPaged: function(startAt, maxResults, sort) {
+                return core.getPaged("log/request/", startAt, maxResults, sort);
+            },
+            getByEventId: function(eventId) {
+                return core.get("log/event/" + eventId + "/request/");
+            }
+        };
+
+	    self.serverLog = {
+            get: function (id) {
+                return core.get("log/server/" + id);
+            },
+            getAllPaged: function (startAt, maxResults, sort) {
+                return core.getPaged("log/server/", startAt, maxResults, sort);
+            },
+            getForEvent: function (eventId, startAt, maxResults, sort) {
+                return core.getPaged("log/event/" + eventId + "/server/", startAt, maxResults, sort);
+            }
+	    };
 		
 		self.authToken = {
 			getAllActivePaged: function (startAt, maxResults, sort) {

@@ -42,7 +42,12 @@ define("Views/Navigation/Navigation",
 									adminLink.subLinks.push({
 										id:"Admin/RegistrationKeys", name: "Registration Keys", 
 										link: navigation.adminRegistrationKeyLink()
-									});
+                                    });
+								    adminLink.subLinks.push({
+								        id: "Admin/RequestLogs",
+								        name: "Request Logs",
+								        link: navigation.adminRequestLogsLink()
+								    });
 									
 									this.navigationLinks.push(adminLink);
 									
