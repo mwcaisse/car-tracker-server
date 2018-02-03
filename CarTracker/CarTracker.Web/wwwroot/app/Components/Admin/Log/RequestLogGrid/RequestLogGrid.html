@@ -12,14 +12,14 @@
                 <th><app-column-header columnId="RequestUrl" columnName="URL" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
                 <th><app-column-header columnId="RequestMethod" columnName="Method" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
                 <th><app-column-header columnId="ResponseStatus" columnName="Status" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-                <th><app-column-header columnId="CreateDate" columnName="Create Date" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
+                <th><app-column-header columnId="CreateDate" columnName="Date" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
                 <th><app-column-header columnId="User" columnName="User" :enableSort="false"></app-column-header></th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="log in logs">
                 <td>
-                    <i class="fa fa-th-list action-icon" aria-hidden="true" v-tooltip title="View Request Log"></i>
+                    <i class="fa fa-th-list action-icon" aria-hidden="true" v-on:click="viewLog(log.requestLogId)" v-tooltip title="View Request Log"></i>
                 </td>
                 <td> {{ log.requestUrl }}</td>
                 <td> {{ log.requestMethod }}</td>
@@ -30,4 +30,6 @@
         </tbody>
     </table>
     <app-pager :totalItems="totalItems" :currentPaging="currentPaging" v-on:paging:update="pagingUpdated"></app-pager>
+    
+    <app-request-log-modal></app-request-log-modal>
 </div>

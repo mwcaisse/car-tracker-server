@@ -5,7 +5,9 @@ define("Components/Admin/Log/RequestLogGrid/RequestLogGrid",
         "Components/Common/Pager/PagedGridMixin",
         "AMD/text!Components/Admin/Log/RequestLogGrid/RequestLogGrid.html",
         "Components/Common/ColumnHeader/ColumnHeader",
-        "Components/Common/Pager/Pager"],
+        "Components/Common/Pager/Pager",
+        "Components/Common/CollapsibleCard/CollapsibleCard",
+        "Components/Admin/Log/RequestLogModal/RequestLogModal"],
     function (moment, system, util, proxy, navigation, pagedGridMixin, template) {
 
 
@@ -45,6 +47,9 @@ define("Components/Admin/Log/RequestLogGrid/RequestLogGrid",
                 },
                 refresh: function () {
                     this.fetch();
+                },
+                viewLog: function (id) {
+                    system.bus.$emit("requestLog:view", id);
                 }
             },
             created: function () {
