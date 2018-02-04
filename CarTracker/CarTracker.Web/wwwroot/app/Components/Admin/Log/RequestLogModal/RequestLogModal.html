@@ -69,22 +69,22 @@
 
         <br />
         <app-collapsible-card title="Request Headers" :expanded="false">
-            {{ requestHeaders }}
+            <pre>{{ requestHeaders | prettyJson }}</pre>
         </app-collapsible-card>
         <br />
 
         <app-collapsible-card title="Request Body" :expanded="false">
-            {{ requestBody }}
+            <pre>{{ requestBody | prettyJson }}</pre>
         </app-collapsible-card>
         <br />
 
         <app-collapsible-card title="Response Headers" :expanded="false">
-            {{ responseHeaders }}
+            <pre>{{ responseHeaders | prettyJson }}</pre>
         </app-collapsible-card>
         <br />
 
         <app-collapsible-card title="Response Body" :expanded="false">
-            {{ responseBody }}
+            <pre>{{ responseBody | prettyJson }}</pre>
         </app-collapsible-card>
 
 

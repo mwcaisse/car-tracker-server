@@ -78,6 +78,21 @@ define("Service/customDirectives",
         }
         return "";
     });
+
+    Vue.filter("prettyJson", function (value) {
+        //console.log("JSON: Pretty printing: " + value);
+        if (typeof value === "string") {
+            if (util.isStringNullOrBlank(value)) {
+                return "";
+            }
+            try {
+                value = JSON.parse(value);
+            } catch (e) {
+                return value;
+            }
+        }
+        return JSON.stringify(value, null, 2);
+    });
 	
 	return {};	
 });
