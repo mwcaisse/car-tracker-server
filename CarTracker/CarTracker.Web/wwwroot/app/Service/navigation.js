@@ -34,7 +34,7 @@ define("Service/navigation", ["Service/system"], function (system) {
         };
 
 	    self.adminRequestLogsLink = function() {
-	        return system.baseUrl + "admin/log/requests";
+	        return system.baseUrl + "admin/log/request";
 	    };
 		
 		self.loginLink = function (param) {

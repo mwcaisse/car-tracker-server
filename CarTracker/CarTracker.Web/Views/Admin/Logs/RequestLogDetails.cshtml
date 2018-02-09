@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewData["Title"] = "Request Log Detail";
+
+    var requestGuid = ViewBag.RequestGuid;
+}
+
+<input id="requestGuid" type="hidden" value="@requestGuid"/>
+<vc:vue view-name="Views/Admin/Log/RequestLogDetail/RequestLogDetail"></vc:vue>
+

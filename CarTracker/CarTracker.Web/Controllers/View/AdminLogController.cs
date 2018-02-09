@@ -20,10 +20,17 @@ namespace CarTracker.Web.Controllers.View
             
         }
 
-        [Route("requests")]
+        [Route("request")]
         public IActionResult RequestLogs()
         {
             return View("~/Views/Admin/Logs/RequestLogs.cshtml");
+        }
+
+        [Route("request/{guid}")]
+        public IActionResult RequestLogDetails(string guid)
+        {
+            ViewBag.RequestGuid = guid;
+            return View("~/Views/Admin/Logs/RequestLogDetails.cshtml");
         }
 
     }
