@@ -43,5 +43,19 @@ namespace CarTracker.Web.Controllers.Api.Logging
         {
             return Ok(_requestLogService.GetByEventId(id).ToViewModel());
         }
+
+        [HttpGet]
+        [Route("request/filters/method")]
+        public IActionResult GetMethodFilters()
+        {
+            return Ok(_requestLogService.GetMethodFilters());
+        }
+
+        [HttpGet]
+        [Route("request/filters/status")]
+        public IActionResult GetStatusFilters()
+        {
+            return Ok(_requestLogService.GetStatusFilters());
+        }
     }
 }

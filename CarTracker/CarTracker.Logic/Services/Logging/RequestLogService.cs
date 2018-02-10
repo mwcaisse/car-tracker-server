@@ -35,5 +35,15 @@ namespace CarTracker.Logic.Services.Logging
         {
             return _db.RequestLogs.Build().PageAndSort(skip, take, sort);
         }
+
+        public IEnumerable<string> GetMethodFilters()
+        {
+            return _db.RequestLogs.Build().Select(l => l.RequestMethod).Distinct();
+        }
+
+        public IEnumerable<string> GetStatusFilters()
+        {
+            return _db.RequestLogs.Build().Select(l => l.ResponseStatus).Distinct();
+        }
     }
 }

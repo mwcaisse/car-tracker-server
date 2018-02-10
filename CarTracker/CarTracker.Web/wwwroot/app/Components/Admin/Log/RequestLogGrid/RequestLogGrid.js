@@ -52,24 +52,10 @@ define("Components/Admin/Log/RequestLogGrid/RequestLogGrid",
                     system.bus.$emit("requestLog:view", id);
                 },
                 getMethodFilterOptions: function () {
-                    return Q.fcall(function () {
-                        return [
-                            "GET",
-                            "POST",
-                            "OPTIONS",
-                            "HEAD"
-                        ];
-                    });
+                    return proxy.requestLog.getMethodFilters();
                 },
                 getStatusFilterOptions: function () {
-                    return Q.fcall(function () {
-                        return [
-                            "200",
-                            "404",
-                            "200",
-                            "HEAD"
-                        ];
-                    });
+                    return proxy.requestLog.getStatusFilters();
                 }
             },
             created: function () {

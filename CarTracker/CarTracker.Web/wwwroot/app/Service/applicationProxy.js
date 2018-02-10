@@ -113,6 +113,12 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
             },
             getByEventId: function(eventId) {
                 return core.get("log/event/" + eventId + "/request/");
+            },
+            getMethodFilters: function() {
+                return core.get("log/request/filters/method");
+            },
+            getStatusFilters: function () {
+                return core.get("log/request/filters/status");
             }
         };
 
