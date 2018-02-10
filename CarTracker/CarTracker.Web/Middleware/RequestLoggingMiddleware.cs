@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CarTracker.Common.Services;
 using Microsoft.AspNetCore.Builder;
@@ -44,6 +45,35 @@ namespace CarTracker.Web.Middleware
                 responseBodyStream.Seek(0, SeekOrigin.Begin);
                 await responseBodyStream.CopyToAsync(bodyStream);
             }
+        }
+
+        protected string GetClientAddress(HttpContext context)
+        {
+            // If the server is behind a proxy, the X-Forwaded-For header will be set and contain
+            // the actual client URL
+            var headers = context.Request.Headers;
+            if (headers.ContainsKey("X-Forwarded-For"))
+            {
+                return headers["X-Forwarded-For"];
+            }
+            return context.Connection.RemoteIpAddress.ToString();
+        }
+
+        protected string GetUrl(HttpContext context)
+        {
+            var headers = context.Request.Headers;
+            var requestUrl = context.Request.GetDisplayUrl();
+            var regex = new Regex(@"^http(s)*://localhost(:[0-9])*/", RegexOptions.IgnoreCase);
+            
+            if (headers.ContainsKey("X-Forwarded-Proto") && headers.ContainsKey("X-Forwarded-Host") &&
+                regex.IsMatch(requestUrl))
+            {
+                return String.Format("{0}:{1}/{2}",
+                    headers["X-Forwarded-Proto"],
+                    headers["X-Forwarded-Host"], 
+                    regex.Replace(requestUrl, ""));
+            }
+            return context.Request.GetDisplayUrl();
         }
 
         protected void CreateLog(HttpContext context, IRequestLogger requestLogger, string requestBody, 
