@@ -50,6 +50,26 @@ define("Components/Admin/Log/RequestLogGrid/RequestLogGrid",
                 },
                 viewLog: function (id) {
                     system.bus.$emit("requestLog:view", id);
+                },
+                getMethodFilterOptions: function () {
+                    return Q.fcall(function () {
+                        return [
+                            "GET",
+                            "POST",
+                            "OPTIONS",
+                            "HEAD"
+                        ];
+                    });
+                },
+                getStatusFilterOptions: function () {
+                    return Q.fcall(function () {
+                        return [
+                            "200",
+                            "404",
+                            "200",
+                            "HEAD"
+                        ];
+                    });
                 }
             },
             created: function () {

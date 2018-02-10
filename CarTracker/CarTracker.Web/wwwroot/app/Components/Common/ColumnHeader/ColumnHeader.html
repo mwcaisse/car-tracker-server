@@ -1,10 +1,22 @@
-<div class="dropdown" style="display: block;" v-if="enableSort">
+<div class="dropdown" style="display: block;" v-if="enableSort || enableFilter">
 	<a href="#" class="dropdown-toggle no-color" data-toggle="dropdown" v-on:click.prevent >{{ columnName }}</a>
 	<i class="fa float-right" :class="sortIcon" v-if="sort" style="vertical-align:middle;"></i>
 	<div class="dropdown-menu">
 		<a class="dropdown-item" href="#" v-on:click.prevent="sortAscending"><i class="fa fa-sort-amount-asc"></i>&nbsp;Sort Ascending</a>
 		<a class="dropdown-item" href="#" v-on:click.prevent="sortDescending"><i class="fa fa-sort-amount-desc"></i>&nbsp;Sort Descending</a>
-		<a class="dropdown-item" href="#" v-on:click.prevent="clearSort"><i class="fa fa-close"></i>&nbsp;Clear Sort</a>
+	    <a class="dropdown-item" href="#" v-on:click.prevent="clearSort"><i class="fa fa-close"></i>&nbsp;Clear Sort</a>
+        
+        <div class="dropdown-divider" v-if="enableSort && enableFilter"></div>
+	    <div v-if="enableFilter && useFilterOptions">
+            <a class="dropdown-item" href="#" v-for="filterOption in mFilterOptions" v-on:click.prevent="selectFilter(filterOption)" :class="{ active: currentFilter == filterOption }">&nbsp;{{ filterOption }}</a>
+            <a class="dropdown-item" href="#" v-on:click.prevent="clearFilter"><i class="fa fa-close"></i>&nbsp;Clear Filter</a>
+	    </div>
+	    <div v-if="enableFilter && !useFilterOptions">
+            <div class="px-2 py-1">
+                <label>Filter</label>
+                <input class="form-control" type="text" />
+            </div>
+	    </div>
 	</div>
 </div>
 <span v-else>

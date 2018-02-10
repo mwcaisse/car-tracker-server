@@ -9,11 +9,42 @@
         <thead>
             <tr>
                 <th style="width: 1%;"></th> <!-- actions column -->
-                <th><app-column-header columnId="RequestUrl" columnName="URL" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-                <th><app-column-header columnId="RequestMethod" columnName="Method" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-                <th><app-column-header columnId="ResponseStatus" columnName="Status" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-                <th><app-column-header columnId="CreateDate" columnName="Date" :currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-                <th><app-column-header columnId="User" columnName="User" :enableSort="false"></app-column-header></th>
+                <th><app-column-header columnId="RequestUrl"
+                                       columnName="URL"
+                                       :currentSort="currentSort"
+                                       v-on:sort:update="sortUpdated"
+                                       v-on:sort:clear="sortCleared"
+                                       :enableFilter="true"
+                                       :useFilterOptions="false">
+                </app-column-header></th>
+                <th><app-column-header columnId="RequestMethod"
+                                       columnName="Method"
+                                       :currentSort="currentSort"
+                                       v-on:sort:update="sortUpdated"
+                                       v-on:sort:clear="sortCleared"
+                                       :enableFilter="true"
+                                       :useFilterOptions="true"
+                                       :filterOptions="getMethodFilterOptions">
+                </app-column-header></th>
+                <th><app-column-header columnId="ResponseStatus"
+                                       columnName="Status"
+                                       :currentSort="currentSort"
+                                       v-on:sort:update="sortUpdated"
+                                       v-on:sort:clear="sortCleared"
+                                       :enableFilter="true"
+                                       :useFilterOptions="true"
+                                       :filterOptions="getStatusFilterOptions">
+                </app-column-header></th>
+                <th><app-column-header columnId="CreateDate"
+                                       columnName="Date"
+                                       :currentSort="currentSort"
+                                       v-on:sort:update="sortUpdated"
+                                       v-on:sort:clear="sortCleared">
+                </app-column-header></th>
+                <th><app-column-header columnId="User"
+                                       columnName="User"
+                                       :enableSort="false">
+                </app-column-header></th>
             </tr>
         </thead>
         <tbody>

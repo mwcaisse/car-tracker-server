@@ -12,7 +12,9 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 		data: function() {
 			return {
 				sort: false,
-				sortOrder: SORT_ORDER_DESC
+                sortOrder: SORT_ORDER_DESC,
+                mFilterOptions: [],
+                currentFilter: ""
 			}
 		},	
 		computed: {
@@ -35,11 +37,23 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 			enableSort: {
 				type: Boolean,
 				default: true
-			},
+            },
 			currentSort: {
 				type: Object,
 				required: false
-			}
+            },
+            enableFilter: {
+                type: Boolean,
+                default: false
+            },
+            useFilterOptions: {
+                type: Boolean,
+                default: true
+            },
+            filterOptions: {
+                type: Function,
+                required: false
+            }
 		},
 		watch: {
 			currentSort: function(newSort) {	
@@ -76,12 +90,28 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 				else {
 					this.sort = false;
 				}
-			}
+            },
+            populateFilterOptions: function() {
+                if (typeof this.filterOptions === "function") {
+                    this.filterOptions().then(function(data) {
+                        this.mFilterOptions = data;
+                    }.bind(this));
+                }
+            },
+            selectFilter: function(filterVal) {
+                this.currentFilter = filterVal;
+            },
+            clearFilter: function() {
+                this.currentFilter = "";
+            }
 		},
 		created: function () {
 			if (typeof this.currentSort !== "undefined") {
 				this.updateSort(this.currentSort);
-			}
+            }
+            if (this.enableFilter && this.useFilterOptions) {
+                this.populateFilterOptions();
+            }
 		}
 	});
 	
