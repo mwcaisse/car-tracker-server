@@ -8,11 +8,18 @@ define("Components/Admin/Log/RequestLogModal/RequestLogModal",
     function (moment, system, util, proxy, navigation, template, requestLogMixin) {
 
 
-        return Vue.component("app-request-log-modal", {
+        return Vue.component("app-request-log-modal",
+        {
             mixins: [requestLogMixin],
-            data: function () {
+            data: function() {
                 return {
                     title: "View Request Log"
+                }
+            },
+            computed: {
+                requestDetailUrl: function() {
+                    return navigation.viewRequestLogDetailsLink(this.requestUuid);
+                    
                 }
             },
             template: template,

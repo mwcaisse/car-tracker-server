@@ -5,7 +5,9 @@
                 <div class="form-group row">
                     <label class="col-md-2 col-form-label">Event UUID</label>
                     <div class="col-md-10">
-                        <p class="form-control-plaintext">{{ requestUuid }}</p>
+                        <p class="form-control-plaintext">
+                            <a :href="requestDetailUrl">{{ requestUuid }}</a>
+                        </p>
                     </div>
                 </div>
             </div>
