@@ -68,7 +68,7 @@ namespace CarTracker.Web.Middleware
             if (headers.ContainsKey("X-Forwarded-Proto") && headers.ContainsKey("X-Forwarded-Host") &&
                 regex.IsMatch(requestUrl))
             {
-                return String.Format("{0}:{1}/{2}",
+                return String.Format("{0}://{1}/{2}",
                     headers["X-Forwarded-Proto"],
                     headers["X-Forwarded-Host"], 
                     regex.Replace(requestUrl, ""));
