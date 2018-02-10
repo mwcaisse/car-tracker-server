@@ -63,7 +63,7 @@ namespace CarTracker.Web.Middleware
         {
             var headers = context.Request.Headers;
             var requestUrl = context.Request.GetDisplayUrl();
-            var regex = new Regex(@"^http(s)*://localhost(:[0-9])*/", RegexOptions.IgnoreCase);
+            var regex = new Regex(@"^http(s)*://localhost([:0-9])*/", RegexOptions.IgnoreCase);
             
             if (headers.ContainsKey("X-Forwarded-Proto") && headers.ContainsKey("X-Forwarded-Host") &&
                 regex.IsMatch(requestUrl))
