@@ -80,8 +80,8 @@ namespace CarTracker.Web.Middleware
             string responseBody)
         {
             requestLogger.LogRequest(
-               clientAddress: context.Connection.RemoteIpAddress.ToString(),
-               requestUrl: context.Request.GetDisplayUrl(),
+               clientAddress: GetClientAddress(context),
+               requestUrl: GetUrl(context),
                requestMethod: context.Request.Method,
                requestHeaders: context.Request.Headers,
                requestBody: requestBody,
