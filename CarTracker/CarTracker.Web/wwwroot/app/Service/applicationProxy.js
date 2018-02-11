@@ -108,8 +108,8 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
             get: function(id) {
                 return core.get("log/request/" + id);
             },
-            getAllPaged: function(startAt, maxResults, sort) {
-                return core.getPaged("log/request/", startAt, maxResults, sort);
+            getAllPaged: function(startAt, maxResults, sort, filter) {
+                return core.getPaged("log/request/", startAt, maxResults, sort, filter);
             },
             getByEventId: function(eventId) {
                 return core.get("log/event/" + eventId + "/request/");

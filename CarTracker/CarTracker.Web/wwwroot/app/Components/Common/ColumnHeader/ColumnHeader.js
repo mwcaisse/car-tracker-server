@@ -16,7 +16,7 @@ define("Components/Common/ColumnHeader/ColumnHeader",
                 mFilterOptions: [],
                 currentFilter: ""
 			}
-		},	
+        },	
 		computed: {
 			sortIcon: function() {
 				return {
@@ -58,7 +58,19 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 		watch: {
 			currentSort: function(newSort) {	
 				this.updateSort(newSort);				
-			}
+            },
+            currentFilter: function (val) {
+                var event = "filter:update";
+                if (util.isStringNullOrBlank(val)) {
+                    event = "filter:clear";
+                } 
+
+                var eventData = {
+                    propertyId: this.columnId,
+                    fitlerValue: val
+                }
+                this.$emit(event, eventData);
+            }
 		},
 		template: template,
 		methods: {

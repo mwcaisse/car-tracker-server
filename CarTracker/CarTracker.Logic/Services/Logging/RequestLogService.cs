@@ -31,9 +31,10 @@ namespace CarTracker.Logic.Services.Logging
             return _db.RequestLogs.Build().FirstOrDefault(l => l.RequestUuid == guid);
         }
 
-        public PagedViewModel<RequestLog> GetAll(int skip, int take, SortParam sort)
+        public PagedViewModel<RequestLog> GetAll(int skip, int take, SortParam sort,
+            Dictionary<string, string> filters)
         {
-            return _db.RequestLogs.Build().PageAndSort(skip, take, sort);
+            return _db.RequestLogs.Build().Filter(filters).PageAndSort(skip, take, sort);
         }
 
         public IEnumerable<string> GetMethodFilters()

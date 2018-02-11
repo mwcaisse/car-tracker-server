@@ -15,7 +15,9 @@
                                        v-on:sort:update="sortUpdated"
                                        v-on:sort:clear="sortCleared"
                                        :enableFilter="true"
-                                       :useFilterOptions="false">
+                                       :useFilterOptions="false"
+                                       v-on:filter:update="filterUpdated"
+                                       v-on:filter:clear="filterCleared">
                 </app-column-header></th>
                 <th><app-column-header columnId="RequestMethod"
                                        columnName="Method"
@@ -24,7 +26,9 @@
                                        v-on:sort:clear="sortCleared"
                                        :enableFilter="true"
                                        :useFilterOptions="true"
-                                       :filterOptions="getMethodFilterOptions">
+                                       :filterOptions="getMethodFilterOptions"
+                                       v-on:filter:update="filterUpdated"
+                                       v-on:filter:clear="filterCleared">
                 </app-column-header></th>
                 <th><app-column-header columnId="ResponseStatus"
                                        columnName="Status"
@@ -33,7 +37,9 @@
                                        v-on:sort:clear="sortCleared"
                                        :enableFilter="true"
                                        :useFilterOptions="true"
-                                       :filterOptions="getStatusFilterOptions">
+                                       :filterOptions="getStatusFilterOptions"
+                                       v-on:filter:update="filterUpdated"
+                                       v-on:filter:clear="filterCleared">
                 </app-column-header></th>
                 <th><app-column-header columnId="CreateDate"
                                        columnName="Date"

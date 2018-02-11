@@ -15,5 +15,29 @@ namespace CarTracker.Data.Extensions
             return query.Include(l => l.User);
         }
 
+        public static IQueryable<RequestLog> Filter(this IQueryable<RequestLog> query,
+            Dictionary<string, string> filters)
+        {
+            foreach (var pair in filters)
+            {
+                var propertyName = pair.Key;
+                if (string.Equals("RequestUrl", propertyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    query = query.Where(rl => rl.RequestUrl.Contains(pair.Value));
+                }
+                else if (string.Equals("RequestMethod", propertyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    query = query.Where(rl => rl.RequestMethod == pair.Value);
+                }
+                else if (string.Equals("ResponseStatus", propertyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    query = query.Where(rl => rl.ResponseStatus == pair.Value);
+                }
+
+            }
+
+            return query;
+        }
+
     }
 }

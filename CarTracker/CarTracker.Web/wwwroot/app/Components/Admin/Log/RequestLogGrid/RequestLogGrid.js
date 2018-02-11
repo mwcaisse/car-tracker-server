@@ -22,7 +22,9 @@ define("Components/Admin/Log/RequestLogGrid/RequestLogGrid",
             template: template,
             methods: {
                 fetch: function () {
-                    proxy.requestLog.getAllPaged(this.startAt, this.take, this.currentSort).then(function (data) {
+                    proxy.requestLog.getAllPaged(this.startAt, this.take, this.currentSort,
+                        this.currentFilter).then(function (data) {
+
                         this.update(data);
                     }.bind(this), function (error) {
                         alert("error fetching request logs");
