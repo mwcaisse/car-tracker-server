@@ -23,7 +23,10 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 					"fa-sort-amount-asc"  : this.sortOrder === SORT_ORDER_ASC,
 					"fa-sort-amount-desc" : this.sortOrder === SORT_ORDER_DESC
 				}			
-			}
+            },
+            isFiltered: function() {
+                return !util.isStringNullOrBlank(this.currentFilter);
+            }
 		},
 		props: {
 			columnId: {
