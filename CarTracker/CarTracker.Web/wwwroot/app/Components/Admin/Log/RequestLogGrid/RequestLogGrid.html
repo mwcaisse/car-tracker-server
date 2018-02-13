@@ -15,7 +15,7 @@
                                        v-on:sort:update="sortUpdated"
                                        v-on:sort:clear="sortCleared"
                                        :enableFilter="true"
-                                       :useFilterOptions="false"
+                                       filterType="TEXT"
                                        v-on:filter:update="filterUpdated"
                                        v-on:filter:clear="filterCleared">
                 </app-column-header></th>
@@ -25,7 +25,6 @@
                                        v-on:sort:update="sortUpdated"
                                        v-on:sort:clear="sortCleared"
                                        :enableFilter="true"
-                                       :useFilterOptions="true"
                                        :filterOptions="getMethodFilterOptions"
                                        v-on:filter:update="filterUpdated"
                                        v-on:filter:clear="filterCleared">
@@ -36,7 +35,6 @@
                                        v-on:sort:update="sortUpdated"
                                        v-on:sort:clear="sortCleared"
                                        :enableFilter="true"
-                                       :useFilterOptions="true"
                                        :filterOptions="getStatusFilterOptions"
                                        v-on:filter:update="filterUpdated"
                                        v-on:filter:clear="filterCleared">

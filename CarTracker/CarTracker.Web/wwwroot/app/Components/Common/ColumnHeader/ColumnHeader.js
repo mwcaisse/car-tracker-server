@@ -49,6 +49,11 @@ define("Components/Common/ColumnHeader/ColumnHeader",
                 type: Boolean,
                 default: false
             },
+            filterType: {
+                type: String,
+                default: "DROPDOWN",
+                required: false
+            },
             useFilterOptions: {
                 type: Boolean,
                 default: true
@@ -124,7 +129,7 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 			if (typeof this.currentSort !== "undefined") {
 				this.updateSort(this.currentSort);
             }
-            if (this.enableFilter && this.useFilterOptions) {
+            if (this.enableFilter && this.filterType === "DROPDOWN") {
                 this.populateFilterOptions();
             }
 		}
