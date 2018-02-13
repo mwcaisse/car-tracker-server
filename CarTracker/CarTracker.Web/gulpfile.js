@@ -24,6 +24,19 @@ gulp.task('restore:bootstrap', function () {
     ]).pipe(gulp.dest(libs + 'bootstrap'));
 });
 
+gulp.task('restore:bootstrap-datepicker', function () {
+    var js = gulp.src([
+        'node_modules/bootstrap-datepicker/dist/js/*.*'
+    ]).pipe(gulp.dest(libs + 'bootstrap-datepicker/js'));
+
+    var css = gulp.src([
+        'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.css',
+        'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css'
+    ]).pipe(gulp.dest(libs + 'bootstrap-datepicker/css'));
+
+    return merge(js, css);
+});
+
 gulp.task('restore:font-awesome', function () {
     var css = gulp.src([
         'node_modules/font-awesome/css/*.*'
@@ -119,6 +132,7 @@ gulp.task('restore:vue', function () {
 
 gulp.task('restore', [
     'restore:bootstrap',
+    'restore:bootstrap-datepicker',
     'restore:font-awesome',
     'restore:highcharts', 
     'restore:jquery',

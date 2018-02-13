@@ -2,7 +2,8 @@
 
 define("Components/Common/ColumnHeader/ColumnHeader", 
 		["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation", 
-         "AMD/text!Components/Common/ColumnHeader/ColumnHeader.html"],
+        "AMD/text!Components/Common/ColumnHeader/ColumnHeader.html",
+        "Components/Common/DatePicker/DatePicker"],
 	function (moment, system, util, proxy, navigation, template) {
 	
 	var SORT_ORDER_ASC = "ASC";

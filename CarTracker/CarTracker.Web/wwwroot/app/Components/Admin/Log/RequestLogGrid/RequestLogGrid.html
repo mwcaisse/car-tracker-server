@@ -43,7 +43,11 @@
                                        columnName="Date"
                                        :currentSort="currentSort"
                                        v-on:sort:update="sortUpdated"
-                                       v-on:sort:clear="sortCleared">
+                                       v-on:sort:clear="sortCleared"
+                                       :enableFilter="true"
+                                       filterType="DATE"
+                                       v-on:filter:update="filterUpdated"
+                                       v-on:filter:clear="filterCleared">
                 </app-column-header></th>
                 <th><app-column-header columnId="User"
                                        columnName="User"

@@ -65,7 +65,7 @@ define("Service/customDirectives",
 	});
 	
 	Vue.filter("kmToMi", function (value) {
-		if (typeof value == "undefined") {
+		if (typeof value === "undefined") {
 			return "";
 		}
 		return util.convertKmToMi(value);

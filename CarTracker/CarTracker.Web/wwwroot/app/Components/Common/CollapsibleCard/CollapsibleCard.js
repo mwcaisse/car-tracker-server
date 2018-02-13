@@ -2,8 +2,7 @@
 
 define("Components/Common/CollapsibleCard/CollapsibleCard",
     ["moment", "Service/system", "Service/util",
-        "AMD/text!Components/Common/CollapsibleCard/CollapsibleCard.html",
-        "Components/Common/ColumnHeader/ColumnHeader"],
+        "AMD/text!Components/Common/CollapsibleCard/CollapsibleCard.html"],
     function (moment, system, util, template) {
 
 
