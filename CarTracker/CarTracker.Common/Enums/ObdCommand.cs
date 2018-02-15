@@ -154,7 +154,7 @@ namespace CarTracker.Common.Enums
             {ObdCommand.AmbientAirTemperature, "Ambient air temperature"},
             {ObdCommand.AbsoluteThrottlePositionB, "Absolute throttle position B"},
             {ObdCommand.AbsoluteThrottlePositionC, "Absolute throttle position C"},
-            {ObdCommand.AbsoluteThrottlePositionD, "Absolute throttle position F"},
+            {ObdCommand.AbsoluteThrottlePositionD, "Absolute throttle position D"},
             {ObdCommand.AbsoluteThrottlePositionE, "Absolute throttle position E"},
             {ObdCommand.AbsoluteThrottlePositionF, "Absolute throttle position F"},
             {ObdCommand.CommandedThrottleActuator, "Commanded throttle actuator"},

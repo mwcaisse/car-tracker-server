@@ -207,10 +207,10 @@ namespace CarTracker.Common.Enums
                 //{ObdPid.Pid39, new Tuple<ObdCommand, uint>(ObdCommand.UnMapped, (uint) 1 << 7)},
                 //{ObdPid.Pid3A, new Tuple<ObdCommand, uint>(ObdCommand.UnMapped, (uint) 1 << 6)},
                 //{ObdPid.Pid3B, new Tuple<ObdCommand, uint>(ObdCommand.UnMapped, (uint) 1 << 5)},
-                {ObdPid.Pid3C, new Tuple<ObdCommand, uint>(ObdCommand.RunTimeSinceEngineStart, (uint) 1 << 4)},
-                {ObdPid.Pid3D, new Tuple<ObdCommand, uint>(ObdCommand.RunTimeSinceEngineStart, (uint) 1 << 3)},
-                {ObdPid.Pid3E, new Tuple<ObdCommand, uint>(ObdCommand.RunTimeSinceEngineStart, (uint) 1 << 2)},
-                {ObdPid.Pid3F, new Tuple<ObdCommand, uint>(ObdCommand.RunTimeSinceEngineStart, (uint) 1 << 1)},
+                {ObdPid.Pid3C, new Tuple<ObdCommand, uint>(ObdCommand.CatalystTemperatureBank1Sensor1, (uint) 1 << 4)},
+                {ObdPid.Pid3D, new Tuple<ObdCommand, uint>(ObdCommand.CatalystTemperatureBank2Sensor2, (uint) 1 << 3)},
+                {ObdPid.Pid3E, new Tuple<ObdCommand, uint>(ObdCommand.CatalystTemperatureBank1Sensor1, (uint) 1 << 2)},
+                {ObdPid.Pid3F, new Tuple<ObdCommand, uint>(ObdCommand.CatalystTemperatureBank2Sensor2, (uint) 1 << 1)},
 
 
                 //PIDS 41 to 60
