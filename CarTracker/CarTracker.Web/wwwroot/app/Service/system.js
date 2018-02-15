@@ -5,7 +5,8 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
 	
 	var system = new (function() {
 		var self = this;
-		
+
+        //TODO: Is this still needed?
 		self.events = $({});
 		
 		//Vue Instance for an event bus
@@ -16,7 +17,7 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
 		self.ALERT_TYPE_WARN = "WARN";
 		self.ALERT_TYPE_INFO = "INFO";
 		
-		self.EVENT_ALERT_DISPLAY = "alert:display";
+		self.EVENT_ALERT_SHOW = "alert:show";
 		self.EVENT_ALERT_CLEAR = "alert:clear";
 		
         self.isAuthenticated = $("#isAuthenticated").val() === "true";	
@@ -26,6 +27,15 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
 
         self.enums = enums;
         self.constants = constants;
+
+        self.showAlert = function(message, type) {
+            self.bus.$emit(self.EVENT_ALERT_SHOW,
+                {
+                    message: message,
+                    type: type
+                }
+            );
+        }
 		
 	})();
 	
