@@ -17,11 +17,11 @@ namespace CarTracker.Common.Mappers
                 return vm;
             }
 
-            vm.AddRange(GetSupportedCommands(Pids0120, supportedCommands.Pids0120Bitmask ?? 0));
-            vm.AddRange(GetSupportedCommands(Pids2140, supportedCommands.Pids2140Bitmask ?? 0));
-            vm.AddRange(GetSupportedCommands(Pids4160, supportedCommands.Pids4160Bitmask ?? 0));
-            vm.AddRange(GetSupportedCommands(Pids6180, supportedCommands.Pids6180Bitmask ?? 0));
-            vm.AddRange(GetSupportedCommands(Pids81A0, supportedCommands.Pids81A0Bitmask ?? 0));
+            vm.AddRange(GetSupportedCommands(Pids0120, (uint)(supportedCommands.Pids0120Bitmask ?? 0)));
+            vm.AddRange(GetSupportedCommands(Pids2140, (uint)(supportedCommands.Pids2140Bitmask ?? 0)));
+            vm.AddRange(GetSupportedCommands(Pids4160, (uint)(supportedCommands.Pids4160Bitmask ?? 0)));
+            vm.AddRange(GetSupportedCommands(Pids6180, (uint)(supportedCommands.Pids6180Bitmask ?? 0)));
+            vm.AddRange(GetSupportedCommands(Pids81A0, (uint)(supportedCommands.Pids81A0Bitmask ?? 0)));
 
             return vm;
         }
@@ -171,7 +171,7 @@ namespace CarTracker.Common.Mappers
             // No 81 to A0 PIDS yet
         };
 
-        private static IEnumerable<CarSupportedCommandViewModel> GetSupportedCommands(IEnumerable<ObdPid> pids, int bitmask)
+        private static IEnumerable<CarSupportedCommandViewModel> GetSupportedCommands(IEnumerable<ObdPid> pids, uint bitmask)
         {
 
             return pids.Select(p => new CarSupportedCommandViewModel()
