@@ -24,7 +24,7 @@ define("Components/Car/CarSupportedCommands/CarSupportedCommands",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching supported commands for car!");
+				    system.showAlert(error, "error");
 				})
 			},	
 			update: function (data) {

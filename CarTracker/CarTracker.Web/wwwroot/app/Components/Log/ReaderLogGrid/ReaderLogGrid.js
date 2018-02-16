@@ -24,7 +24,7 @@ define("Components/Log/ReaderLogGrid/ReaderLogGrid",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching reader log!");
+				    system.showAlert(error, "error");
 				});
 			},		
 			update: function (data) {			

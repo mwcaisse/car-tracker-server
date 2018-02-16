@@ -34,7 +34,7 @@ define("Components/Admin/Log/RequestLogMixin",
                     promise.then(function (data) {
                         this.update(data);
                     }.bind(this), function (error) {
-                        alert("error fetching request log!");
+                        system.showAlert(error, "error");
                     });
                 },
                 update: function (log) {

@@ -21,7 +21,7 @@ define("Components/Test/TestComponent",
 					console.log("hey this is car: " + data);
 				}.bind(this),
 				function (error) {
-					alert(error);
+				    system.showAlert(error, "error");
 				});
 			},
 			update: function (car) {		

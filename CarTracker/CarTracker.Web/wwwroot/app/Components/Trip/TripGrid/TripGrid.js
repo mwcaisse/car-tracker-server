@@ -103,7 +103,7 @@ define("Components/Trip/TripGrid/TripGrid",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching trips!");
+				    system.showAlert(error, "error");
 				})
 			},
 			processAll: function () {

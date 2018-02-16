@@ -24,7 +24,7 @@ define("Components/User/AuthTokenGrid/AuthTokenGrid",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching auth tokens!");
+				    system.showAlert(error, "error");
 				})
 			},		
 			update: function (data) {			

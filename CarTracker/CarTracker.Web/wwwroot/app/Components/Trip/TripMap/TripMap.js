@@ -88,7 +88,7 @@ define("Components/Trip/TripMap/TripMap",
 					}
 				}.bind(this),
 				function (error) {
-					alert("error fetching trip!");
+				    system.showAlert(error, "error");
 				})
 			},				
 			refresh: function () {

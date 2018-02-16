@@ -17,7 +17,10 @@ define("Components/Common/PageAlert/PageAlert",
                 showAlert: function() {
                     return !util.isStringNullOrBlank(this.message);
                 },
-                alertClass: function() {
+                alertClass: function () {
+                    if (this.type === "error") {
+                        this.type = "danger";
+                    }
                     return "alert-" + this.type;
                 }
             },

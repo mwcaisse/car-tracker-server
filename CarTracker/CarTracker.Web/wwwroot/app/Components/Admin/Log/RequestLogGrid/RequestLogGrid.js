@@ -27,7 +27,7 @@ define("Components/Admin/Log/RequestLogGrid/RequestLogGrid",
 
                         this.update(data);
                     }.bind(this), function (error) {
-                        alert("error fetching request logs");
+                        system.showAlert(error, "error");
                     });
                 },
                 update: function (data) {

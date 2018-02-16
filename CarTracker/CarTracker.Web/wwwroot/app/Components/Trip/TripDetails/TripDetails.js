@@ -41,11 +41,10 @@ define("Components/Trip/TripDetails/TripDetails",
 			fetch: function () {
 				proxy.trip.get(this.tripId).then(function (data) {
                     this.update(data);
-				        system.showAlert("Successfully loaded trip!", "success");
 				    }.bind(this),
 				function (error) {
-					alert("error fetching trip!");
-				})
+				    system.showAlert(error, "error");
+				});
 			},
 			save: function () {
 				proxy.trip.update(this.toTripObject()).then(function (data) {

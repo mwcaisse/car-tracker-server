@@ -25,7 +25,7 @@ define("Components/Admin/RegistrationKeyGrid/RegistrationKeyGrid",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching regisration keys!");
+				    system.showAlert(error, "error");
 				})
 			},		
 			update: function (data) {			

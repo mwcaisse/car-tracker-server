@@ -26,7 +26,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching auth tokens!");
+				    system.showAlert(error, "error");
 				})
 			},
 			update: function (key) {
@@ -65,7 +65,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 					this.$refs.modal.close();
 				}.bind(this),
 				function (error) {
-					alert(error);
+				    system.showAlert(error, "error");
 				});
 			},
 			refresh: function () {

@@ -25,7 +25,7 @@ define("Components/Car/CarDetails/CarDetails",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching car!");
+				    system.showAlert(error, "error");
 				});
 			},
 			update: function (car) {
@@ -37,7 +37,7 @@ define("Components/Car/CarDetails/CarDetails",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error saving!!");
+				    system.showAlert(error, "error");
 				}.bind(this));
 			},
 			toCarObject: function () {

@@ -98,7 +98,7 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 					this.update(data);
 				}.bind(this),
 				function (error) {
-					alert("error fetching trips!");
+				    system.showAlert(error, "error");
 				})
 			},		
 			update: function (data) {
