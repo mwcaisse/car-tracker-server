@@ -14,15 +14,11 @@ namespace CarTracker.Web.Auth
 
        private readonly SessionTokenManager _tokenManager;
 
-        private readonly TokenAuthenticationOptions _options;
-
-
         public TokenAuthenticationHandler(IOptionsMonitor<TokenAuthenticationOptions> options, 
             ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock, 
             SessionTokenManager tokenManager) 
             : base(options, logger, encoder, clock)
         {
-            _options = options.CurrentValue;
             _tokenManager = tokenManager;
         }
 

@@ -2,7 +2,7 @@
 
 define("Service/applicationProxy", ["Service/proxy"], function (core) {
 	
-	var appProxy = new (function() {
+	return new (function() {
 		var self = this;
 		
 		self.car = {
@@ -147,7 +147,5 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 		};	 
 		
 	})();
-	
-	return appProxy;
 	
 });

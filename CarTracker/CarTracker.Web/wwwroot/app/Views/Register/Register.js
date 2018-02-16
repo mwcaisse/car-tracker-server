@@ -7,15 +7,13 @@ define("Views/Register/Register",
 	 
 	 function (system, util, navigation, template) {
 	
-	var vm = function (elementId) {	
+        return function (elementId) {	
 		
-		return new Vue({
-			el: elementId,
-			template: template		
-		});
-		
-	};
-	
-	return vm;
+            return new Vue({
+	            el: elementId,
+	            template: template		
+            });
+        };
+
 	
 });

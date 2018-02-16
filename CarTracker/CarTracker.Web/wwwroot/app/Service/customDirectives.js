@@ -80,7 +80,6 @@ define("Service/customDirectives",
     });
 
     Vue.filter("prettyJson", function (value) {
-        //console.log("JSON: Pretty printing: " + value);
         if (typeof value === "string") {
             if (util.isStringNullOrBlank(value)) {
                 return "";

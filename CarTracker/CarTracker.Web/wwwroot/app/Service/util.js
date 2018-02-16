@@ -2,7 +2,7 @@
 
 define("Service/util", ["moment", "moment-duration-format"], function () {
 	
-	var util = new (function() {
+	return new (function() {
 		var self = this;
 
 		self.KM_IN_MI = 0.621371;
@@ -28,7 +28,7 @@ define("Service/util", ["moment", "moment-duration-format"], function () {
 		};
 		
 		self.getURLParameter = function(name, def) {
-			if (typeof def === undefined) {
+			if (typeof def === "undefined") {
 				def = "";
 			}
 		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -42,7 +42,7 @@ define("Service/util", ["moment", "moment-duration-format"], function () {
 		};
 		
 		self.isStringNullOrBlank = function (string) {
-			return (typeof string === undefined ||
+			return (typeof string === "undefined" ||
 					string === null ||
 					typeof string !== "string" ||
 					string.length === 0 ||
@@ -80,7 +80,5 @@ define("Service/util", ["moment", "moment-duration-format"], function () {
 	
 		
 	})();
-	
-	return util;
 	
 });

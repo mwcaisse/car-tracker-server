@@ -76,7 +76,7 @@ define("Service/navigation", ["Service/system"], function (system) {
 		self.EVENT_NAVIGATION_ACTIVE_CHANGED = "navigation:activeChanged";
 		
 		self.setActiveNavigation = function (navigationId) {
-			system.events.trigger(self.EVENT_NAVIGATION_ACTIVE_CHANGED, {id: navigationId});
+            system.bus.$emit(self.EVENT_NAVIGATION_ACTIVE_CHANGED, { id: navigationId });
 		};
 	
 		

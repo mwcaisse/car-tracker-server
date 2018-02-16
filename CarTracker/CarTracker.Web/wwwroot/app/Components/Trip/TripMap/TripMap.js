@@ -53,13 +53,13 @@ define("Components/Trip/TripMap/TripMap",
 					});
 					
 					for (var i = 0; i < coords.length - 1; i ++) {
-						var color = "";
+						var color;
 						
 						if (coords[i].speed < 60) {
 							color = "#FF0000";
 						}
 						else if (coords[i].speed < 100) {
-							color = "#E59400"
+						    color = "#E59400";
 						}
 						else {
 							color = "#00FF00";
@@ -89,7 +89,7 @@ define("Components/Trip/TripMap/TripMap",
 				}.bind(this),
 				function (error) {
 				    system.showAlert(error, "error");
-				})
+				});
 			},				
 			refresh: function () {
 				this.fetch();

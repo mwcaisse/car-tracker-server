@@ -104,10 +104,10 @@ define("Components/Trip/TripGrid/TripGrid",
 				}.bind(this),
 				function (error) {
 				    system.showAlert(error, "error");
-				})
+				});
 			},
 			processAll: function () {
-				proxy.trip.processUnprocessed().then(function (processedTrip) {
+				proxy.trip.processUnprocessed().then(function () {
 					this.refresh();
 				}.bind(this));
 			},

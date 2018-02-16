@@ -9,8 +9,10 @@ define("Views/Car/Car",
 	 "AMD/text!Views/Car/Car.html"], 
 	 
 	 function (util, navigation, carDetails, carSupportedCommands, tripGrid, template) {
-	
-		var vm = function (elementId) {
+
+        navigation.setActiveNavigation("Car");
+
+		return function (elementId) {
 			var carId = parseInt(util.getURLParameter("carId", -1), 10);		
 			
 			return new Vue({			
@@ -21,9 +23,5 @@ define("Views/Car/Car",
 				}
 			});
 		};
-		
-		navigation.setActiveNavigation("Car");
-		
-		return vm;
 	
 });

@@ -2,7 +2,7 @@
 
 define("Service/enums", ["Service/constants"], function (constants) {
 
-    var enums = new (function () {
+    return new (function () {
         var self = this;
 
         self.TripStatus = {};
@@ -23,7 +23,5 @@ define("Service/enums", ["Service/constants"], function (constants) {
         self.LogType[constants.LOG_TYPE.ERROR] = "Error";
 
     })();
-
-    return enums;
 
 });

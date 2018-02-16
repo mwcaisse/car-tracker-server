@@ -33,25 +33,25 @@ define("Components/Common/Modal/Modal",
 		methods: {
 			open: function () {
 				//only call show if the modal isn't already open
-				if (this.modalOpen == false) {
+				if (!this.modalOpen) {
 					$(this.$el).modal("show");
 				}				
 			},
 			close: function () {
 				//only call hide if the modal is open
-				if (this.modalOpen === true) {
+				if (this.modalOpen) {
 					$(this.$el).modal("hide");
 				}
 			}
 		},
 		mounted: function () {			
 			//subscribe to the model events so we know when it is open or closed
-			$(this.$el).on("hide.bs.modal", function (e) {
+			$(this.$el).on("hide.bs.modal", function () {
 				this.modalOpen = false;
 				this.onClose(); // perform any onClose actions
 			}.bind(this));
 			
-			$(this.$el).on("show.bs.modal", function (e) {
+			$(this.$el).on("show.bs.modal", function () {
 				this.modalOpen = true;
 			}.bind(this));
 		}

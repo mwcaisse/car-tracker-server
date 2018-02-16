@@ -101,15 +101,11 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 				this.$emit("sort:clear");
 			},
 			updateSort: function (newSort) {
-				if (null === newSort || typeof newSort === "undefined") {
+                if (null === newSort || typeof newSort === "undefined" || newSort.propertyId !== this.columnId) {
 					this.sort = false;
-				}
-				else if (!(null === newSort || typeof newSort === "undefined") && newSort.propertyId === this.columnId) {
-					this.sort = true;
-					this.sortOrder = newSort.ascending === true ? SORT_ORDER_ASC : SORT_ORDER_DESC;
 				}
 				else {
-					this.sort = false;
+					this.sort = true;
 				}
             },
             populateFilterOptions: function() {

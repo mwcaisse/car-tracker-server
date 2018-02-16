@@ -3,12 +3,8 @@
 define("Service/system", ["Service/enums", "Service/constants", "Service/customDirectives"],
     function (enums, constants) {
 	
-	var system = new (function() {
+	return new (function() {
 		var self = this;
-
-        //TODO: Is this still needed?
-		self.events = $({});
-		
 		//Vue Instance for an event bus
 		self.bus = new Vue();
 	
@@ -38,7 +34,5 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
         }
 		
 	})();
-	
-	return system;
 	
 });

@@ -1,8 +1,7 @@
 "use strict";
 
-define("Components/Common/Pager/PagedGridMixin", 
-		["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation"],
-	function (moment, system, util, proxy, navigation) {
+define("Components/Common/Pager/PagedGridMixin", [],
+	function () {
 
 	    return {
 	        data: function() {
@@ -25,7 +24,9 @@ define("Components/Common/Pager/PagedGridMixin",
 	            }
 	        },
 	        methods: {
-	            refresh: function() {}, // place holder method, called by paging event handlers defined below		
+	            refresh: function() {
+	                // place holder method, called by paging event handlers defined below
+	            }, 		
 	            sortUpdated: function(newSort) {
 	                this.currentSort = newSort;
 	                this.refresh();

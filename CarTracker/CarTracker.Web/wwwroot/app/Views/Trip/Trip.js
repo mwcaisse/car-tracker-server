@@ -14,22 +14,20 @@ define("Views/Trip/Trip",
 	 "Components/Trip/TripChart/TripTemperatureChart",
 	 "Components/Trip/TripPossiblePlaces/TripPossiblePlaces"], 
 	 function (util, navigation, proxy, template) {
-	
-	var vm = function(elementId) {
-		var tripId = parseInt(util.getURLParameter("tripId", 92), 10);	
+
+        navigation.setActiveNavigation("Trip");
+
+	    return function(elementId) {
+		    var tripId = parseInt(util.getURLParameter("tripId", 92), 10);	
 		
-		return new Vue({
-			el: elementId,
-			template: template,
-			data: {
-				tripId: tripId
-			}
-		});
+		    return new Vue({
+			    el: elementId,
+			    template: template,
+			    data: {
+				    tripId: tripId
+			    }
+		    });
 		
-	};
-	
-	navigation.setActiveNavigation("Trip");
-	
-	return vm;
+	    };
 	
 });

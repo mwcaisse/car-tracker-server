@@ -18,8 +18,8 @@ define("Components/Car/CarSelection/CarSelection",
 					this.cars = data.data;
 				}.bind(this),
 				function (error) {
-					
-				})
+                    system.showAlert(error, "error");
+				});
 			},
 			getLinkForCar: function (car) {
 				return navigation.viewCarLink(car.id);

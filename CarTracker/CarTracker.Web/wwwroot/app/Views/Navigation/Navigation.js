@@ -11,7 +11,7 @@ define("Views/Navigation/Navigation",
 			
 			var isAuthenticated = $("#isAuthenticated").val() === "true";
 	
-			var vm = function (elementId) {
+			return function (elementId) {
 				return new Vue({			
 					el: elementId,
 					template: template,
@@ -78,7 +78,5 @@ define("Views/Navigation/Navigation",
 					}
 				});
 			}
-			
-			return vm;
 		}
 );

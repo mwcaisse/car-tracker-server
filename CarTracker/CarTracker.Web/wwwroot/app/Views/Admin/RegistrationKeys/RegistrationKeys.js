@@ -6,10 +6,11 @@ define("Views/Admin/RegistrationKeys/RegistrationKeys",
 	 "AMD/text!Views/Admin/RegistrationKeys/RegistrationKeys.html",
 	 "Components/Admin/RegistrationKeyGrid/RegistrationKeyGrid"], 
 	 
-	function (util, navigation, template) {	
+    function (util, navigation, template) {	
 
+        navigation.setActiveNavigation("Admin");	
 	
-		var vm = function (elementId) {	
+		return function (elementId) {	
 			
 			return new Vue({			
 				el: elementId,
@@ -17,8 +18,4 @@ define("Views/Admin/RegistrationKeys/RegistrationKeys",
 			});
 		};
 		
-		navigation.setActiveNavigation("Admin");	
-		
-		return vm;
-	
 });

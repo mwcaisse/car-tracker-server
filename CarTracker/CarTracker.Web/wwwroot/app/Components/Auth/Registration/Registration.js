@@ -114,12 +114,12 @@ define("Components/Auth/Registration/Registration",
 						navigation.navigateToLogin("registered");
 					}
 					else {
-						self.pageError("Failed to Register. An unexpected error occured.");
+					    system.showAlert("Failed to Register. An unexpected error occured.", "error");
 					}
 				}.bind(this),
 				function (error) {
 					var errorText = error ? error : "An unexpected error occured.";
-					this.pageError = "Failed to Register. " + errorText;
+				    system.showAlert("Failed to Register. " + errorText, "error");
 				}.bind(this));
 			},
 			cancel: function () {
@@ -128,9 +128,6 @@ define("Components/Auth/Registration/Registration",
 			clearPageError: function () {
 				this.pageError = "";
 			}
-		},
-		created: function () {
-	
 		}
 	});
 	

@@ -2,7 +2,7 @@
 
 define("Service/proxy", ["Service/system"], function (system) {
 	
-	var proxy = new (function() {
+	return new (function() {
 		var self = this;
 
 		self.baseUrl = system.baseUrl + "api/";
@@ -88,7 +88,5 @@ define("Service/proxy", ["Service/system"], function (system) {
 		
 		
 	})();
-	
-	return proxy;
 	
 });

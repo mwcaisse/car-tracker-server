@@ -6,7 +6,7 @@ define("Views/PageAlert/PageAlert",
         "Components/Common/PageAlert/PageAlert"],
     function (util, template) {
 
-        var vm = function (elementId) {
+        return function (elementId) {
 
             return new Vue({
                 el: elementId,
@@ -14,7 +14,5 @@ define("Views/PageAlert/PageAlert",
             });
 
         };
-
-        return vm;
 
     });

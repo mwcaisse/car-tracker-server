@@ -62,7 +62,7 @@ namespace CarTracker.Web
             services.AddSingleton(buildInformation);
             //Load in some confiugration options
             var googleMapsApiKey = Configuration.GetValue<string>("googleMapsApiKey");
-            var rootPathPrefix = Configuration.GetValue<string>("rootPathPrefix", ""); ;
+            var rootPathPrefix = Configuration.GetValue<string>("rootPathPrefix", "");
 
             var applicationConfig = new ApplicationConfiguration()
             {

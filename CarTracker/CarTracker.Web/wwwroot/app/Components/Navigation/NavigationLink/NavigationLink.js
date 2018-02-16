@@ -51,7 +51,7 @@ define("Components/Navigation/NavigationLink/NavigationLink",
 			}
 		},
 		created: function () {
-			system.events.on(navigation.EVENT_NAVIGATION_ACTIVE_CHANGED, function (event, data) {
+			system.bus.$on(navigation.EVENT_NAVIGATION_ACTIVE_CHANGED, function (data) {
 				this.active = (this.linkId === data.id);
 			}.bind(this));
 		}

@@ -8,17 +8,13 @@ define("Views/Admin/Log/RequestLogs/RequestLogs",
 
     function (util, navigation, template) {
 
+        navigation.setActiveNavigation("Admin");
 
-        var vm = function (elementId) {
+        return function (elementId) {
 
             return new Vue({
                 el: elementId,
                 template: template
             });
         };
-
-        navigation.setActiveNavigation("Admin");
-
-        return vm;
-
     });

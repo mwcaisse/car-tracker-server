@@ -8,9 +8,10 @@ define("Views/Admin/Log/RequestLogDetail/RequestLogDetail",
 
     function (util, navigation, template) {
 
-        var requestGuid = $("#requestGuid").val();
+        navigation.setActiveNavigation("Admin");
 
-        var vm = function (elementId) {
+        var requestGuid = $("#requestGuid").val();
+        return function (elementId) {
 
             return new Vue({
                 el: elementId,
@@ -20,9 +21,4 @@ define("Views/Admin/Log/RequestLogDetail/RequestLogDetail",
                 }
             });
         };
-
-        navigation.setActiveNavigation("Admin");
-
-        return vm;
-
     });

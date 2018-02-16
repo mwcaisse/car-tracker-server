@@ -5,9 +5,6 @@ define("Components/Common/Pager/Pager",
          "AMD/text!Components/Common/Pager/Pager.html"],
 	function (moment, system, util, proxy, navigation, template) {
 	
-	var SORT_ORDER_ASC = "ASC";
-	var SORT_ORDER_DESC = "DESC";
-	
 	return Vue.component("app-pager", {
 		data: function() {
 			return {
@@ -108,9 +105,6 @@ define("Components/Common/Pager/Pager",
 				this.currentPage = newPage;			
 			}
 	
-		},
-		created: function () {
-			
 		}
 	});
 	
