@@ -22,7 +22,7 @@ define("Components/Trip/TripChart/TripSpeedChart",
 					text: this.name
 				};				
 				
-				var data = $.map(this.readings, function (elm, ind) {
+				var data = $.map(this.readings, function (elm) {
 					var speed = elm.speed;
 					if (useImperial) {
 						speed = util.convertKmToMi(speed);

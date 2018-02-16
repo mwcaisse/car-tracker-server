@@ -21,7 +21,9 @@ define("Components/Common/Modal/Modal",
 			onClose: {
 				type: Function,
 				required: false,
-				default: function () { }
+				default: function() {
+				    //default function, does nothing
+				}
 			},
 			width: {
 				type: String,

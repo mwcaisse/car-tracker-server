@@ -31,7 +31,7 @@ define("Components/Admin/Log/RequestLogGrid/RequestLogGrid",
                     });
                 },
                 update: function (data) {
-                    this.logs = $.map(data.data, function (elm, ind) {
+                    this.logs = $.map(data.data, function (elm) {
                         return this.augmentLog(elm);
                     }.bind(this));
                     this.totalItems = data.total;

@@ -60,7 +60,7 @@ define("Components/Admin/RegistrationKeyModal/RegistrationKeyModal",
 					func = proxy.registrationKey.update;
 				}
 				
-				func(this.createModel()).then(function (key) {
+				func(this.createModel()).then(function () {
 					this.$emit("registrationKey:updated");	
 					this.$refs.modal.close();
 				}.bind(this),

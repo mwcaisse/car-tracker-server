@@ -29,12 +29,12 @@ define("Components/Trip/TripMap/TripMap",
 					
 					//if we have an existing route path remove it from the map
 					if (this.routePathes.length > 0) {
-						$.each(this.routePathes, function (elm, ind) {
+						$.each(this.routePathes, function (elm) {
 							elm.setMap(null);
 						});
 					}
 					
-					var coords = $.map(data, function (elm, ind) {
+					var coords = $.map(data, function (elm) {
 						if (elm.longitude === 0 && elm.latitude === 0) {
 							return null; // ignore any coordinates that have 0 as lat an long (data issue)
 						}
@@ -75,7 +75,7 @@ define("Components/Trip/TripMap/TripMap",
 						subPath.setMap(this.map);
 						
 						this.routePathes.push(subPath);
-					};
+					}
 					
 					this.map.fitBounds(mapBounds);
 					

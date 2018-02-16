@@ -1,13 +1,15 @@
 "use strict";
 
 define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces", 
-		["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation", 	
+        ["moment",
+         "Service/system",
+         "Service/applicationProxy", 	
 		 "Components/Common/Pager/PagedGridMixin",
 		 "AMD/text!Components/Trip/TripPossiblePlaces/TripPossiblePlaces.html",
 		 "AMD/text!Components/Trip/TripPossiblePlaces/TripPossiblePlacesRow.html",
          "Components/Common/ColumnHeader/ColumnHeader",
          "Components/Common/Pager/Pager"],
-	function (moment, system, util, proxy, navigation, pagedGridMixin, template, rowTemplate) {
+	function (moment, system, proxy, pagedGridMixin, template, rowTemplate) {
 	
 	var placeRow = {
 			template: rowTemplate,	
@@ -34,16 +36,12 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 	        },
 			methods: {
 				setPlace: function () {
-					var promise;
 					if (this.placeType === system.constants.TRIP_POSSIBLE_PLACE_TYPE.START) {
-						promise = proxy.trip.setStartingPlace(this.tripId, this.placeId);
+						proxy.trip.setStartingPlace(this.tripId, this.placeId);
 					}
 					else {
-						promise = proxy.trip.setDestinationPlace(this.tripId, this.placeId);
+						proxy.trip.setDestinationPlace(this.tripId, this.placeId);
 					}
-				    promise.then(function(res) {
-
-				    }.bind(this));
 				},
 				update: function (data) {
 					this.id = data.id;

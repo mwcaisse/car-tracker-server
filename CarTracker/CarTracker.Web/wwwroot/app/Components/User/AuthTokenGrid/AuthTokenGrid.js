@@ -28,7 +28,7 @@ define("Components/User/AuthTokenGrid/AuthTokenGrid",
 				})
 			},		
 			update: function (data) {			
-				this.tokens = $.map(data.data, function (elm, ind) {
+				this.tokens = $.map(data.data, function (elm) {
 					return this.augmentToken(elm);				
 				}.bind(this));
 				this.totalItems = data.total;

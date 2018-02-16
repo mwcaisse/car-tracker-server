@@ -2,7 +2,7 @@
 
 define("Service/navigation", ["Service/system"], function (system) {
 	
-	var util = new (function() {
+	return new (function() {
 		var self = this;
 
 		self.navigateTo = function(url) {
@@ -81,7 +81,5 @@ define("Service/navigation", ["Service/system"], function (system) {
 	
 		
 	})();
-	
-	return util;
 	
 });

@@ -2,7 +2,7 @@
 
 define("Service/constants", [], function () {
 
-    var constants = new (function () {
+    return new (function () {
         var self = this;
 
         self.TRIP_STATUS = {
@@ -44,7 +44,5 @@ define("Service/constants", [], function () {
         ];
 
     })();
-
-    return constants;
-
+    
 });

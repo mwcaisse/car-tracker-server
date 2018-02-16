@@ -22,15 +22,15 @@ define("Components/Trip/TripChart/TripTemperatureChart",
 					text: this.name
 				};
 				
-				var ambientAirTemperature = $.map(this.readings, function (elm, ind) {
+				var ambientAirTemperature = $.map(this.readings, function (elm) {
 					return this.createDataElement(elm, "ambientAirTemperature", useImperial);
 				}.bind(this));
 				
-				var engineCoolantTemperature = $.map(this.readings, function (elm, ind) {
+				var engineCoolantTemperature = $.map(this.readings, function (elm) {
 					return this.createDataElement(elm, "engineCoolantTemperature", useImperial);
 				}.bind(this));
 				
-				var oilTemperature = $.map(this.readings, function (elm, ind) {
+				var oilTemperature = $.map(this.readings, function (elm) {
 					return this.createDataElement(elm, "oilTemperature", useImperial);
 				}.bind(this));
 				

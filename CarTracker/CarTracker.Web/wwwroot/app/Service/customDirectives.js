@@ -41,15 +41,10 @@ define("Service/customDirectives",
 		if (value === true) {
 			return "Yes";
 		}
-		else if (value === false) {
-			return "No";
-		}
-		else if (nullIsBlank) {
+		else if (value !== false && nullIsBlank) {
 			return "";
 		}
-		else {
-			return "No";
-		}
+		return "No";
 	});
 	
 	Vue.filter("round", function (value, places) {

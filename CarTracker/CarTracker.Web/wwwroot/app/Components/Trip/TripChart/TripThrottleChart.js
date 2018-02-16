@@ -21,7 +21,7 @@ define("Components/Trip/TripChart/TripThrottleChart",
 					text: this.name
 				};
 				
-				var data = $.map(this.readings, function (elm, ind) {
+				var data = $.map(this.readings, function (elm) {
 					var throttlePosition = Math.round(elm.throttlePosition);
 					return {x: elm.readDate, y: throttlePosition };
 				});

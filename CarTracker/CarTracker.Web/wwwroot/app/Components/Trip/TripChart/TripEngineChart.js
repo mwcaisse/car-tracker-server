@@ -20,7 +20,7 @@ define("Components/Trip/TripChart/TripEngineChart",
 					text: this.name
 				};				
 				
-				var data = $.map(this.readings, function (elm, ind) {
+				var data = $.map(this.readings, function (elm) {
 					return {x: elm.readDate, y: elm.engineRpm };
 				});
 				

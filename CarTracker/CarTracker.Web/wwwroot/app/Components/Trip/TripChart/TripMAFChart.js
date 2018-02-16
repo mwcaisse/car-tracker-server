@@ -21,7 +21,7 @@ define("Components/Trip/TripChart/TripMAFChart",
 					text: this.name
 				};
 				
-				var data = $.map(this.readings, function (elm, ind) {		
+				var data = $.map(this.readings, function (elm) {		
 					return {x: elm.readDate, y: elm.massAirFlow };
 				});
 				

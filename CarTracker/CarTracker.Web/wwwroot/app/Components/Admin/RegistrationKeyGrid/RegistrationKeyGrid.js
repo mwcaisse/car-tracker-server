@@ -26,10 +26,10 @@ define("Components/Admin/RegistrationKeyGrid/RegistrationKeyGrid",
 				}.bind(this),
 				function (error) {
 				    system.showAlert(error, "error");
-				})
+				});
 			},		
 			update: function (data) {			
-				this.keys = $.map(data.data, function (elm, ind) {
+				this.keys = $.map(data.data, function (elm) {
 					return this.augmentKey(elm);				
 				}.bind(this));
 				this.totalItems = data.total;
@@ -59,7 +59,7 @@ define("Components/Admin/RegistrationKeyGrid/RegistrationKeyGrid",
 			viewKey: function (id) {
 				system.bus.$emit("registrationKey:edit", id);
 			},
-			createKey: function (id) {
+			createKey: function () {
 				system.bus.$emit("registrationKey:create");
 			}
 		},
