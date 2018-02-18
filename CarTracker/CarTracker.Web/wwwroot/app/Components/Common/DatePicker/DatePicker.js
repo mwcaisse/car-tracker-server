@@ -18,7 +18,7 @@ define("Components/Common/DatePicker/DatePicker",
             props: {
                 value: {
                     type: Date,
-                    required: true
+                    required: false
                 }
             },
             template: template,
