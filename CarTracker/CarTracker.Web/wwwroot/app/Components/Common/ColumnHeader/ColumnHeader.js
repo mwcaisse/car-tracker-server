@@ -15,7 +15,8 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 				sort: false,
                 sortOrder: SORT_ORDER_DESC,
                 mFilterOptions: [],
-                currentFilter: ""
+                currentFilter: "",
+                dateFilter: new Date("01/01/2018")
 			}
         },	
 		computed: {
@@ -66,8 +67,8 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 		},
 		watch: {
 			currentSort: function(newSort) {	
-				this.updateSort(newSort);				
-            },
+                this.updateSort(newSort);
+			},
             currentFilter: function (val) {
                 var event = "filter:update";
                 if (util.isStringNullOrBlank(val)) {
@@ -79,6 +80,9 @@ define("Components/Common/ColumnHeader/ColumnHeader",
                     fitlerValue: val
                 }
                 this.$emit(event, eventData);
+            },
+            dateFilter: function(val) {
+                console.log("DateFilter changed: " + val);
             }
 		},
 		template: template,

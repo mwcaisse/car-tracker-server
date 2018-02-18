@@ -8,18 +8,35 @@ define("Components/Common/DatePicker/DatePicker",
         return Vue.component("app-datepicker", {
             data: function () {
                 return {
-                   
+                }
+            },
+            computed: {
+                date: function() {
+                    return this.value;
                 }
             },
             props: {
+                value: {
+                    type: Date,
+                    required: true
+                }
             },
             template: template,
             methods: {
+                updateValue: function(value) {
+                    this.$emit("input", value);
+                }
             },
             directives: {
                 datepicker: {
-                    bind: function (el, binding) {
-                        $(el).datepicker();
+                    bind: function (el, binding, vnode) {
+                        $(el).datepicker().on("changeDate", function (e) {
+                            vnode.context.updateValue(e.date);
+                        });
+                        $(el).datepicker("update", binding.value);
+                    },
+                    update: function (el, binding) {
+                        $(el).datepicker("update", binding.value);
                     }
                 }
             }

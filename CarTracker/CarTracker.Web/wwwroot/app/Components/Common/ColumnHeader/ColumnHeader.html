@@ -21,11 +21,11 @@
         <div v-if="enableFilter && filterType === 'DATE'">
             <div class="px-2 py-1">
                 <label>Start Date</label>
-                <app-datepicker></app-datepicker>
+                <app-datepicker v-model="dateFilter"></app-datepicker>
             </div>
             <div class="px-2 py-1">
                 <label>End Date</label>
-                <app-datepicker></app-datepicker>
+                
             </div>
         </div>
     </div>
