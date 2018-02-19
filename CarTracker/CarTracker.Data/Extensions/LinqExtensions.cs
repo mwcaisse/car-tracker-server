@@ -22,7 +22,7 @@ namespace CarTracker.Data.Extensions
                 string.Equals(p.Name, name, StringComparison.OrdinalIgnoreCase));
             if (matchedProperty == null)
             {
-                throw new SortException($"Invalid column name {name}.");
+                throw new QueryException($"Invalid column name {name}.");
             }
 
             return matchedProperty;
@@ -105,7 +105,7 @@ namespace CarTracker.Data.Extensions
             var left = Expression.Property(param, propertyName);
             var right = Expression.Constant(value, typeof(string));
 
-            var propertyType = typeof(T).GetProperty(propertyName).PropertyType;
+            var propertyType = GetPropertyInfo(typeof(T), propertyName).PropertyType;
             if (propertyType == typeof(DateTime))
             {
                 var dateValue = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(value)).DateTime;

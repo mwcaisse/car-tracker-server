@@ -4,21 +4,21 @@ using System.Text;
 
 namespace CarTracker.Common.Exceptions
 {
-    public class SortException : Exception
+    public class QueryException : Exception
     {
 
-        public SortException()
+        public QueryException()
         {
             
         }
 
-        public SortException(string message)
+        public QueryException(string message)
             : base(message)
         {
             
         }
 
-        public SortException(string message, Exception innerException) 
+        public QueryException(string message, Exception innerException) 
             : base(message, innerException)
         {
             
