@@ -56,35 +56,35 @@
 
     <!--  need to load up the requrie config, after the google map api key -->
     <script src="@rootPathPrefix/app/Common.js" type="text/javascript"></script>
+    
+    <div id="container">
+        <!--  Element + vue model to load the navigation -->
+        <div id="navigationvm">
+            <script type="text/javascript">
+                var navigationDeferred = Q.defer();
+                var navigationPromise = navigationDeferred.promise;
 
-    <!--  Element + vue model to load the navigation -->
-    <div id="navigationvm">
-        <script type="text/javascript">
-			var navigationDeferred = Q.defer();
-			var navigationPromise = navigationDeferred.promise;
+                require(["Views/Navigation/Navigation"], function (navVm) {
+                    navVm("#navigationvm");
 
-			require(["Views/Navigation/Navigation"], function(navVm) {
-				navVm("#navigationvm");
-
-				navigationDeferred.resolve();
-			});
-        </script>
-    </div>
-
-
-    <!-- the body of the page -->
-    <div class="content">
-        <div class="container">
-            <vc:vue view-name="Views/PageAlert/PageAlert"></vc:vue>
-            @RenderBody()
+                    navigationDeferred.resolve();
+                });
+            </script>
         </div>
-    </div>
+        <!-- the body of the page -->
+        <div class="content">
+            <div class="container">
+                <vc:vue view-name="Views/PageAlert/PageAlert"></vc:vue>
+                @RenderBody()
+            </div>
+        </div>
 
-    <!-- page footer -->
-   
-    <footer>
-        @Html.Partial("_Footer")
-    </footer>
+        <!-- page footer -->
+
+        <footer>
+            @Html.Partial("_Footer")
+        </footer>
+    </div>
 
 </body>
 </html>
