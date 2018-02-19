@@ -2,7 +2,7 @@
 
 define("Service/system", ["Service/enums", "Service/constants", "Service/customDirectives"],
     function (enums, constants) {
-	
+
 	return new (function() {
 		var self = this;
 		//Vue Instance for an event bus
@@ -32,7 +32,9 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
                 }
             );
         }
-		
+
+	    
+
 	})();
 	
 });

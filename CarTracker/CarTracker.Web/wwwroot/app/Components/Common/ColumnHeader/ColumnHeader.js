@@ -6,28 +6,57 @@ define("Components/Common/ColumnHeader/ColumnHeader",
         "Components/Common/DatePicker/DatePicker"],
 	function (moment, system, util, proxy, navigation, template) {
 	
-	var SORT_ORDER_ASC = "ASC";
-	var SORT_ORDER_DESC = "DESC";
-	
 	return Vue.component("app-column-header", {
 		data: function() {
 			return {
 				sort: false,
-                sortOrder: SORT_ORDER_DESC,
+                sortOrder: system.constants.SORT_ORDER.ASC,
                 mFilterOptions: [],
                 currentFilter: "",
-                dateFilter: new Date("01/01/2018")
+                startDate: null,
+                endDate: null
 			}
         },	
 		computed: {
 			sortIcon: function() {
 				return {
-					"fa-sort-amount-asc"  : this.sortOrder === SORT_ORDER_ASC,
-					"fa-sort-amount-desc" : this.sortOrder === SORT_ORDER_DESC
+					"fa-sort-amount-asc"  : this.sortOrder === system.constants.SORT_ORDER.ASC,
+					"fa-sort-amount-desc" : this.sortOrder === system.constants.SORT_ORDER.DESC
 				}			
             },
             isFiltered: function() {
                 return !util.isStringNullOrBlank(this.currentFilter);
+            },
+            filter: function () {
+                if (!this.enableFilter) {
+                    return null;
+                }
+
+                var filterObj = {};
+                if (this.filterType === system.constants.FILTER_TYPE.DATE) {
+                    if (this.startDate !== null) {
+                        filterObj[system.constants.FILTER_OPERATION.GTE] = this.startDate;
+                    }
+                    if (this.endDate !== null) {
+                        filterObj[system.constants.FILTER_OPERATION.LTE] = this.endDate;
+                    }
+                }
+                else if (this.filterType === system.constants.FILTER_TYPE.TEXT) {
+                    if (!util.isStringNullOrBlank(this.currentFilter)) {
+                        filterObj[system.constants.FILTER_OPERATION.CONT] = this.currentFilter;
+                    } 
+                }
+                else {
+                    if (!util.isStringNullOrBlank(this.currentFilter)) {
+                        filterObj[system.constants.FILTER_OPERATION.EQ] = this.currentFilter;
+                    } 
+                }
+                //check if we added any properties to the filter object, and return it if so
+                if (Object.keys(filterObj).length) {
+                    return filterObj;
+                }
+                // no properties were added, no filtering is being done, return null
+                return null;
             }
 		},
 		props: {
@@ -53,7 +82,7 @@ define("Components/Common/ColumnHeader/ColumnHeader",
             },
             filterType: {
                 type: String,
-                default: "DROPDOWN",
+                default: system.constants.FILTER_TYPE.DROPDOWN,
                 required: false
             },
             useFilterOptions: {
@@ -68,21 +97,17 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 		watch: {
 			currentSort: function(newSort) {	
                 this.updateSort(newSort);
-			},
-            currentFilter: function (val) {
+            },
+            filter: function(val) {
                 var event = "filter:update";
-                if (util.isStringNullOrBlank(val)) {
+                if (null == val) {
                     event = "filter:clear";
                 } 
-
                 var eventData = {
                     propertyId: this.columnId,
                     fitlerValue: val
                 }
                 this.$emit(event, eventData);
-            },
-            dateFilter: function(val) {
-                console.log("DateFilter changed: " + val);
             }
 		},
 		template: template,
@@ -130,7 +155,7 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 			if (typeof this.currentSort !== "undefined") {
 				this.updateSort(this.currentSort);
             }
-            if (this.enableFilter && this.filterType === "DROPDOWN") {
+            if (this.enableFilter && this.filterType === system.constants.FILTER_TYPE.DROPDOWN) {
                 this.populateFilterOptions();
             }
 		}

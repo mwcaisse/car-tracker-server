@@ -1,8 +1,19 @@
 "use strict";
 
 define("Service/customDirectives", 
-		["moment", "Service/util", "Service/enums"], function (moment, util, enums) {
-	
+    ["moment", "Service/util", "Service/enums", "Service/constants"],
+    function (moment, util, enums, constants) {
+
+
+    // Register a global mixin to inject constants into each Vue component
+    Vue.mixin({
+        data: function () {
+            return {
+                constants: constants
+            }
+        }
+    });
+
 	Vue.directive("tooltip", {
 		bind: function (el, binding) {
 			$(el).tooltip(binding.value);

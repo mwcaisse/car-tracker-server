@@ -43,6 +43,27 @@ define("Service/constants", [], function () {
             self.LOG_TYPE.ERROR
         ];
 
+        self.SORT_ORDER = {
+            ASC: "ASC",
+            DESC: "DESC"
+        };
+
+        self.FILTER_OPERATION = {
+            EQ: "eq", // EQUAL
+            NE: "ne", // NOT EQUAL
+            LTE: "lte", // LESS THAN OR EQUAL
+            GTE: "gte", // GREATER THAN OR EQUAL
+            LT: "lt", // LESS THAN
+            GT: "gt", // GREATER THAN
+            CONT: "cont" // CONTAINS
+        };
+
+        self.FILTER_TYPE = {
+            TEXT: "TEXT",
+            DATE: "DATE",
+            DROPDOWN: "DROPDOWN"
+        };
+
     })();
     
 });

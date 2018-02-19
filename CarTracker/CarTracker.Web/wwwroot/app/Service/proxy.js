@@ -46,7 +46,14 @@ define("Service/proxy", ["Service/system"], function (system) {
 		
 		self.get = function(relativeUrl) {
 			return self.getAsbsolute(self.baseUrl + relativeUrl);
-		};
+        };
+
+	    self.getUrlValue = function(val) {
+	        if (val instanceof Date) {
+	            return val.valueOf();
+	        }
+	        return val;
+	    };
 		
 		self.getPaged = function (relativeUrl, skip, take, sort, filter) {
             var sortString = "";
@@ -55,8 +62,10 @@ define("Service/proxy", ["Service/system"], function (system) {
 				sortString = "&columnName=" + sort.propertyId +"&ascending=" + (sort.ascending ? "true" : "false");
             }
             if (filter) {
-                $.each(filter, function(key, val) {
-                    filterString += "&" + key + "=" + val;
+                $.each(filter, function (property, filters) {
+                    $.each(filters, function (op, val) {
+                        filterString += "&" + property + "__" + op + "=" + self.getUrlValue(val);
+                    });
                 });
             }
             return self.get(relativeUrl + "?skip=" + skip + "&take=" + take + sortString + filterString);
