@@ -26,7 +26,8 @@ namespace CarTracker.Logic.Services
             return _db.ReaderLogs.ToList();
         }
 
-        public PagedViewModel<ReaderLog> GetAllPaged(int skip = 0, int take = 10, SortParam sortParam = null)
+        public PagedViewModel<ReaderLog> GetAllPaged(int skip = 0, int take = 10, SortParam sortParam = null,
+            Dictionary<string, string> filters = null)
         {
             if (string.IsNullOrWhiteSpace(sortParam?.ColumnName))
             {
@@ -37,7 +38,7 @@ namespace CarTracker.Logic.Services
                 };
             }
 
-            return _db.ReaderLogs.PageAndSort(skip, take, sortParam);
+            return _db.ReaderLogs.Filter(filters).PageAndSort(skip, take, sortParam);
         }
 
         public ReaderLog Get(long id)

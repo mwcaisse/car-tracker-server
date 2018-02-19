@@ -111,6 +111,16 @@ namespace CarTracker.Data.Extensions
                 var dateValue = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(value)).DateTime;
                 right = Expression.Constant(dateValue, typeof(DateTime));
             }
+            else if (propertyType.IsEnum)
+            {
+                var intValue = Convert.ToInt32(value);
+                var enumValue = Enum.ToObject(propertyType, intValue);
+                if (!Enum.IsDefined(propertyType, enumValue))
+                {
+                    throw new QueryException($"Invalid value for {propertyName}");
+                }
+                right = Expression.Constant(enumValue, propertyType);
+            }
             var exp = Expression.Lambda<Func<T, bool>>(
                 ConstructExpressionCondition(operationName, left, right), param
             );
@@ -156,19 +166,22 @@ namespace CarTracker.Data.Extensions
         public static IQueryable<T> Filter<T>(this IQueryable<T> query,
             Dictionary<string, string> filters)
         {
-            foreach (var pair in filters)
+            if (null != filters && filters.Any())
             {
-                var tokens = pair.Key.Split("__");
-                if (tokens.Length != 2)
+                foreach (var pair in filters)
                 {
-                    //ignore any filter if it isn't formatted correctly
-                    continue;
+                    var tokens = pair.Key.Split("__");
+                    if (tokens.Length != 2)
+                    {
+                        //ignore any filter if it isn't formatted correctly
+                        continue;
+                    }
+
+                    var propertyName = tokens[0];
+                    var operatorName = tokens[1];
+
+                    query = query.Where(ConstructExpression<T>(propertyName, operatorName, pair.Value));
                 }
-
-                var propertyName = tokens[0];
-                var operatorName = tokens[1];
-
-                query = query.Where(ConstructExpression<T>(propertyName, operatorName, pair.Value));
             }
 
             return query;

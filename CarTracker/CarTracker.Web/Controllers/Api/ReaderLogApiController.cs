@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarTracker.Common.Mappers;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
+using CarTracker.Web.Util;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,9 +37,11 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpGet]
         [Route("")]
-        public IActionResult GetAll(int skip = DefaultSkip, int take = DefaultTake, SortParam sort = null)
+        public IActionResult GetAll(int skip = DefaultSkip, int take = DefaultTake, SortParam sort = null,
+            Dictionary<string, string> filters = null)
         {
-            return Ok(_readerLogService.GetAllPaged(skip, take, sort).ToViewModel());
+            filters = filters.CleanFilterParameters();
+            return Ok(_readerLogService.GetAllPaged(skip, take, sort, filters).ToViewModel());
         }
 
         [HttpPost]

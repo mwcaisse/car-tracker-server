@@ -42,12 +42,12 @@ define("Components/Common/ColumnHeader/ColumnHeader",
                     }
                 }
                 else if (this.filterType === system.constants.FILTER_TYPE.TEXT) {
-                    if (!util.isStringNullOrBlank(this.currentFilter)) {
+                    if (this.currentFilter !== "") {
                         filterObj[system.constants.FILTER_OPERATION.CONT] = this.currentFilter;
                     } 
                 }
                 else {
-                    if (!util.isStringNullOrBlank(this.currentFilter)) {
+                    if (this.currentFilter !== "") {
                         filterObj[system.constants.FILTER_OPERATION.EQ] = this.currentFilter;
                     } 
                 }
@@ -155,7 +155,10 @@ define("Components/Common/ColumnHeader/ColumnHeader",
 			if (typeof this.currentSort !== "undefined") {
 				this.updateSort(this.currentSort);
             }
-            if (this.enableFilter && this.filterType === system.constants.FILTER_TYPE.DROPDOWN) {
+            if (this.enableFilter &&
+                (this.filterType === system.constants.FILTER_TYPE.DROPDOWN ||
+                    this.filterType === system.constants.FILTER_TYPE.DROPDOWN_COMPLEX)) {
+
                 this.populateFilterOptions();
             }
 		}

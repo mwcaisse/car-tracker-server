@@ -9,9 +9,40 @@
 		<thead>
 			<tr>
 			
-				<th><app-column-header columnId="Type" 		columnName="Type" 		:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
-				<th><app-column-header columnId="Date" 		columnName="Date" 		:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared" ></app-column-header></th>
-				<th><app-column-header columnId="Message"   columnName="Message" 	:currentSort="currentSort" v-on:sort:update="sortUpdated" v-on:sort:clear="sortCleared"></app-column-header></th>
+			    <th><app-column-header columnId="Type"
+			                           columnName="Type"
+			                           :currentSort="currentSort"
+			                           v-on:sort:update="sortUpdated"
+			                           v-on:sort:clear="sortCleared"
+			                           :enableFilter="true"
+                                       filterType="DROPDOWN_COMPLEX"
+                                       :filterOptions="getLogTypeOptions"
+                                       v-on:filter:update="filterUpdated"
+                                       v-on:filter:clear="filterCleared">
+			        
+			    </app-column-header></th>
+			    <th><app-column-header columnId="Date"
+			                           columnName="Date"
+			                           :currentSort="currentSort"
+			                           v-on:sort:update="sortUpdated"
+			                           v-on:sort:clear="sortCleared"
+			                           :enableFilter="true"
+			                           filterType="DATE"
+                                       v-on:filter:update="filterUpdated"
+                                       v-on:filter:clear="filterCleared">
+			        
+			    </app-column-header></th>
+			    <th><app-column-header columnId="Message"
+			                           columnName="Message"
+			                           :currentSort="currentSort"
+			                           v-on:sort:update="sortUpdated"
+			                           v-on:sort:clear="sortCleared"
+                                       :enableFilter="true"
+			                           filterType="TEXT"
+                                       v-on:filter:update="filterUpdated"
+                                       v-on:filter:clear="filterCleared">
+			        
+			    </app-column-header></th>
 			</tr>
 		</thead>
 		<tbody>

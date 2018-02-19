@@ -61,7 +61,8 @@ define("Service/constants", [], function () {
         self.FILTER_TYPE = {
             TEXT: "TEXT",
             DATE: "DATE",
-            DROPDOWN: "DROPDOWN"
+            DROPDOWN: "DROPDOWN",
+            DROPDOWN_COMPLEX: "DROPDOWN_COMPLEX"
         };
 
     })();

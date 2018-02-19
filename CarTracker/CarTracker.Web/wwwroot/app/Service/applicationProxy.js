@@ -141,8 +141,8 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 		};
 		
 		self.readerLog = {
-			getAllPaged: function (startAt, maxResults, sort) {
-				return core.getPaged("log/reader/", startAt, maxResults, sort);
+			getAllPaged: function (startAt, maxResults, sort, filter) {
+				return core.getPaged("log/reader/", startAt, maxResults, sort, filter);
 			}
 		};	 
 		

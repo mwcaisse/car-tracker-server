@@ -12,6 +12,10 @@
             <a class="dropdown-item" href="#" v-for="filterOption in mFilterOptions" v-on:click.prevent="selectFilter(filterOption)" :class="{ active: currentFilter == filterOption }">&nbsp;{{ filterOption }}</a>
             <a class="dropdown-item" href="#" v-on:click.prevent="clearFilter"><i class="fa fa-close"></i>&nbsp;Clear Filter</a>
         </div>
+        <div v-if="enableFilter && filterType === constants.FILTER_TYPE.DROPDOWN_COMPLEX">
+            <a class="dropdown-item" href="#" v-for="filterOption in mFilterOptions" v-on:click.prevent="selectFilter(filterOption.value)" :class="{ active: currentFilter == filterOption.value }">&nbsp;{{ filterOption.display }}</a>
+            <a class="dropdown-item" href="#" v-on:click.prevent="clearFilter"><i class="fa fa-close"></i>&nbsp;Clear Filter</a>
+        </div>
         <div v-if="enableFilter && filterType === constants.FILTER_TYPE.TEXT">
             <div class="px-2 py-1">
                 <label>Filter</label>

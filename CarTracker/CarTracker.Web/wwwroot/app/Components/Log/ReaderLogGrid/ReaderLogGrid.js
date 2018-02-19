@@ -20,7 +20,8 @@ define("Components/Log/ReaderLogGrid/ReaderLogGrid",
 		template: template,
 		methods: {
 			fetch: function () {							
-				proxy.readerLog.getAllPaged(this.startAt, this.take, this.currentSort).then(function (data) {					
+                proxy.readerLog.getAllPaged(this.startAt, this.take, this.currentSort,
+                    this.currentFilter).then(function (data) {					
 					this.update(data);
 				}.bind(this),
 				function (error) {
@@ -39,7 +40,17 @@ define("Components/Log/ReaderLogGrid/ReaderLogGrid",
 			},
 			refresh: function () {
 				this.fetch();
-			}		
+            },
+            getLogTypeOptions: function () {
+                return Q.fcall(function() {
+                    return $.map(system.enums.LogType, function(val, key) {
+                        return {
+                            value: key,
+                            display: val
+                        }
+                    });
+                });
+            }
 		},
 		created: function () {
 			this.fetch();

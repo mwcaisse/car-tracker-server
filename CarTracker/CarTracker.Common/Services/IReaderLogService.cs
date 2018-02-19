@@ -16,13 +16,15 @@ namespace CarTracker.Common.Services
         IEnumerable<ReaderLog> GetAll();
 
         /// <summary>
-        /// Fetches all reader logs with the given paging + sorting
+        /// Fetches all reader logs with the given paging + sorting + filtering
         /// </summary>
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <param name="sortParam"></param>
+        /// <param name="filters"></param>
         /// <returns></returns>
-        PagedViewModel<ReaderLog> GetAllPaged(int skip = 0, int take = 10, SortParam sortParam = null);
+        PagedViewModel<ReaderLog> GetAllPaged(int skip = 0, int take = 10, SortParam sortParam = null,
+            Dictionary<string, string> filters = null);
 
         /// <summary>
         /// Fetches the reader log with the given id
