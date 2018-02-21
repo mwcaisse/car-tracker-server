@@ -32,7 +32,7 @@ namespace CarTracker.Logic.Services.Logging
         }
 
         public PagedViewModel<RequestLog> GetAll(int skip, int take, SortParam sort,
-            Dictionary<string, string> filters)
+            IEnumerable<FilterParam> filters)
         {
             return _db.RequestLogs.Build().Filter(filters).PageAndSort(skip, take, sort);
         }

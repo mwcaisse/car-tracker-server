@@ -40,8 +40,7 @@ namespace CarTracker.Web.Controllers.Api
         public IActionResult GetAll(int skip = DefaultSkip, int take = DefaultTake, SortParam sort = null,
             Dictionary<string, string> filters = null)
         {
-            filters = filters.CleanFilterParameters();
-            return Ok(_readerLogService.GetAllPaged(skip, take, sort, filters).ToViewModel());
+            return Ok(_readerLogService.GetAllPaged(skip, take, sort, filters.ConvertToFilterParams()).ToViewModel());
         }
 
         [HttpPost]

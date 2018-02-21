@@ -24,7 +24,7 @@ namespace CarTracker.Common.Services
         /// <param name="filters"></param>
         /// <returns></returns>
         PagedViewModel<ReaderLog> GetAllPaged(int skip = 0, int take = 10, SortParam sortParam = null,
-            Dictionary<string, string> filters = null);
+            IEnumerable<FilterParam> filters = null);
 
         /// <summary>
         /// Fetches the reader log with the given id

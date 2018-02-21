@@ -7,8 +7,10 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using CarTracker.Common;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Enums;
 using CarTracker.Common.Exceptions;
 using CarTracker.Common.ViewModels;
+using Microsoft.Extensions.Logging;
 
 namespace CarTracker.Data.Extensions
 {
@@ -99,7 +101,7 @@ namespace CarTracker.Data.Extensions
             return query.Where(e => e.Active);
         }
 
-        public static Expression<Func<T, bool>> ConstructExpression<T>(string propertyName, string operationName, string value)
+        public static Expression<Func<T, bool>> ConstructExpression<T>(string propertyName, FilterOperation operation, string value)
         {
             var param = Expression.Parameter(typeof(T), "rl");
             var left = Expression.Property(param, propertyName);
@@ -122,68 +124,53 @@ namespace CarTracker.Data.Extensions
                 right = Expression.Constant(enumValue, propertyType);
             }
             var exp = Expression.Lambda<Func<T, bool>>(
-                ConstructExpressionCondition(operationName, left, right), param
+                ConstructExpressionCondition(operation, left, right), param
             );
             return exp;
         }
 
-        public static Expression ConstructExpressionCondition(string operationName,
+        public static Expression ConstructExpressionCondition(FilterOperation operation,
             MemberExpression left, ConstantExpression right)
         {
 
-            if (string.Equals(Constants.FilterOperation.Ne, operationName, StringComparison.OrdinalIgnoreCase))
+            switch (operation)
             {
-                return Expression.NotEqual(left, right);
+                case FilterOperation.Equal:
+                    return Expression.Equal(left, right);
+                case FilterOperation.NotEqual:
+                  return Expression.NotEqual(left, right);
+                case FilterOperation.LessThanOrEqual:
+                    return Expression.LessThanOrEqual(left, right);
+                case FilterOperation.GreaterThanOrEqual:
+                    return Expression.GreaterThanOrEqual(left, right);
+                case FilterOperation.LessThan:
+                    return Expression.LessThan(left, right);
+                case FilterOperation.GreaterThan:
+                    return Expression.GreaterThan(left, right);
+                case FilterOperation.Contains:
+                    if (left.Type != typeof(string))
+                    {
+                        throw new QueryException("Filter Operation Contains can only be used on strings.");
+                    }
+                    MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
+                    return Expression.Call(left, method, right);
             }
-            if (string.Equals(Constants.FilterOperation.Lte, operationName, StringComparison.OrdinalIgnoreCase))
-            {
-                return Expression.LessThan(left, right);
-            }
-            if (string.Equals(Constants.FilterOperation.Gte, operationName, StringComparison.OrdinalIgnoreCase))
-            {
-                return Expression.GreaterThanOrEqual(left, right);
-            }
-            if (string.Equals(Constants.FilterOperation.Lt, operationName, StringComparison.OrdinalIgnoreCase))
-            {
-                return Expression.LessThan(left, right);
-            }
-            if (string.Equals(Constants.FilterOperation.Gt, operationName, StringComparison.OrdinalIgnoreCase))
-            {
-                return Expression.GreaterThan(left, right);
-            }
-            if (string.Equals(Constants.FilterOperation.Cont, operationName, StringComparison.OrdinalIgnoreCase))
-            {
-                //construct the contains method
-                MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
-                return Expression.Call(left, method, right);
-            }
-
             //Default to equals
             return Expression.Equal(left, right);
         }
 
 
         public static IQueryable<T> Filter<T>(this IQueryable<T> query,
-            Dictionary<string, string> filters)
+            IEnumerable<FilterParam> filters)
         {
-            if (null != filters && filters.Any())
+            var filterList = filters as IList<FilterParam> ?? filters.ToList();
+            if (filterList.Any())
             {
-                foreach (var pair in filters)
+                foreach (var filter in filterList)
                 {
-                    var tokens = pair.Key.Split("__");
-                    if (tokens.Length != 2)
-                    {
-                        //ignore any filter if it isn't formatted correctly
-                        continue;
-                    }
-
-                    var propertyName = tokens[0];
-                    var operatorName = tokens[1];
-
-                    query = query.Where(ConstructExpression<T>(propertyName, operatorName, pair.Value));
+                    query = query.Where(ConstructExpression<T>(filter.ColumnName, filter.Operation, filter.Value));
                 }
             }
-
             return query;
         }
     }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarTracker.Common.Enums;
+using CarTracker.Common.Exceptions;
+using CarTracker.Common.ViewModels;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CarTracker.Web.Util
@@ -38,6 +41,35 @@ namespace CarTracker.Web.Util
                 filters.Remove(key);
             }
             return filters;
+        }
+
+        public static IEnumerable<FilterParam> ConvertToFilterParams(this Dictionary<string, string> filters,
+            IEnumerable<string> additionalToRemove = null)
+        {
+            if (null == filters || !filters.Any())
+            {
+                return new List<FilterParam>();
+            }
+
+            filters = filters.CleanFilterParameters(additionalToRemove);
+            var filterParams = new List<FilterParam>();
+
+            foreach (var filter in filters)
+            {
+                var tokens = filter.Key.Split("__");
+                if (tokens.Length != 2)
+                {
+                    throw new QueryException($"Filter {filter.Key} is in an unreconized format.");
+                }
+                filterParams.Add(new FilterParam()
+                {
+                    ColumnName = tokens.First(),
+                    Operation = FilterOperationExtensions.FromString(tokens.Last()),
+                    Value = filter.Value
+                });
+            }
+
+            return filterParams;
         }
 
     }

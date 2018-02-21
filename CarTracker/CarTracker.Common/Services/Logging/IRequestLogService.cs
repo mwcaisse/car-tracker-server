@@ -31,8 +31,8 @@ namespace CarTracker.Common.Services.Logging
         /// <param name="sort"></param>
         /// <param name="filters"></param>
         /// <returns></returns>
-        PagedViewModel<RequestLog> GetAll(int skip, int take, SortParam sort, 
-            Dictionary<string, string> filters);
+        PagedViewModel<RequestLog> GetAll(int skip, int take, SortParam sort,
+            IEnumerable<FilterParam> filters);
 
         /// <summary>
         /// Returns all possible filter values for Request Method

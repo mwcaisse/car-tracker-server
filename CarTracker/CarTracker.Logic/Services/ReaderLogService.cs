@@ -27,7 +27,7 @@ namespace CarTracker.Logic.Services
         }
 
         public PagedViewModel<ReaderLog> GetAllPaged(int skip = 0, int take = 10, SortParam sortParam = null,
-            Dictionary<string, string> filters = null)
+            IEnumerable<FilterParam> filters = null)
         {
             if (string.IsNullOrWhiteSpace(sortParam?.ColumnName))
             {

@@ -35,8 +35,7 @@ namespace CarTracker.Web.Controllers.Api.Logging
         public IActionResult GetAll(int skip = DefaultSkip, int take = DefaultTake, 
             SortParam sort = null, Dictionary<string, string> filters = null)
         {
-            filters = filters.CleanFilterParameters();
-            return Ok(_requestLogService.GetAll(skip, take, sort, filters).ToViewModel());
+            return Ok(_requestLogService.GetAll(skip, take, sort, filters.ConvertToFilterParams()).ToViewModel());
         }
 
         [HttpGet]
