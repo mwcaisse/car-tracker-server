@@ -11,8 +11,7 @@ define("Views/Trip/Trip",
 	 "Components/Trip/TripChart/TripEngineChart",
 	 "Components/Trip/TripChart/TripThrottleChart",
 	 "Components/Trip/TripChart/TripMAFChart",
-	 "Components/Trip/TripChart/TripTemperatureChart",
-	 "Components/Trip/TripPossiblePlaces/TripPossiblePlaces"], 
+	 "Components/Trip/TripChart/TripTemperatureChart"], 
 	 function (util, navigation, proxy, template) {
 
         navigation.setActiveNavigation("Trip");

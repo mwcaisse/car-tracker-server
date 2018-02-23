@@ -8,7 +8,8 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 		 "AMD/text!Components/Trip/TripPossiblePlaces/TripPossiblePlaces.html",
 		 "AMD/text!Components/Trip/TripPossiblePlaces/TripPossiblePlacesRow.html",
          "Components/Common/ColumnHeader/ColumnHeader",
-         "Components/Common/Pager/Pager"],
+         "Components/Common/Pager/Pager",
+         "Components/Common/Modal/Modal"],
 	function (moment, system, proxy, pagedGridMixin, template, rowTemplate) {
 	
 	var placeRow = {
@@ -41,7 +42,9 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 					}
 					else {
 						proxy.trip.setDestinationPlace(this.tripId, this.placeId);
-					}
+                    }
+
+                    this.$emit("trip:possible-place:selected", this.possiblePlace);			
 				},
 				update: function (data) {
 					this.id = data.id;
@@ -50,7 +53,7 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 					this.placeType = data.placeType;
 					this.distance = data.distance;
 					this.placeName = data.place.name;
-				}
+                }
 			},
 			created: function() {
 				this.update(this.possiblePlace);
@@ -66,38 +69,43 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 		data: function() {
 			return {
 				possiblePlaces: [],
-				currentSort: { }			
+                currentSort: {},
+                type: ""
 			}
 		},	
 		props: {
 			tripId: {
 				type: Number,
 				required: true
-			},
-			type: {
-				type: String,
-				required: true
 			}
 		},
 		computed: {
 			typeDisplay: function () {
-				if (this.type === "START") {
+				if (this.type === system.constants.TRIP_POSSIBLE_PLACE_TYPE.START) {
 					return "Starting Points";
 				}
 				else {
 					return "Destinations";
 				}
-			}
+            },
+            title: function() {
+                return "Possible " + this.typeDisplay;
+            }
 		},
 		template: template,
 		methods: {
-			fetchPossiblePlaces: function () {				
-				proxy.tripPossiblePlaces.getForTrip(this.tripId, this.type, this.startAt, this.take, this.currentSort).then(function (data) {
-					this.update(data);
+            fetchPossiblePlaces: function () {
+                var type = system.enums.TripPossiblePlaceType[this.type];
+                return proxy.tripPossiblePlaces.getForTrip(this.tripId, type, this.startAt,
+                    this.take, this.currentSort).then(function (data) {
+
+                    this.update(data);
+                    return data;
 				}.bind(this),
 				function (error) {
-				    system.showAlert(error, "error");
-				})
+                    system.showAlert(error, "error");
+                    return error;
+				});
 			},		
 			update: function (data) {
 				this.possiblePlaces = data.data;	
@@ -105,10 +113,24 @@ define("Components/Trip/TripPossiblePlaces/TripPossiblePlaces",
 			},	
 			refresh: function () {
 				this.fetchPossiblePlaces();
-			}			
+            },	
+            placeSelected: function (place) {
+                this.$emit("trip:possible-place:selected", {
+                    selectedPlace: place,
+                    placeType: this.type
+                });
+                this.$refs.modal.close();
+            }
 		},
 		created: function () {
-			this.fetchPossiblePlaces();
+            system.bus.$on("trip:possible-place:show-modal", function (type) {
+                this.currentPage = 1;
+                this.type = type;
+                this.fetchPossiblePlaces().then(function () {
+                    this.$refs.modal.open();
+                }.bind(this));  
+                
+            }.bind(this));
 		}
 	});
 	

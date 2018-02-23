@@ -35,6 +35,10 @@ a.no-color, a.no-color:visited, a.no-color:hover {
     text-decoration: inherit;
 }
 
+.clickable {
+    cursor: pointer;
+}
+
 i.action-icon {
     cursor: pointer;
 }

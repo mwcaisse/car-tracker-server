@@ -29,7 +29,7 @@
 			</tr>
 		</tbody>		
 	</table>
-	<app-pager :totalItems="totalItems" :currentPaging="currentPaging" v-on:paging:update="pagingUpdated"></app-pager>
+	<app-pager :totalItems="totalItems" :currentPage="currentPage" :itemsPerPage="currentItemsPerPage" v-on:paging:update="pagingUpdated"></app-pager>
 	
 	<!--  the modal for creating/viewing registration keys -->
 	<app-registration-key-modal v-on:registrationKey:updated="refresh"></app-registration-key-modal>

@@ -2,7 +2,8 @@
 
 define("Components/Trip/TripDetails/TripDetails", 
 		["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation", 
-         "AMD/text!Components/Trip/TripDetails/TripDetails.html"],
+        "AMD/text!Components/Trip/TripDetails/TripDetails.html",
+        "Components/Trip/TripPossiblePlaces/TripPossiblePlaces"],
 	function (moment, system, util, proxy, navigation, template) {
 	
 	return Vue.component("app-trip-details", {
@@ -90,7 +91,20 @@ define("Components/Trip/TripDetails/TripDetails",
 				proxy.trip.process(this.tripId).then(function (processedTrip) {
 					this.update(processedTrip);
 				}.bind(this));
-			}
+            },
+            selectPossiblePlacesStart: function() {
+                system.bus.$emit("trip:possible-place:show-modal", system.constants.TRIP_POSSIBLE_PLACE_TYPE.START);
+            },
+            selectPossiblePlacesDestination: function () {
+                system.bus.$emit("trip:possible-place:show-modal", system.constants.TRIP_POSSIBLE_PLACE_TYPE.DESTINATION);
+            },
+            placeSelected: function(data) {
+                if (data.placeType === system.constants.TRIP_POSSIBLE_PLACE_TYPE.START) {
+                    this.startingPlaceName = data.selectedPlace.place.name;
+                } else {
+                    this.destinationPlaceName = data.selectedPlace.place.name;
+                }
+            }
 				
 		},
 		created: function () {

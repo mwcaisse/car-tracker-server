@@ -4,8 +4,8 @@
 	</div>
 	<div class="col-xl">
 		<ul class="pagination justify-content-center">
-			<li class="page-item" v-for="item in itemsPerPageOptions" :class="{ active: itemsPerPage == item }">
-				<a class="page-link" href="#" v-on:click.prevent="itemsPerPage = item">{{ item }}</a>
+			<li class="page-item" v-for="item in itemsPerPageOptions" :class="{ active: mItemsPerPage == item }">
+				<a class="page-link" href="#" v-on:click.prevent="mItemsPerPage = item">{{ item }}</a>
 			</li>
 		</ul>
 	</div>

@@ -6,21 +6,19 @@ define("Components/Common/Pager/PagedGridMixin", [],
 	    return {
 	        data: function() {
 	            return {
-	                currentSort: null, // { propertyId: "", ascending: false },
-	                currentPaging: {
-	                    itemsPerPage: 15,
-	                    currentPage: 1
-                    },
+                    currentSort: null, // { propertyId: "", ascending: false },
+                    currentPage: 1,
+                    currentItemsPerPage: 15,
                     currentFilter: {},
 	                totalItems: 1
 	            }
 	        },
 	        computed: {
 	            take: function() {
-	                return this.currentPaging.itemsPerPage;
+	                return this.currentItemsPerPage;
 	            },
 	            startAt: function() {
-	                return (this.currentPaging.currentPage - 1) * this.take;
+	                return (this.currentPage - 1) * this.take;
 	            }
 	        },
 	        methods: {
@@ -33,8 +31,12 @@ define("Components/Common/Pager/PagedGridMixin", [],
 	            },
 	            pagingUpdated: function(newPaging) {
 	                //only update the paging if it is different than the one we currently have
-	                if (JSON.stringify(newPaging) !== JSON.stringify(this.currentPaging)) {
-	                    this.currentPaging = newPaging;
+                    if (newPaging.itemsPerPage !== this.currentItemsPerPage ||
+                        newPaging.currentPage !== this.currentPage) {
+
+                        this.currentItemsPerPage = newPaging.itemsPerPage;
+                        this.currentPage = newPaging.currentPage;
+
 	                    this.refresh();
 	                }
 	            },

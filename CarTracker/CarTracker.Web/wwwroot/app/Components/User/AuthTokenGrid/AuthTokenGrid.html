@@ -28,7 +28,7 @@
             </tr>
             </tbody>		
         </table>
-        <app-pager :totalItems="totalItems" :currentPaging="currentPaging" v-on:paging:update="pagingUpdated"></app-pager>
+        <app-pager :totalItems="totalItems" :currentPage="currentPage" :itemsPerPage="currentItemsPerPage" v-on:paging:update="pagingUpdated"></app-pager>
     </div>
     <div class="card-body text-center" v-else>
         <p class="card-text">You do not have any active authentication tokens.</p>
