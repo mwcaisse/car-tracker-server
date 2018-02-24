@@ -92,13 +92,23 @@ define("Components/Common/ColumnHeader/ColumnHeader",
             filterOptions: {
                 type: Function,
                 required: false
+            },
+            filterStartDate: {
+                type: Date,
+                required: false,
+                default: null
+            },
+            filterEndDate: {
+                type: Date,
+                required: false,
+                default: null
             }
 		},
 		watch: {
 			currentSort: function(newSort) {	
                 this.updateSort(newSort);
             },
-            filter: function(val) {
+            filter: _.debounce(function(val) {
                 var event = "filter:update";
                 if (null == val) {
                     event = "filter:clear";
@@ -108,6 +118,12 @@ define("Components/Common/ColumnHeader/ColumnHeader",
                     fitlerValue: val
                 }
                 this.$emit(event, eventData);
+            }, 500),
+            filterStartDate: function(newStartDate) {
+                this.startDate = newStartDate;
+            },
+            filterEndDate: function(newEndDate) {
+                this.endDate = newEndDate;
             }
 		},
 		template: template,

@@ -14,17 +14,29 @@ define("Components/Log/ReaderLogGrid/ReaderLogGrid",
 		data: function() {
 			return {
 				logs: [],
-				currentSort: { propertyId: "Date", ascending: false}			
+                currentSort: { propertyId: "Date", ascending: false }
 			}
-		},			
+        },
+        props: {
+            startDate: {
+                type: Date,
+                required: false,
+                default: null
+            },
+            endDate: {
+                type: Date,
+                required: false,
+                default: null
+            }
+        },
 		template: template,
 		methods: {
-			fetch: function () {							
+            fetch: function () {
+ 
                 proxy.readerLog.getAllPaged(this.startAt, this.take, this.currentSort,
-                    this.currentFilter).then(function (data) {					
+                    this.currentFilter).then(function (data) {	
 					this.update(data);
-				}.bind(this),
-				function (error) {
+				}.bind(this), function (error) {
 				    system.showAlert(error, "error");
 				});
 			},		

@@ -1,7 +1,9 @@
 "use strict";
 
 define("Views/Trip/Trip", 
-	["Service/util", 
+    ["moment",
+     "Service/system", 
+     "Service/util", 
 	 "Service/navigation", 
 	 "Service/applicationProxy",
 	 "AMD/text!Views/Trip/Trip.html",	 
@@ -11,8 +13,9 @@ define("Views/Trip/Trip",
 	 "Components/Trip/TripChart/TripEngineChart",
 	 "Components/Trip/TripChart/TripThrottleChart",
 	 "Components/Trip/TripChart/TripMAFChart",
-	 "Components/Trip/TripChart/TripTemperatureChart"], 
-	 function (util, navigation, proxy, template) {
+     "Components/Trip/TripChart/TripTemperatureChart",
+     "Components/Log/ReaderLogGrid/ReaderLogGrid"], 
+	 function (moment, system, util, navigation, proxy, template) {
 
         navigation.setActiveNavigation("Trip");
 
@@ -23,8 +26,24 @@ define("Views/Trip/Trip",
 			    el: elementId,
 			    template: template,
 			    data: {
-				    tripId: tripId
-			    }
+                    tripId: tripId,
+                    tripStartDate: null,
+                    tripEndDate: null
+                },
+                methods: {
+                    fetchTrip: function() {
+                        return proxy.trip.get(this.tripId).then(function (data) {
+                            this.tripStartDate = moment(data.startDate).subtract(5, "minutes").toDate();
+                            this.tripEndDate = moment(data.endDate).add(5, "minutes").toDate();
+                        }.bind(this),
+                        function (error) {
+                            system.showAlert(error, "error");
+                        });
+                    }
+                },
+                created: function() {
+                    this.fetchTrip();
+                }
 		    });
 		
 	    };

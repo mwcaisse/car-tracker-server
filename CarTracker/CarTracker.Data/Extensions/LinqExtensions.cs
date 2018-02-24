@@ -110,7 +110,7 @@ namespace CarTracker.Data.Extensions
             var propertyType = GetPropertyInfo(typeof(T), propertyName).PropertyType;
             if (propertyType == typeof(DateTime))
             {
-                var dateValue = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(value)).DateTime;
+                var dateValue = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(value)).DateTime.ToLocalTime();
                 right = Expression.Constant(dateValue, typeof(DateTime));
             }
             else if (propertyType.IsEnum)

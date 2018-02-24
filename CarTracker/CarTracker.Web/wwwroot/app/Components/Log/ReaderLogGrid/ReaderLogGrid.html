@@ -28,6 +28,8 @@
 			                           v-on:sort:clear="sortCleared"
 			                           :enableFilter="true"
 			                           filterType="DATE"
+			                           :filterStartDate="startDate"
+                                       :filterEndDate="endDate"
                                        v-on:filter:update="filterUpdated"
                                        v-on:filter:clear="filterCleared">
 			        
