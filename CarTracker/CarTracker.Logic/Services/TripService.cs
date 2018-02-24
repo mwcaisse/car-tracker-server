@@ -26,8 +26,7 @@ namespace CarTracker.Logic.Services
 
         public Trip Get(long id)
         {
-            return _db.Trips.Include(t => t.StartPlace)
-                            .Include(t => t.DestinationPlace)
+            return _db.Trips.Build()
                             .FirstOrDefault(x => x.TripId == id);
         }
 
@@ -42,7 +41,7 @@ namespace CarTracker.Logic.Services
                 };
             }
 
-            return _db.Trips.Where(t => t.CarId == carId).PageAndSort(skip, take, sort);
+            return _db.Trips.Build().Where(t => t.CarId == carId).PageAndSort(skip, take, sort);
         }
 
         protected void ValidateTrip(TripViewModel trip)

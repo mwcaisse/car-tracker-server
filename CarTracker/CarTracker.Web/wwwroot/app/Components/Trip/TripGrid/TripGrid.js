@@ -51,10 +51,10 @@ define("Components/Trip/TripGrid/TripGrid",
 				return navigation.viewTripLink(this.id);
 			},
 			destinationName: function () {
-				if (null == this.destination || typeof this.destination == "undefined") {
+                if (null == this.destinationPlace || typeof this.destinationPlace == "undefined") {
 					return "";
 				}
-				return this.destination.name;
+                return this.destinationPlace.name;
 			}
 		},
 		methods: {
@@ -70,8 +70,8 @@ define("Components/Trip/TripGrid/TripGrid",
 				this.endDate = moment(data.endDate);
 				this.status = data.status;
 				this.distanceTraveled = data.distanceTraveled;
-				this.start = data.start;
-				this.destination = data.destination;
+				this.startPlace = data.startPlace;
+                this.destinationPlace = data.destinationPlace;
 			}
 		},
 		created: function() {
