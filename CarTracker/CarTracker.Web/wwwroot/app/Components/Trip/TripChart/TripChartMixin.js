@@ -2,7 +2,8 @@
 
 define("Components/Trip/TripChart/TripChartMixin", 
 		["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation", 
-         "AMD/text!Components/Trip/TripChart/TripChart.html"],
+        "AMD/text!Components/Trip/TripChart/TripChart.html",
+        "Components/Common/CollapsibleCard/CollapsibleCard"],
 	function (moment, system, util, proxy, navigation, template) {
 	
 	return {
