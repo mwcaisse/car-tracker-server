@@ -124,13 +124,13 @@ namespace CarTracker.Data.Extensions
                 right = Expression.Constant(enumValue, propertyType);
             }
             var exp = Expression.Lambda<Func<T, bool>>(
-                ConstructExpressionCondition(operation, left, right), param
+                ConstructExpressionCondition(operation, left, right, propertyName), param
             );
             return exp;
         }
 
         public static Expression ConstructExpressionCondition(FilterOperation operation,
-            MemberExpression left, ConstantExpression right)
+            MemberExpression left, ConstantExpression right, string propertyName)
         {
 
             switch (operation)
@@ -148,11 +148,11 @@ namespace CarTracker.Data.Extensions
                 case FilterOperation.GreaterThan:
                     return Expression.GreaterThan(left, right);
                 case FilterOperation.Contains:
-                    if (left.Type != typeof(string))
+                    MethodInfo method = left.Type.GetMethod("Contains", new[] { typeof(string) });
+                    if (null == method)
                     {
-                        throw new QueryException("Filter Operation Contains can only be used on strings.");
+                        throw new QueryException($"{propertyName} does not support the contains filter.");
                     }
-                    MethodInfo method = typeof(string).GetMethod("Contains", new[] { typeof(string) });
                     return Expression.Call(left, method, right);
             }
             //Default to equals
