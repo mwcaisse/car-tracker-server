@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using CarTracker.Common.Services;
 using CarTracker.Scheduler.Jobs;
 using Quartz;
 using Quartz.Impl;
 
 namespace CarTracker.Scheduler
 {
-    public class QuartzScheduler
+    public class QuartzScheduler : IJobScheduler
     {
 
         private IScheduler _scheduler;
@@ -43,7 +44,7 @@ namespace CarTracker.Scheduler
             var processTripsTrigger = TriggerBuilder.Create()
                 .WithIdentity("process_trips_trigger")
                 .StartNow()
-                .WithSimpleSchedule(x => x.WithIntervalInMinutes(30))
+                .WithSimpleSchedule(x => x.WithIntervalInMinutes(1))
                 .Build();
 
             _scheduler.ScheduleJob(processTripsJob, processTripsTrigger).Wait();
@@ -61,6 +62,15 @@ namespace CarTracker.Scheduler
                 _scheduler.Shutdown(waitForJobsToComplete: false);
             }
             _scheduler = null;
+        }
+
+        public void RunJobNow(Type jobType)
+        {
+            var job = JobBuilder.Create(jobType).Build();
+            var trigger = TriggerBuilder.Create()
+                .StartNow()
+                .Build();
+            _scheduler.ScheduleJob(job, trigger);
         }
 
     }

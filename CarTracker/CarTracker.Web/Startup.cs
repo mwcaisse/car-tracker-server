@@ -119,6 +119,7 @@ namespace CarTracker.Web
 
             services.AddTransient<UserAuthenticationManager>();
             services.AddSingleton<SessionTokenManager>();
+            
 
             services.AddMvc().AddJsonOptions(options =>
                 {
@@ -133,6 +134,8 @@ namespace CarTracker.Web
             // Add Jobs
             services.AddTransient<TripProcessJob>();
            
+
+            services.AddSingleton<IJobScheduler, QuartzScheduler>();
 
         }
 
@@ -168,7 +171,7 @@ namespace CarTracker.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            var scheduler = new QuartzScheduler(container);
+            var scheduler = container.GetService<IJobScheduler>();
             lifetime.ApplicationStarted.Register(scheduler.Start);
             lifetime.ApplicationStarted.Register(scheduler.Stop);
 
