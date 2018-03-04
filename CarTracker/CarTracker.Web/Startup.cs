@@ -12,6 +12,8 @@ using CarTracker.Common.Services.Logging;
 using CarTracker.Data;
 using CarTracker.Logic.Services;
 using CarTracker.Logic.Services.Logging;
+using CarTracker.Scheduler;
+using CarTracker.Scheduler.Jobs;
 using CarTracker.Web.Auth;
 using CarTracker.Web.Configuration;
 using CarTracker.Web.Middleware;
@@ -42,7 +44,6 @@ namespace CarTracker.Web
                 .AddJsonFile("apiKeys.json")
                 .AddJsonFile("deploymentConfiguration.json")
                 .AddJsonFile("buildInformation.json");
-
 
             Configuration = builder.Build();
         }
@@ -129,10 +130,16 @@ namespace CarTracker.Web
 
             services.AddScoped<IRequestInformation, ServerRequestInformation>();
 
+            // Add Jobs
+            services.AddTransient<TripProcessJob>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, 
+            IHostingEnvironment env, 
+            IApplicationLifetime lifetime, 
+            IServiceProvider container)
         {
             app.UseStaticFiles();
 
@@ -159,6 +166,10 @@ namespace CarTracker.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            var scheduler = new QuartzScheduler(container);
+            lifetime.ApplicationStarted.Register(scheduler.Start);
+            lifetime.ApplicationStarted.Register(scheduler.Stop);
 
         }
     }

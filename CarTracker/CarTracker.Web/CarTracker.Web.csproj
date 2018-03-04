@@ -19,5 +19,6 @@
     <ProjectReference Include="..\CarTracker.Data\CarTracker.Data.csproj" />
     <ProjectReference Include="..\CarTracker.GooglePlaceRequester\CarTracker.GooglePlaceRequester.csproj" />
     <ProjectReference Include="..\CarTracker.Logic\CarTracker.Logic.csproj" />
+    <ProjectReference Include="..\CarTracker.Scheduler\CarTracker.Scheduler.csproj" />
   </ItemGroup>
 </Project>
