@@ -132,6 +132,7 @@ namespace CarTracker.Web
 
             // Add Jobs
             services.AddTransient<TripProcessJob>();
+           
 
         }
 
