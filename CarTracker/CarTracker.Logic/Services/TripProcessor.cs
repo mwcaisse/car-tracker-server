@@ -36,7 +36,7 @@ namespace CarTracker.Logic.Services
 
             var trips = _db.Trips.Where(t => t.Status != TripStatus.Processed)
                 .Where(t => t.Status == TripStatus.Finished ||
-                            t.Readings.Max(r => r.ReadDate) < cutoffDate);
+                            t.Readings.OrderByDescending(r => r.ReadDate).FirstOrDefault().ReadDate < cutoffDate);             
 
             foreach (var trip in trips)
             {
