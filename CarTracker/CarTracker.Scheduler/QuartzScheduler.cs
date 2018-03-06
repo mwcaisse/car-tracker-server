@@ -44,7 +44,7 @@ namespace CarTracker.Scheduler
             var processTripsTrigger = TriggerBuilder.Create()
                 .WithIdentity("process_trips_trigger")
                 .StartNow()
-                .WithSimpleSchedule(x => x.WithIntervalInMinutes(1))
+                .WithSimpleSchedule(x => x.WithIntervalInMinutes(15).RepeatForever())
                 .Build();
 
             _scheduler.ScheduleJob(processTripsJob, processTripsTrigger).Wait();
