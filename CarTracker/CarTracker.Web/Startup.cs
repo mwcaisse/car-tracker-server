@@ -173,7 +173,7 @@ namespace CarTracker.Web
 
             var scheduler = container.GetService<IJobScheduler>();
             lifetime.ApplicationStarted.Register(scheduler.Start);
-            lifetime.ApplicationStarted.Register(scheduler.Stop);
+            lifetime.ApplicationStopping.Register(scheduler.Stop);
 
         }
     }
