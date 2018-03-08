@@ -98,6 +98,8 @@ namespace CarTracker.Logic.Services
             trip.Name = toUpdate.Name;
             trip.Status = toUpdate.Status;
 
+            _db.SaveChanges();
+
             return trip;
         }
 

@@ -59,12 +59,22 @@ namespace CarTracker.Data.Extensions
 
 
         public static PagedViewModel<T> PageAndSort<T>(this IQueryable<T> query, int skip, 
-            int take, SortParam sortParam) where T : ITrackedEntity
+            int take, SortParam sortParam, SortParam defaultSortParam = null) where T : ITrackedEntity
         {
-            if (string.IsNullOrWhiteSpace(sortParam.ColumnName))
+            if (string.IsNullOrWhiteSpace(sortParam?.ColumnName))
             {
-                sortParam.ColumnName = "CreateDate";
-                sortParam.Ascending = false;
+                if (null == defaultSortParam)
+                {
+                    sortParam = new SortParam
+                    {
+                        ColumnName = "CreateDate",
+                        Ascending = false
+                    };
+                }
+                else
+                {
+                    sortParam = defaultSortParam;
+                }
             }
 
             if (sortParam.Ascending)

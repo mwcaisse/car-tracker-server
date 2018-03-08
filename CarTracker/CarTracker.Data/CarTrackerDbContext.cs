@@ -36,9 +36,13 @@ namespace CarTracker.Data
 
         public DbSet<TripPossiblePlace> TripPossiblePlaces { get; set; }
 
+        public DbSet<UserPlace> UserPlaces { get; set; }
+
         public DbSet<RequestLog> RequestLogs { get; set; }
         
         public DbSet<ServerLog> ServerLogs { get; set; }
+
+        
 
         public CarTrackerDbContext(DbContextOptions<CarTrackerDbContext> options) : base(options)
         {
