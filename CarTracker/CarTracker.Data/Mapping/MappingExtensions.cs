@@ -25,7 +25,7 @@ namespace CarTracker.Data.Mapping
                 .ValueGeneratedOnAddOrUpdate();
         }
 
-        public static void AddOwnedEntityProperties<T>(EntityTypeBuilder<T> builder,
+        public static void AddOwnedEntityProperties<T>(this EntityTypeBuilder<T> builder,
             Expression<Func<User, IEnumerable<T>>> navigationExpression ) where T : class, IOwnedEntity
         {
             builder.Property(e => e.OwnerId)
@@ -37,7 +37,7 @@ namespace CarTracker.Data.Mapping
                 .HasForeignKey(e => e.OwnerId);
         }
 
-        public static void AddOwnedEntityProperties<T>(EntityTypeBuilder<T> builder,
+        public static void AddOwnedEntityProperties<T>(this EntityTypeBuilder<T> builder,
             Expression<Func<User, T>> navigationExpression) where T : class, IOwnedEntity
         {
             builder.Property(e => e.OwnerId)

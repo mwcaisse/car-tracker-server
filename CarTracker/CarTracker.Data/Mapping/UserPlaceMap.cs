@@ -30,6 +30,9 @@ namespace CarTracker.Data.Mapping
             builder.Property(p => p.Longitude)
                 .HasColumnName("LONGITUDE")
                 .IsRequired();
+
+            builder.AddTrackedEntityProperties();
+            builder.AddOwnedEntityProperties(u => u.UserPlaces);
         }
     }
 }

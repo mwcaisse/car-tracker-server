@@ -35,7 +35,7 @@ namespace CarTracker.Logic.Services
             return _db.UserPlaces.Where(x => x.OwnerId == _requestInformation.UserId)
                                  .PageAndSort(skip, take, sort, new SortParam()
                                  {
-                                     ColumnName = "Created",
+                                     ColumnName = "CreateDate",
                                      Ascending = true
                                  });
         }

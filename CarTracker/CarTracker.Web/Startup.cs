@@ -113,6 +113,7 @@ namespace CarTracker.Web
             services.AddTransient<IPasswordHasher, ArgonPasswordHasher>();
             services.AddTransient<IRequestLogService, RequestLogService>();
             services.AddTransient<IServerLogService, ServerLogService>();
+            services.AddTransient<IUserPlaceService, UserPlaceService>();
 
             services.AddScoped<IRequestLogger, Logger>();
             services.AddScoped<IServerLogger, Logger>();
