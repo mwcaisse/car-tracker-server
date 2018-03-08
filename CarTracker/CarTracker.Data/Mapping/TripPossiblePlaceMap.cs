@@ -7,12 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping
 {
-    public class TripPossiblePlaceMap : TrackedMap<TripPossiblePlace>
+    public class TripPossiblePlaceMap : IEntityTypeConfiguration<TripPossiblePlace>
     {
-        public override void Configure(EntityTypeBuilder<TripPossiblePlace> builder)
+        public void Configure(EntityTypeBuilder<TripPossiblePlace> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("TRIP_POSSIBLE_PLACE")
                 .HasKey(p => p.TripPossiblePlaceId);
 
@@ -41,6 +39,8 @@ namespace CarTracker.Data.Mapping
             builder.HasOne(t => t.Place)
                 .WithMany(p => p.TripPossiblePlaces)
                 .HasForeignKey(t => t.PlaceId);
+
+            builder.AddTrackedEntityProperties();
         }
     }
 }

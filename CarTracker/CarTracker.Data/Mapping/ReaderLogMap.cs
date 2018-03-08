@@ -7,12 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping
 {
-    public class ReaderLogMap : TrackedMap<ReaderLog>
+    public class ReaderLogMap : IEntityTypeConfiguration<ReaderLog>
     {
 
-        public override void Configure(EntityTypeBuilder<ReaderLog> builder)
+        public void Configure(EntityTypeBuilder<ReaderLog> builder)
         {
-            base.Configure(builder);
 
             builder.ToTable("READER_LOG").HasKey(l => l.ReaderLogId);
 
@@ -29,6 +28,8 @@ namespace CarTracker.Data.Mapping
 
             builder.Property(l => l.Date)
                 .HasColumnName("DATE");
+
+            builder.AddTrackedEntityProperties();
         }
     }
 }

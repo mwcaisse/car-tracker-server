@@ -7,12 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping.Logging
 {
-    public class ServerLogMap : TrackedMap<ServerLog>
+    public class ServerLogMap : IEntityTypeConfiguration<ServerLog>
     {
-        public override void Configure(EntityTypeBuilder<ServerLog> builder)
+        public void Configure(EntityTypeBuilder<ServerLog> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("SERVER_LOG")
                 .HasKey(s => s.ServerLogId);
 
@@ -35,6 +33,8 @@ namespace CarTracker.Data.Mapping.Logging
 
             builder.Property(s => s.StackTrace)
                 .HasColumnName("STACK_TRACE");
+
+            builder.AddTrackedEntityProperties();
 
         }
     }

@@ -7,13 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping.Logging
 {
-    public class RequestLogMap : TrackedMap<RequestLog>
+    public class RequestLogMap : IEntityTypeConfiguration<RequestLog>
     {
 
-        public override void Configure(EntityTypeBuilder<RequestLog> builder)
+        public void Configure(EntityTypeBuilder<RequestLog> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("REQUEST_LOG")
                 .HasKey(r => r.RequestLogId);
 
@@ -62,6 +60,8 @@ namespace CarTracker.Data.Mapping.Logging
             builder.HasOne(r => r.User)
                 .WithMany(u => u.RequestLogs)
                 .HasForeignKey(r => r.UserId);
+
+            builder.AddTrackedEntityProperties();
         }
 
     }

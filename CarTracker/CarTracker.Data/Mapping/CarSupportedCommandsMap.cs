@@ -7,12 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping
 {
-    public class CarSupportedCommandsMap : TrackedMap<CarSupportedCommands>
+    public class CarSupportedCommandsMap : IEntityTypeConfiguration<CarSupportedCommands>
     {
 
-        public override void Configure(EntityTypeBuilder<CarSupportedCommands> builder)
+        public void Configure(EntityTypeBuilder<CarSupportedCommands> builder)
         {
-            base.Configure(builder);
 
             builder.ToTable("CAR_SUPPORTED_COMMANDS")
                 .HasKey(c => c.CarSupportedCommandsId);
@@ -43,6 +42,8 @@ namespace CarTracker.Data.Mapping
 
             builder.Property(c => c.Pids81A0Bitmask)
                 .HasColumnName("PIDS_81_A0_BITMASK");
+
+            builder.AddTrackedEntityProperties();
         }
 
     }

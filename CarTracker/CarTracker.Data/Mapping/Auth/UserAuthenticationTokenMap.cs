@@ -8,11 +8,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping.Auth
 {
-    public class UserAuthenticationTokenMap :TrackedMap<UserAuthenticationToken>
+    public class UserAuthenticationTokenMap : IEntityTypeConfiguration<UserAuthenticationToken>
     {
-        public override void Configure(EntityTypeBuilder<UserAuthenticationToken> builder)
+        public void Configure(EntityTypeBuilder<UserAuthenticationToken> builder)
         {
-            base.Configure(builder);
 
             builder.ToTable("USER_AUTHENTICATION_TOKEN")
                 .HasKey(u => u.UserAuthenticationTokenId);
@@ -52,6 +51,8 @@ namespace CarTracker.Data.Mapping.Auth
             builder.HasOne(t => t.User)
                 .WithMany(u => u.UserAuthenticationTokens)
                 .HasForeignKey(t => t.UserId);
+
+            builder.AddTrackedEntityProperties();
         }
     }
 }

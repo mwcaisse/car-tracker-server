@@ -8,12 +8,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping.Auth
 {
-    public class UserMap : TrackedMap<User>
+    public class UserMap : IEntityTypeConfiguration<User>
     {
-        public override void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("USER")
                 .HasKey(u => u.UserId);
 
@@ -54,6 +52,8 @@ namespace CarTracker.Data.Mapping.Auth
 
             builder.Property(u => u.PasswordExpirationDate)
                 .HasColumnName("PASSWORD_EXPIRATION_DATE");
+
+            builder.AddTrackedEntityProperties();
 
 
         }

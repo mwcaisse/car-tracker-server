@@ -7,12 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping
 {
-    public class CarMap : TrackedMap<Car>
+    public class CarMap : IEntityTypeConfiguration<Car>
     {
-        public override void Configure(EntityTypeBuilder<Car> builder)
+        public void Configure(EntityTypeBuilder<Car> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("CAR")
                 .HasKey(c => c.CarId);
 
@@ -41,6 +39,8 @@ namespace CarTracker.Data.Mapping
 
             builder.Property(c => c.MileageLastUserSet)
                 .HasColumnName("MILEAGE_LAST_USER_SET");
+
+            builder.AddTrackedEntityProperties();
         }
     }
 }

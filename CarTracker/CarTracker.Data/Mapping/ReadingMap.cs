@@ -7,12 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping
 {
-    public class ReadingMap : TrackedMap<Reading>
+    public class ReadingMap : IEntityTypeConfiguration<Reading>
     {
-        public override void Configure(EntityTypeBuilder<Reading> builder)
+        public void Configure(EntityTypeBuilder<Reading> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("READING")
                 .HasKey(r => r.ReadingId);
 
@@ -70,6 +68,8 @@ namespace CarTracker.Data.Mapping
             builder.HasOne(r => r.Trip)
                 .WithMany(t => t.Readings)
                 .IsRequired();
+
+            builder.AddTrackedEntityProperties();
         }
     }
 }

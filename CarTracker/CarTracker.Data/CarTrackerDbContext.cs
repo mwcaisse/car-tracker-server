@@ -59,6 +59,7 @@ namespace CarTracker.Data
             modelBuilder.ApplyConfiguration(new ReadingMap());
             modelBuilder.ApplyConfiguration(new TripMap());
             modelBuilder.ApplyConfiguration(new TripPossiblePlaceMap());
+            modelBuilder.ApplyConfiguration(new UserPlaceMap());
 
             modelBuilder.ApplyConfiguration(new RequestLogMap());
             modelBuilder.ApplyConfiguration(new ServerLogMap());

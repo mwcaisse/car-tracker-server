@@ -7,12 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarTracker.Data.Mapping
 {
-    public class TripMap : TrackedMap<Trip>
+    public class TripMap : IEntityTypeConfiguration<Trip>
     {
-        public override void Configure(EntityTypeBuilder<Trip> builder)
+        public void Configure(EntityTypeBuilder<Trip> builder)
         {
-            base.Configure(builder);
-
             builder.ToTable("TRIP").HasKey(t => t.TripId);
 
             builder.Property(t => t.TripId)
@@ -71,6 +69,8 @@ namespace CarTracker.Data.Mapping
 
             builder.HasOne(t => t.Car)
                 .WithMany(c => c.Trips);
+
+            builder.AddTrackedEntityProperties();
 
         }
     }
