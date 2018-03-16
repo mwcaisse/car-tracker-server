@@ -66,7 +66,25 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 			getForTrip: function (tripId, type, startAt, maxResults, sort) {
 				return core.getPaged("trip/" + tripId + "/possible-places/" + type, startAt, maxResults, sort);
 			}
-		};
+        };
+
+        self.userPlaces = {
+            get: function(id) {
+                return core.get("place/user/" + id);
+            },
+            getMinePaged: function(startAt, maxResults, sort) {
+                return core.getPaged("place/user/", startAt, maxResults, sort);
+            },
+            create: function(toCreate) {
+                return core.post("place/user/", toCreate);
+            },
+            update: function(toUpdate) {
+                return core.put("place/user", toUpdate);
+            },
+            delete: function(id) {
+                return core.delete("place/user/" + id);
+            }
+        }
 		
 		self.reading = {
 			get: function(id) {

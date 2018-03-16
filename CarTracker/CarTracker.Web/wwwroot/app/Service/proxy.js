@@ -93,7 +93,19 @@ define("Service/proxy", ["Service/system"], function (system) {
 		
 		self.put = function(relativeUrl, body) {
 			return self.putAbsolute(self.baseUrl + relativeUrl, body);
-		};
+        };
+
+        self.deleteAbsolute = function(url, body) {
+            return self.ajax({
+                url: url,
+                data: JSON.stringify(body),
+                method: "DELETE"
+            });
+        }
+
+        self.delete = function(relativeUrl, body) {
+            return self.deleteAbsolute(self.baseUrl + relativeUrl, body);
+        }
 		
 		
 	})();
