@@ -47,7 +47,11 @@ define("Service/navigation", ["Service/system"], function (system) {
 		
 		self.userAuthenticationTokensLink = function () {
 			return system.baseUrl + "user/tokens";
-		};
+        };
+
+        self.userCustomPlacesLink = function() {
+            return system.baseUrl + "user/places";
+        }
 		
 		self.navigateToHome = function () {
 			self.navigateTo(self.homeLink());

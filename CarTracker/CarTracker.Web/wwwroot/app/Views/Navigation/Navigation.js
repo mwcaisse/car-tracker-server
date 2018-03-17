@@ -54,7 +54,10 @@ define("Views/Navigation/Navigation",
 									var userNav = {
 										id: "User", name: this.currentUserName, link: "#", subLinks: []
 									};
-									
+
+                                    userNav.subLinks.push({
+                                        id: "User/CustomPlaces", name: "Custom Places", link: navigation.userCustomPlacesLink()
+                                    });
 									userNav.subLinks.push({
 										id: "User/AuthTokens", name: "Tokens", link: navigation.userAuthenticationTokensLink()
 									});

@@ -2,12 +2,14 @@
 
 define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
     ["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation",
-        "AMD/text!Components/UserPlace/UserPlaceDetails/UserPlaceDetails.html"],
+        "AMD/text!Components/UserPlace/UserPlaceDetails/UserPlaceDetails.html",
+        "Components/Common/Map/Map"],
 
     function (moment, system, util, proxy, navigation, template) {
         return Vue.component("app-user-place-details", {
             data: function () {
                 return {
+                    map: {},
                     userPlaceId: -1,
                     name: "",
                     latitude: 0,
@@ -16,7 +18,7 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
             },
             template: template,
             methods: {
-                fetchKey: function () {
+                fetch: function () {
                     proxy.userPlaces.get(this.userPlaceId).then(function(data) {
                             this.update(data);
                         }.bind(this),
@@ -62,10 +64,10 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
                         });
                 },
                 refresh: function () {
-                    this.fetchKey();
+                    this.fetch();
                 },
-                generateKey: function () {
-                    this.key = util.generatkeUuid();
+                mapInitialized: function (map) {
+                    this.map = map;
                 }
             },
             created: function () {
@@ -73,9 +75,9 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
                     this.$refs.modal.open();
                 }.bind(this));
 
-                system.bus.$on("userPlace:edit", function (keyId) {
-                    this.userRegistrationKeyId = keyId;
-                    this.fetchKey();
+                system.bus.$on("userPlace:edit", function (userPlaceId) {
+                    this.userPlaceId = userPlaceId;
+                    this.fetch();
                     this.$refs.modal.open();
                 }.bind(this));
             }
