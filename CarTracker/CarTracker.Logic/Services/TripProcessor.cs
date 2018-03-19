@@ -57,6 +57,8 @@ namespace CarTracker.Logic.Services
 
             if (readings.Any())
             {
+                NormalizeStartEndLocations(readings);
+
                 double maxSpeed = 0;
                 double totalSpeed = 0;
                 double totalDistance = 0;
@@ -125,6 +127,28 @@ namespace CarTracker.Logic.Services
             }
 
             return trip;
+        }
+
+        protected void NormalizeStartEndLocations(IList<Reading> readings)
+        {
+            var firstReading = readings.First();
+            Reading firstDifferentReading = null;
+
+            for (int i = 1; i < readings.Count(); i++)
+            {
+                var reading = readings[i];
+                if (reading.Latitude != firstReading.Latitude && reading.Longitude != firstReading.Longitude)
+                {
+                    firstDifferentReading = reading;
+                    break;
+                }
+            }
+
+            if (null !=firstDifferentReading && CalculateDistanceBetweenReadings(firstReading, firstDifferentReading) > 0.5)
+            {
+                firstReading.Longitude = firstDifferentReading.Longitude;
+                firstReading.Latitude = firstDifferentReading.Latitude;
+            }
         }
 
         protected double CalculateDistanceBetweenReadings(Reading prev, Reading current)
