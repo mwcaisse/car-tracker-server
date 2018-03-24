@@ -5,7 +5,7 @@ using CarTracker.Common.Entities.Auth;
 
 namespace CarTracker.Common.Entities
 {
-    public class UserPlace : ITrackedEntity, IOwnedEntity
+    public class UserPlace : ITrackedEntity, IOwnedEntity, IActiveEntity
     {
 
         public long UserPlaceId { get; set; }
@@ -20,5 +20,6 @@ namespace CarTracker.Common.Entities
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
 
+        public bool Active { get; set; }
     }
 }

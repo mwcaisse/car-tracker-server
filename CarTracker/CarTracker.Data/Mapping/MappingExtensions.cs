@@ -49,5 +49,12 @@ namespace CarTracker.Data.Mapping
                 .IsRequired();
         }
 
+        public static void AddActiveEntityProperties<T>(this EntityTypeBuilder<T> builder) where T : class, IActiveEntity
+        {
+            builder.Property(e => e.Active)
+                .HasColumnName("ACTIVE")
+                .IsRequired();
+        }
+
     }
 }

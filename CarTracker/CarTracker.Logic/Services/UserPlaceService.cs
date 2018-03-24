@@ -26,13 +26,13 @@ namespace CarTracker.Logic.Services
 
         public UserPlace Get(long id)
         {
-            return _db.UserPlaces.FirstOrDefault(x => x.UserPlaceId == id && 
+            return _db.UserPlaces.Active().FirstOrDefault(x => x.UserPlaceId == id && 
                                                       x.OwnerId == _requestInformation.UserId);
         }
 
         public PagedViewModel<UserPlace> GetMine(int skip, int take, SortParam sort)
         {
-            return _db.UserPlaces.Where(x => x.OwnerId == _requestInformation.UserId)
+            return _db.UserPlaces.Active().Where(x => x.OwnerId == _requestInformation.UserId)
                                  .PageAndSort(skip, take, sort, new SortParam()
                                  {
                                      ColumnName = "CreateDate",
@@ -48,7 +48,8 @@ namespace CarTracker.Logic.Services
                 Name = toCreate.Name,
                 Latitude = toCreate.Latitude,
                 Longitude = toCreate.Longitude,
-                OwnerId = _requestInformation.UserId ?? 0
+                OwnerId = _requestInformation.UserId ?? 0,
+                Active = true
             };
             _db.UserPlaces.Add(userPlace);
             _db.SaveChanges();
@@ -78,7 +79,8 @@ namespace CarTracker.Logic.Services
             var userPlace = Get(id);
             if (null != userPlace)
             {
-                _db.UserPlaces.Remove(userPlace);
+                userPlace.Active = false;
+                _db.SaveChanges();
             }
             else
             {

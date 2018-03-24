@@ -34,10 +34,6 @@ namespace CarTracker.Data.Mapping.Auth
                 .IsRequired()
                 .HasMaxLength(64);
 
-            builder.Property(u => u.Active)
-                .HasColumnName("ACTIVE")
-                .IsRequired();
-
             builder.Property(u => u.LastLogin)
                 .HasColumnName("LAST_LOGIN");
 
@@ -53,6 +49,7 @@ namespace CarTracker.Data.Mapping.Auth
                 .HasForeignKey(t => t.UserId);
 
             builder.AddTrackedEntityProperties();
+            builder.AddActiveEntityProperties();
         }
     }
 }

@@ -27,16 +27,31 @@ define("Components/UserPlace/UserPlaceGrid/UserPlaceGrid",
                             system.showAlert(error, "error");
                         });
                 },
-                update: function(data) {
-                    this.logs = data.data;
+                update: function (data) {
+                    this.places = data.data;
                     this.totalItems = data.total;
                 },
                 refresh: function() {
                     this.fetch();
+                },
+                viewUserPlace: function(place) {
+                    system.bus.$emit("userPlace:edit", place.userPlaceId);
+                },
+                deleteUserPlace: function(place) {
+                    proxy.userPlaces.delete(place.userPlaceId).then(function() {
+                        var ind = this.places.indexOf(place);
+                        this.places.splice(ind, 1);
+                    }.bind(this), function (error) {
+                        system.showAlert(error, "error");
+                    });
                 }
             },
             created: function() {
                 this.fetch();
+
+                system.bus.$on("userPlace:updated", function () {
+                    this.fetch();
+                }.bind(this));
             }
         });
 

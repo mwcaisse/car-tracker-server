@@ -1,11 +1,11 @@
 ﻿"use strict";
 
 define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
-    ["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation",
+    ["AMD/googlemaps!", "moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation",
         "AMD/text!Components/UserPlace/UserPlaceDetails/UserPlaceDetails.html",
         "Components/Common/Map/Map"],
 
-    function (moment, system, util, proxy, navigation, template) {
+    function (gmaps, moment, system, util, proxy, navigation, template) {
         return Vue.component("app-user-place-details", {
             data: function () {
                 return {
@@ -17,6 +17,25 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
                 }
             },
             template: template,
+            computed: {
+                placeCoordinate: function() {
+                    return {
+                        latitude: this.latitude,
+                        longitude: this.longitude
+                    };
+                }  
+            },
+            watch: {
+                placeCoordinate: function (newCoordinate) {
+                    var position = {
+                        lat: newCoordinate.latitude,
+                        lng: newCoordinate.longitude
+                    }
+                    system.bus.$emit("map:clearMarkers");
+                    system.bus.$emit("map:addMarker", position);
+                    system.bus.$emit("map:setCenter", position);
+                }  
+            },
             methods: {
                 fetch: function () {
                     proxy.userPlaces.get(this.userPlaceId).then(function(data) {
@@ -55,30 +74,34 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
                         func = proxy.userPlaces.update;
                     }
 
-                    func(this.createModel()).then(function () {
-                        this.$emit("userPlace:updated");
-                        this.$refs.modal.close();
-                    }.bind(this),
-                        function (error) {
-                            system.showAlert(error, "error");
-                        });
+                    func(this.createModel()).then(function (results) {
+                        this.update(results);
+                        system.bus.$emit("userPlace:updated");
+                    }.bind(this), function (error) {
+                        system.showAlert(error, "error");
+                    });
                 },
                 refresh: function () {
                     this.fetch();
                 },
                 mapInitialized: function (map) {
                     this.map = map;
+                },
+                mapClicked: function (param) {
+                    var position = param.event.latLng;
+                    this.latitude = position.lat();
+                    this.longitude = position.lng();
                 }
             },
             created: function () {
                 system.bus.$on("userPlace:create", function () {
-                    this.$refs.modal.open();
+                    this.userPlaceId = -1;
+                    this.clear();
                 }.bind(this));
 
                 system.bus.$on("userPlace:edit", function (userPlaceId) {
                     this.userPlaceId = userPlaceId;
                     this.fetch();
-                    this.$refs.modal.open();
                 }.bind(this));
             }
         });

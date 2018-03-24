@@ -33,6 +33,7 @@ namespace CarTracker.Data.Mapping
 
             builder.AddTrackedEntityProperties();
             builder.AddOwnedEntityProperties(u => u.UserPlaces);
+            builder.AddActiveEntityProperties();
         }
     }
 }

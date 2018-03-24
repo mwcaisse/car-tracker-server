@@ -39,10 +39,6 @@ namespace CarTracker.Data.Mapping.Auth
                 .HasMaxLength(250)
                 .IsRequired();
 
-            builder.Property(u => u.Active)
-                .HasColumnName("ACTIVE")
-                .IsRequired();
-
             builder.Property(u => u.Locked)
                 .HasColumnName("LOCKED")
                 .IsRequired();
@@ -54,6 +50,7 @@ namespace CarTracker.Data.Mapping.Auth
                 .HasColumnName("PASSWORD_EXPIRATION_DATE");
 
             builder.AddTrackedEntityProperties();
+            builder.AddActiveEntityProperties();
 
 
         }

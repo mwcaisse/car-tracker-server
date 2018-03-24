@@ -1,14 +1,15 @@
 "use strict";
 
 define("Components/Common/Map/Map", 
-		["AMD/googlemaps!",
+        ["AMD/googlemaps!", "Service/system",
 		 "AMD/text!Components/Common/Map/Map.html"],
-	function (gmaps, template) {
+	function (gmaps, system, template) {
 	
 	return Vue.component("app-map", {
 		data: function() {
 			return {	
-				map: {}
+                map: {},
+                makers: []
 			}
 		},	
 		computed: {
@@ -48,7 +49,22 @@ define("Components/Common/Map/Map",
 		},		
 		template: template,
 		methods: {			
-	
+            addMarker: function (position) {
+                var marker = new gmaps.Marker({
+                    position: position,
+                    map: this.map
+                });
+                this.markers.push(marker);
+            },
+            clearMarkers: function() {
+                $.each(this.markers, function(ind, marker) {
+                    marker.setMap(null); // remove marker from the map by setting its position to null
+                });
+                this.markers = [];
+            },
+            setCenter: function (position) {
+                this.map.panTo(position);
+            }
 		},
 		mounted: function () {
 			this.map = new gmaps.Map(this.$el, {
@@ -56,8 +72,28 @@ define("Components/Common/Map/Map",
 				center: this.center
 			});
 			
-			this.$emit("map:loaded", this.map);		
-		}
+            this.$emit("map:loaded", this.map);		
+
+            this.map.addListener("click", function (event) {
+                this.$emit("map:click",
+                {
+                    map: this.map,
+                    event: event
+                });
+            }.bind(this));
+
+            system.bus.$on("map:addMarker", function (position) {
+                this.addMarker(position);
+            }.bind(this));
+
+            system.bus.$on("map:clearMarkers", function () {
+                this.clearMarkers();
+            }.bind(this));
+
+            system.bus.$on("map:setCenter", function (position) {
+                this.setCenter(position);
+            }.bind(this));
+        }
 	});
 	
 });

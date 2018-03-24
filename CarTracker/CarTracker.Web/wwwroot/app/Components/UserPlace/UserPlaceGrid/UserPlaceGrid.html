@@ -9,7 +9,8 @@
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>
-                    <th></th>
+                    <th style="width: 20%;">
+                    </th>
                     <th>
                         <app-column-header columnId="Name"
                                            columnName="Name"
@@ -23,7 +24,10 @@
             </thead>
             <tbody>
                 <tr v-for="place in places">
-                    <td></td>
+                    <td>
+                        <i class="fa fa-th-list action-icon" aria-hidden="true" v-on:click="viewUserPlace(place)" v-tooltip title="View"></i>
+                        <i class="fa fa-trash action-icon" aria-hidden="true" v-on:click="deleteUserPlace(place)" v-tooltip title="Delete"></i>
+                    </td>
                     <td> {{ place.name }} </td>
                 </tr>
             </tbody>
