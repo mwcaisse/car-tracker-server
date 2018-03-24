@@ -171,6 +171,7 @@ namespace CarTracker.Logic.Services
                 });
         }
 
+        // TODO: Move the Latitude/Longitude calculates to their own utility class
         private const double EarthRadidus = 6371.0;
 
         protected double CalculateDistanceBetweenLocations(LocationModel start, LocationModel end)
@@ -196,10 +197,74 @@ namespace CarTracker.Logic.Services
             return (Math.PI / 180.0) * Convert.ToDouble(degrees);
         }
 
+        protected decimal ToDegrees(double radians)
+        {
+            return Convert.ToDecimal(180.0 * radians / Math.PI);
+        }
+
         protected class LocationModel
         {
             public decimal Latitude { get; set; }
             public decimal Longitude { get; set; }
+        }
+
+        
+        protected class BoundingBox
+        {
+            public LocationModel MinPoint { get; set; }
+            public LocationModel MaxPoint { get; set; }
+        }
+
+        /// <summary>
+        ///  Calculate a bounding box around a point
+        /// 
+        ///     Adopted from https://stackoverflow.com/questions/238260/how-to-calculate-the-bounding-box-for-a-given-lat-lng-location
+        /// </summary>
+        /// <param name="point">Location</param>
+        /// <param name="halfSide">Half of the side of the resulting square in meters</param>
+        /// <returns></returns>
+        protected BoundingBox CalculateBoxAroundPoint(LocationModel point, double halfSide)
+        {
+            var lat = ToRadians(point.Latitude);
+            var lon = ToRadians(point.Longitude);
+
+            // Radius of the Earth at given latitude
+            var radius = WGS84EarthRadius(lat);
+            // Radius of the parallel at given latitude
+            var pradius = radius * Math.Cos(lat);
+
+            var latMin = lat - halfSide / radius;
+            var latMax = lat + halfSide / radius;
+            var lonMin = lon - halfSide / pradius;
+            var lonMax = lon + halfSide / pradius;
+
+            return new BoundingBox()
+            {
+                MinPoint = new LocationModel()
+                {
+                    Latitude = ToDegrees(latMin),
+                    Longitude = ToDegrees(lonMin)
+                },
+                MaxPoint = new LocationModel()
+                {
+                    Latitude = ToDegrees(latMax),
+                    Longitude = ToDegrees(lonMax)
+                }
+            };
+        }
+
+        // Semi-axes of WGS-84 geoidal reference
+        private const double WGS84_a = 6378137.0; // Major semiaxis [m]
+        private const double WGS84_b = 6356752.3; // Minor semiaxis [m]
+
+        protected static double WGS84EarthRadius(double lat)
+        {
+            // http://en.wikipedia.org/wiki/Earth_radius
+            var an = WGS84_a * WGS84_a * Math.Cos(lat);
+            var bn = WGS84_b * WGS84_b * Math.Sin(lat);
+            var ad = WGS84_a * Math.Cos(lat);
+            var bd = WGS84_b * Math.Sin(lat);
+            return Math.Sqrt((an * an + bn * bn) / (ad * ad + bd * bd));
         }
 
         protected void AddPossiblePlacesToTrip(Trip trip, IEnumerable<Reading> readings)
@@ -244,7 +309,6 @@ namespace CarTracker.Logic.Services
                 _tripPossiblePlaceService.Create(possiblePlace);
             }
         }
-
         
     }
 }
