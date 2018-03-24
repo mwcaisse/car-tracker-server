@@ -14,7 +14,7 @@ define("Components/UserPlace/UserPlaceGrid/UserPlaceGrid",
             data: function() {
                 return {
                     places: [],
-                    currentSort: { propertyId: "CreateDate", ascending: false }
+                    currentSort: { propertyId: "CreateDate", ascending: true }
                 }
             },
             template: template,

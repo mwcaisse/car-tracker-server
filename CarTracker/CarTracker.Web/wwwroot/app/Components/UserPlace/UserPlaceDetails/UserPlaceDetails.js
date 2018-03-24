@@ -23,7 +23,18 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
                         latitude: this.latitude,
                         longitude: this.longitude
                     };
-                }  
+                },
+                editing: function() {
+                    return this.userPlaceId !== -1;
+                },
+                title: function() {
+                    if (!this.editing) {
+                        return "Create Place";
+                    }
+                    else {
+                        return "Edit Place";
+                    }
+                }
             },
             watch: {
                 placeCoordinate: function (newCoordinate) {
@@ -32,8 +43,10 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
                         lng: newCoordinate.longitude
                     }
                     system.bus.$emit("map:clearMarkers");
-                    system.bus.$emit("map:addMarker", position);
-                    system.bus.$emit("map:setCenter", position);
+                    if (position.lat && position.lng) {
+                        system.bus.$emit("map:addMarker", position);
+                        system.bus.$emit("map:setCenter", position);
+                    }
                 }  
             },
             methods: {
@@ -67,11 +80,11 @@ define("Components/UserPlace/UserPlaceDetails/UserPlaceDetails",
                 },
                 save: function () {
                     var func;
-                    if (this.userPlaceId < 0) {
-                        func = proxy.userPlaces.create;
+                    if (this.editing) {
+                        func = proxy.userPlaces.update;
                     }
                     else {
-                        func = proxy.userPlaces.update;
+                        func = proxy.userPlaces.create;
                     }
 
                     func(this.createModel()).then(function (results) {
