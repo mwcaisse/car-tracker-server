@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Places;
 using CarTracker.Common.ViewModels;
 
-namespace CarTracker.Common.Services
+namespace CarTracker.Common.Services.Places
 {
     public interface IUserPlaceService
     {

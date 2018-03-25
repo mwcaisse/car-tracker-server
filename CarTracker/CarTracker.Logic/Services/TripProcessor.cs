@@ -7,6 +7,7 @@ using CarTracker.Common.Entities;
 using CarTracker.Common.Enums;
 using CarTracker.Common.Exceptions;
 using CarTracker.Common.Services;
+using CarTracker.Common.Services.Places;
 using CarTracker.Data;
 
 namespace CarTracker.Logic.Services
@@ -17,11 +18,11 @@ namespace CarTracker.Logic.Services
         private readonly CarTrackerDbContext _db;
 
         private readonly IPlaceRequester _placeRequester;
-        private readonly IPlaceService _placeService;
+        private readonly IGooglePlaceService _placeService;
         private readonly ITripPossiblePlaceService _tripPossiblePlaceService;
 
         public TripProcessor(CarTrackerDbContext db,
-            IPlaceRequester placeRequester, IPlaceService placeService, 
+            IPlaceRequester placeRequester, IGooglePlaceService placeService, 
             ITripPossiblePlaceService tripPossiblePlaceService)
         {
             this._db = db;
@@ -285,7 +286,7 @@ namespace CarTracker.Logic.Services
                 Convert.ToDouble(reading.Longitude), 150);
             foreach (var placeModel in possiblePlaces)
             {
-                var place = _placeService.CreateOrGetPlace(placeModel);
+                var place = _placeService.CreateOrGetPlace(placeModel).Place;
 
                 var possiblePlace = new TripPossiblePlace()
                 {

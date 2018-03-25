@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Places;
 
 namespace CarTracker.Common.ViewModels
 {
@@ -14,9 +15,9 @@ namespace CarTracker.Common.ViewModels
             var vm = new UserPlaceViewModel()
             {
                 UserPlaceId = userPlace.UserPlaceId,
-                Name = userPlace.Name,
-                Latitude = userPlace.Latitude,
-                Longitude = userPlace.Longitude
+                Name = userPlace.Place.Name,
+                Latitude = userPlace.Place.Latitude,
+                Longitude = userPlace.Place.Longitude
             };
             return vm;
         }

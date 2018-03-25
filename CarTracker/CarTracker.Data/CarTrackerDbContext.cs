@@ -4,9 +4,11 @@ using System.Text;
 using CarTracker.Common.Entities;
 using CarTracker.Common.Entities.Auth;
 using CarTracker.Common.Entities.Logging;
+using CarTracker.Common.Entities.Places;
 using CarTracker.Data.Mapping;
 using CarTracker.Data.Mapping.Auth;
 using CarTracker.Data.Mapping.Logging;
+using CarTracker.Data.Mapping.Places;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarTracker.Data
@@ -28,6 +30,10 @@ namespace CarTracker.Data
 
         public DbSet<Place> Places { get; set; }
 
+        public DbSet<UserPlace> UserPlaces { get; set; }
+
+        public DbSet<GooglePlace> GooglePlaces { get; set; }
+
         public DbSet<ReaderLog> ReaderLogs { get; set; }
 
         public DbSet<Reading> Readings { get; set; }
@@ -36,13 +42,9 @@ namespace CarTracker.Data
 
         public DbSet<TripPossiblePlace> TripPossiblePlaces { get; set; }
 
-        public DbSet<UserPlace> UserPlaces { get; set; }
-
         public DbSet<RequestLog> RequestLogs { get; set; }
         
         public DbSet<ServerLog> ServerLogs { get; set; }
-
-        
 
         public CarTrackerDbContext(DbContextOptions<CarTrackerDbContext> options) : base(options)
         {
@@ -58,16 +60,18 @@ namespace CarTracker.Data
 
             modelBuilder.ApplyConfiguration(new CarMap());
             modelBuilder.ApplyConfiguration(new CarSupportedCommandsMap());
-            modelBuilder.ApplyConfiguration(new PlaceMap());
+            
             modelBuilder.ApplyConfiguration(new ReaderLogMap());
             modelBuilder.ApplyConfiguration(new ReadingMap());
             modelBuilder.ApplyConfiguration(new TripMap());
             modelBuilder.ApplyConfiguration(new TripPossiblePlaceMap());
+            
+            modelBuilder.ApplyConfiguration(new PlaceMap());
             modelBuilder.ApplyConfiguration(new UserPlaceMap());
+            modelBuilder.ApplyConfiguration(new GooglePlaceMap());
 
             modelBuilder.ApplyConfiguration(new RequestLogMap());
             modelBuilder.ApplyConfiguration(new ServerLogMap());
-
         }
 
     }

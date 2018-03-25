@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Places;
 using CarTracker.Common.Models.PlaceRequester;
 
-namespace CarTracker.Common.Services
+namespace CarTracker.Common.Services.Places
 {
-    public interface IPlaceService
+    public interface IGooglePlaceService
     {
 
         /// <summary>
@@ -14,16 +15,15 @@ namespace CarTracker.Common.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Place Get(long id);
+        GooglePlace Get(long id);
 
         /// <summary>
-        /// Fetches the place with the given google id
-        /// 
-        /// //TODO: Make this more generic. ForeignId?
+        /// Fetches the place with the given google id 
+
         /// </summary>
         /// <param name="googleId"></param>
         /// <returns></returns>
-        Place GetByGoogleId(string googleId);
+        GooglePlace GetByGoogleId(string googleId);
 
         /// <summary>
         /// Fetches the place corresponding to the given PlaceModel. If one does not exists
@@ -31,7 +31,7 @@ namespace CarTracker.Common.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        Place CreateOrGetPlace(IPlaceModel model);
+        GooglePlace CreateOrGetPlace(IPlaceModel model);
 
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Places;
 using CarTracker.Common.ViewModels;
 
 namespace CarTracker.Common.Mappers
@@ -20,7 +21,6 @@ namespace CarTracker.Common.Mappers
             {
                 Id = place.PlaceId,
                 Name = place.Name,
-                GooglePlaceId = place.GooglePlaceId,
                 Latitude = place.Latitude,
                 Longitude = place.Longitude
             };

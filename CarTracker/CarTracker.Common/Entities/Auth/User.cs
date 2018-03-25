@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CarTracker.Common.Entities.Logging;
+using CarTracker.Common.Entities.Places;
 
 namespace CarTracker.Common.Entities.Auth
 {

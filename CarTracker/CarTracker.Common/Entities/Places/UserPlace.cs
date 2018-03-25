@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities.Auth;
 
-namespace CarTracker.Common.Entities
+namespace CarTracker.Common.Entities.Places
 {
     public class UserPlace : ITrackedEntity, IOwnedEntity, IActiveEntity
     {
 
         public long UserPlaceId { get; set; }
-        public string Name { get; set; }
 
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public long PlaceId { get; set; }
+        public Place Place { get; set; }
 
         public long OwnerId { get; set; }
         public User Owner { get; set; }

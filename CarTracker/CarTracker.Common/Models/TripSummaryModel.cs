@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Places;
 
 namespace CarTracker.Common.Models
 {

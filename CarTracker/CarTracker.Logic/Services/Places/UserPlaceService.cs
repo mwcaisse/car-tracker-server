@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Places;
 using CarTracker.Common.Exceptions;
 using CarTracker.Common.Models;
 using CarTracker.Common.Services;
+using CarTracker.Common.Services.Places;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
 using CarTracker.Data.Extensions;
 
-namespace CarTracker.Logic.Services
+namespace CarTracker.Logic.Services.Places
 {
     public class UserPlaceService : IUserPlaceService
     {
@@ -26,13 +28,17 @@ namespace CarTracker.Logic.Services
 
         public UserPlace Get(long id)
         {
-            return _db.UserPlaces.Active().FirstOrDefault(x => x.UserPlaceId == id && 
+            return _db.UserPlaces.Build()
+                                 .Active()
+                                 .FirstOrDefault(x => x.UserPlaceId == id && 
                                                       x.OwnerId == _requestInformation.UserId);
         }
 
         public PagedViewModel<UserPlace> GetMine(int skip, int take, SortParam sort)
         {
-            return _db.UserPlaces.Active().Where(x => x.OwnerId == _requestInformation.UserId)
+            return _db.UserPlaces.Build()
+                                 .Active()
+                                 .Where(x => x.OwnerId == _requestInformation.UserId)
                                  .PageAndSort(skip, take, sort, new SortParam()
                                  {
                                      ColumnName = "CreateDate",
@@ -45,9 +51,12 @@ namespace CarTracker.Logic.Services
             ValidateUserPlace(toCreate);
             var userPlace = new UserPlace()
             {
-                Name = toCreate.Name,
-                Latitude = toCreate.Latitude,
-                Longitude = toCreate.Longitude,
+                Place = new Place()
+                {
+                    Name = toCreate.Name,
+                    Latitude = toCreate.Latitude,
+                    Longitude = toCreate.Longitude,
+                },
                 OwnerId = _requestInformation.UserId ?? 0,
                 Active = true
             };
@@ -65,9 +74,9 @@ namespace CarTracker.Logic.Services
             }
             ValidateUserPlace(toUpdate);
 
-            userPlace.Name = toUpdate.Name;
-            userPlace.Longitude = toUpdate.Longitude;
-            userPlace.Latitude = toUpdate.Latitude;
+            userPlace.Place.Name = toUpdate.Name;
+            userPlace.Place.Longitude = toUpdate.Longitude;
+            userPlace.Place.Latitude = toUpdate.Latitude;
 
             _db.SaveChanges();
 
