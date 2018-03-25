@@ -18,7 +18,7 @@ namespace CarTracker.Data.Mapping.Places
                 .ValueGeneratedOnAdd();
 
             builder.Property(g => g.GoogleId)
-                .HasColumnName("GOOGLE__ID")
+                .HasColumnName("GOOGLE_ID")
                 .HasMaxLength(250)
                 .IsRequired();
 

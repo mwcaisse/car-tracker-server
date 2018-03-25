@@ -13,9 +13,9 @@ namespace CarTracker.Common.ViewModels
 
         public long TripId { get; set; }
 
-        public decimal Latitude { get; set; }
+        public double Latitude { get; set; }
 
-        public decimal Longitude { get; set; }
+        public double Longitude { get; set; }
 
         public double? AirIntakeTemperature { get; set; }
 

@@ -42,8 +42,8 @@ namespace CarTracker.Logic.Services.Places
                     GoogleId = model.Id,
                     Place = new Place()
                     {
-                        Latitude = Convert.ToDecimal(model.Location?.Latitude),
-                        Longitude = Convert.ToDecimal(model.Location?.Longitude),
+                        Latitude = model.Location?.Latitude ?? 0,
+                        Longitude = model.Location?.Longitude ?? 0,
                         Name = model.Name
                     }
                 };

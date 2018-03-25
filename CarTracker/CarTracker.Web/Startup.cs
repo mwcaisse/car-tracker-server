@@ -116,6 +116,7 @@ namespace CarTracker.Web
             services.AddTransient<IRequestLogService, RequestLogService>();
             services.AddTransient<IServerLogService, ServerLogService>();
             services.AddTransient<IUserPlaceService, UserPlaceService>();
+            services.AddTransient<IPlaceService, PlaceService>();
 
             services.AddScoped<IRequestLogger, Logger>();
             services.AddScoped<IServerLogger, Logger>();
