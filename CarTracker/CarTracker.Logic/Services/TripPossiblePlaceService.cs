@@ -25,7 +25,7 @@ namespace CarTracker.Logic.Services
 
         public IEnumerable<TripPossiblePlace> GetForTripOfType(long tripId, TripPossiblePlaceType type)
         {
-            return _db.TripPossiblePlaces.Where(x => x.TripId == tripId && x.PlaceType == type);
+            return _db.TripPossiblePlaces.Active().Build().Where(x => x.TripId == tripId && x.PlaceType == type);
         }
 
         public PagedViewModel<TripPossiblePlace> GetForTripOfTypePaged(long tripId, TripPossiblePlaceType type, int skip = 0, int take = 10,
@@ -41,14 +41,15 @@ namespace CarTracker.Logic.Services
             }
             return
                 _db.TripPossiblePlaces
-                    .Include(x => x.Place)
+                    .Active()
+                    .Build()
                     .Where(x => x.TripId == tripId && x.PlaceType ==  type)
                     .PageAndSort(skip, take, sortParam);
         }
 
         public TripPossiblePlace Get(long id)
         {
-            return _db.TripPossiblePlaces.FirstOrDefault(x => x.TripPossiblePlaceId == id);
+            return _db.TripPossiblePlaces.Active().Build().FirstOrDefault(x => x.TripPossiblePlaceId == id);
         }
 
         public TripPossiblePlace Create(TripPossiblePlace toCreate)
