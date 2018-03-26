@@ -41,6 +41,7 @@ namespace CarTracker.Data.Mapping
                 .HasForeignKey(t => t.PlaceId);
 
             builder.AddTrackedEntityProperties();
+            builder.AddActiveEntityProperties();
         }
     }
 }

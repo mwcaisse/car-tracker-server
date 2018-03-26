@@ -6,7 +6,7 @@ using CarTracker.Common.Entities.Places;
 
 namespace CarTracker.Common.Entities
 {
-    public class TripPossiblePlace : ITrackedEntity
+    public class TripPossiblePlace : ITrackedEntity, IActiveEntity
     {
 
         public long TripPossiblePlaceId { get; set; }
@@ -23,7 +23,9 @@ namespace CarTracker.Common.Entities
         public DateTime ModifiedDate { get; set; }
 
         public virtual Trip Trip { get; set; }
-        public virtual Places.Place Place { get; set; }
-        
+        public virtual Place Place { get; set; }
+
+        public bool Active { get; set; }
+
     }
 }

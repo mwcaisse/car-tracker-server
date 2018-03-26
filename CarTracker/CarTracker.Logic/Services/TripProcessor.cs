@@ -11,6 +11,7 @@ using CarTracker.Common.Models;
 using CarTracker.Common.Services;
 using CarTracker.Common.Services.Places;
 using CarTracker.Data;
+using CarTracker.Data.Extensions;
 using CarTracker.Logic.Util;
 
 namespace CarTracker.Logic.Services
@@ -50,7 +51,8 @@ namespace CarTracker.Logic.Services
         {
             if (trip.Status == TripStatus.Processed)
             {
-                throw new EntityValidationException("Trip has already been processed.");
+                // Trip has already been processed. Clean up anything that was done previously
+                RemovePossiblePlacesFromTrip(trip);
             }
 
             var readings = _db.Readings.Where(x => x.TripId == trip.TripId)
@@ -195,6 +197,17 @@ namespace CarTracker.Logic.Services
 
                 _tripPossiblePlaceService.Create(possiblePlace);
             }
+        }
+
+        protected void RemovePossiblePlacesFromTrip(Trip trip)
+        {
+            var possiblePlaces = _db.TripPossiblePlaces.Active().Where(p => p.TripId == trip.TripId);
+            foreach (var possiblePlace in possiblePlaces)
+            {
+                possiblePlace.Active = false; 
+            }
+
+            _db.SaveChanges();
         }
         
     }
