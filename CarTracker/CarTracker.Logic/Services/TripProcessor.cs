@@ -192,7 +192,8 @@ namespace CarTracker.Logic.Services
                     Place = place,
                     PlaceType = type,
                     Distance = Convert.ToDecimal(GeographyUtils.CalculateDistanceBetweenLocations(
-                        reading.Latitude,reading.Longitude,place.Latitude,place.Longitude))
+                        reading.Latitude,reading.Longitude,place.Latitude,place.Longitude)),
+                    Active = true
                 };
 
                 _tripPossiblePlaceService.Create(possiblePlace);
