@@ -29,5 +29,7 @@ namespace CarTracker.Common.Entities
 
         public virtual ICollection<Trip> Trips { get; set; }
 
+        public virtual ICollection<CarMaintenance> CarMaintenances { get; set; }
+
     }
 }

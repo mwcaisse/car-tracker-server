@@ -26,6 +26,8 @@ namespace CarTracker.Data
 
         public DbSet<Car> Cars { get; set; }
 
+        public DbSet<CarMaintenance> CarMaintenances { get; set; }
+
         public DbSet<CarSupportedCommands> CarSupportedCommands { get; set; }
 
         public DbSet<Place> Places { get; set; }
@@ -60,6 +62,7 @@ namespace CarTracker.Data
 
             modelBuilder.ApplyConfiguration(new CarMap());
             modelBuilder.ApplyConfiguration(new CarSupportedCommandsMap());
+            modelBuilder.ApplyConfiguration(new CarMaintenanceMap());
             
             modelBuilder.ApplyConfiguration(new ReaderLogMap());
             modelBuilder.ApplyConfiguration(new ReadingMap());
