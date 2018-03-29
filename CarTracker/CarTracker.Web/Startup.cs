@@ -101,6 +101,7 @@ namespace CarTracker.Web
 
             // Add our Services
             services.AddTransient<ICarService, CarService>();
+            services.AddTransient<ICarMaintenanceService, CarMaintenanceService>();
             services.AddTransient<ITripService, TripService>();
             services.AddTransient<IReaderLogService, ReaderLogService>();
             services.AddTransient<IReadingService, ReadingService>();
