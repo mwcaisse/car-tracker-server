@@ -5,7 +5,7 @@ using CarTracker.Common.Enums;
 
 namespace CarTracker.Common.Entities
 {
-    public class CarMaintenance : ITrackedEntity
+    public class CarMaintenance : ITrackedEntity, IActiveEntity
     {
         public long CarMaintenanceId { get; set; }
 
@@ -19,6 +19,8 @@ namespace CarTracker.Common.Entities
 
         public double Mileage { get; set; }
 
+        public bool Active { get; set; }
+        
         public DateTime CreateDate { get; set; }
 
         public DateTime ModifiedDate { get; set; }
