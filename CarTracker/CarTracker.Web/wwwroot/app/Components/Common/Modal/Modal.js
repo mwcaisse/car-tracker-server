@@ -48,14 +48,19 @@ define("Components/Common/Modal/Modal",
 		},
 		mounted: function () {			
 			//subscribe to the model events so we know when it is open or closed
-			$(this.$el).on("hide.bs.modal", function () {
-				this.modalOpen = false;
-				this.onClose(); // perform any onClose actions
+            $(this.$el).on("hide.bs.modal", function (e) {
+                //check if this event is for this element, not a child modal/element
+                if (e.target === this.$el) {
+                    this.modalOpen = false;
+                    this.onClose(); // perform any onClose actions
+                }
 			}.bind(this));
 			
-			$(this.$el).on("show.bs.modal", function () {
-				this.modalOpen = true;
-			}.bind(this));
+            $(this.$el).on("show.bs.modal", function (e) {
+                if (e.target === this.$el) {
+                    this.modalOpen = true;
+                }
+            }.bind(this));
 		}
 	});
 	
