@@ -33,7 +33,7 @@ define("Service/system", ["Service/enums", "Service/constants", "Service/customD
             );
         }
 
-	    
+        Vue.prototype.system = self;
 
 	})();
 	

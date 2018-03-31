@@ -12,6 +12,13 @@ define("Service/enums", ["Service/constants"], function (constants) {
         self.TripStatus[constants.TRIP_STATUS.PROCESSED] = "Processed";
         self.TripStatus[constants.TRIP_STATUS.FAILED] = "Failed";
 
+        self.CarMaintenanceType = {}
+        self.CarMaintenanceType[constants.CAR_MAINTENANCE_TYPE.OIL_CHANGE] = "Oil Change";
+        self.CarMaintenanceType[constants.CAR_MAINTENANCE_TYPE.TIRE_ROTATION] = "Tire Rotation";
+        self.CarMaintenanceType[constants.CAR_MAINTENANCE_TYPE.AIR_FILTER_CHANGE] = "Air Filter Change";
+        self.CarMaintenanceType[constants.CAR_MAINTENANCE_TYPE.CABIN_AIR_FILTER_CHANGE] = "Cabin Air Filter Change";
+        self.CarMaintenanceType[constants.CAR_MAINTENANCE_TYPE.OTHER] = "Other";
+
         self.TripPossiblePlaceType = {};
         self.TripPossiblePlaceType[constants.TRIP_POSSIBLE_PLACE_TYPE.START] = "Start";
         self.TripPossiblePlaceType[constants.TRIP_POSSIBLE_PLACE_TYPE.DESTINATION] = "Destination";

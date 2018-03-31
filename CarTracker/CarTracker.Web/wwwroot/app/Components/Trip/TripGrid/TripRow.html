@@ -6,8 +6,8 @@
 		<i class="fa fa-hdd-o action-icon" aria-hidden="true" v-tooltip title="Process Trip" v-if="canProcess" v-on:click="process"></i>
 	</td>
 	<td> {{ name }} </td>
-	<td> {{ startDate | formatDate }} </td>
-	<td> {{ endDate | formatDate}} </td>
+    <td> {{ startDate | formatDateTime }} </td>
+    <td> {{ endDate | formatDateTime}} </td>
 	<td> {{ status | enum("TripStatus") }} </td>
 	<td> {{ distanceTraveled | kmToMi | round(2) }} mi</td>
 	<td> {{ destinationName }} </td>

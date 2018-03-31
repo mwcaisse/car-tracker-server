@@ -2,13 +2,14 @@
 
 define("Views/Car/Car", 
 	["Service/util",
-	 "Service/navigation", 
+     "Service/navigation", 
+     "AMD/text!Views/Car/Car.html",
 	 "Components/Car/CarDetails/CarDetails",
 	 "Components/Car/CarSupportedCommands/CarSupportedCommands",
-	 "Components/Trip/TripGrid/TripGrid",
-	 "AMD/text!Views/Car/Car.html"], 
+	 "Components/Car/CarMaintenanceGrid/CarMaintenanceGrid",
+	 "Components/Trip/TripGrid/TripGrid"], 
 	 
-	 function (util, navigation, carDetails, carSupportedCommands, tripGrid, template) {
+	 function (util, navigation, template) {
 
         navigation.setActiveNavigation("Car");
 

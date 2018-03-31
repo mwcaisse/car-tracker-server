@@ -19,6 +19,22 @@ define("Service/constants", [], function () {
             self.TRIP_STATUS.PROCESSED
         ];
 
+        self.CAR_MAINTENANCE_TYPE = {
+            OIL_CHANGE: 1,
+            TIRE_ROTATION: 2,
+            AIR_FILTER_CHANGE: 3,
+            CABIN_AIR_FILTER_CHANGE: 4,
+            OTHER: 5
+        }
+
+        self.CAR_MAINTENANCE_TYPES = [
+            self.CAR_MAINTENANCE_TYPE.OIL_CHANGE,
+            self.CAR_MAINTENANCE_TYPE.TIRE_ROTATION,
+            self.CAR_MAINTENANCE_TYPE.AIR_FILTER_CHANGE,
+            self.CAR_MAINTENANCE_TYPE.CABIN_AIR_FILTER_CHANGE,
+            self.CAR_MAINTENANCE_TYPE.OTHER
+        ];
+
         self.TRIP_POSSIBLE_PLACE_TYPE = {
             START: 1,
             DESTINATION: 2

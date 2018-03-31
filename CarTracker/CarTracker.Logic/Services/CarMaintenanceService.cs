@@ -23,17 +23,17 @@ namespace CarTracker.Logic.Services
 
         public IEnumerable<CarMaintenance> GetForCar(long carId)
         {
-            return _db.CarMaintenances.Where(cm => cm.CarId == carId);
+            return _db.CarMaintenances.Active().Where(cm => cm.CarId == carId);
         }
 
         public PagedViewModel<CarMaintenance> GetForCarPaged(long carId, int skip = 0, int take = 10, SortParam sort = null)
         {
-            return _db.CarMaintenances.Where(cm => cm.CarId == carId).PageAndSort(skip, take, sort);
+            return _db.CarMaintenances.Active().Where(cm => cm.CarId == carId).PageAndSort(skip, take, sort);
         }
 
         public CarMaintenance Get(long id)
         {
-            return _db.CarMaintenances.FirstOrDefault(cm => cm.CarMaintenanceId == id);
+            return _db.CarMaintenances.Active().FirstOrDefault(cm => cm.CarMaintenanceId == id);
         }
 
         public CarMaintenance Create(CarMaintenanceViewModel toCreate)

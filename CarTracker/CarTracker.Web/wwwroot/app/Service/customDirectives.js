@@ -30,16 +30,27 @@ define("Service/customDirectives",
 			$el.highcharts(binding.value);
 		}
 	});
-	
-	Vue.filter("formatDate", function (value, formatString) {
-		if (typeof value === "undefined") {
-			return "";
-		}		
-		if (typeof value.format !== "function") {
-			value = moment(value);
-		}
-		return util.formatDateTime(value, formatString);
-	});
+
+    function formatDateFilter(value, formatString) {
+        if (typeof value === "undefined" || null == value) {
+            return "";
+        }
+        if (typeof value.format !== "function") {
+            value = moment(value);
+        }
+        return util.formatDateTime(value, formatString);
+    }
+
+    Vue.filter("formatDateTime", function (value, formatString) {
+        return formatDateFilter(value, formatString);
+    });
+
+    Vue.filter("formatDate", function (value, formatString) {
+        if (util.isStringNullOrBlank(formatString)) {
+            formatString = "YYYY-MM-DD";
+        }
+        return formatDateFilter(value, formatString);
+    }); 
 	
 	Vue.filter("formatDuration", function (value, formatString) {
 		if (typeof value === "undefined" || typeof value.format !== "function") {

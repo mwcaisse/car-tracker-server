@@ -21,10 +21,10 @@
             <tr v-for="token in tokens">					
                 <td> {{ token.deviceUuid }}</td>			
                 <td> {{ token.active | formatBoolean }}</td>			
-                <td> {{ token.lastLogin | formatDate }}</td>			
+                <td> {{ token.lastLogin | formatDateTime }}</td>			
                 <td> {{ token.lastLoginAddress }}</td>			
-                <td> {{ token.expirationDate | formatDate }}</td>			
-                <td> {{ token.createDate | formatDate }}</td>			
+                <td> {{ token.expirationDate | formatDateTime }}</td>			
+                <td> {{ token.createDate | formatDateTime }}</td>			
             </tr>
             </tbody>		
         </table>

@@ -27,7 +27,25 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
 			getSupportedCommands: function (id) {
 				return core.get("car/" + id + "/supported-commands/");
 			}
-		};
+        };
+
+	    self.carMaintenance = {
+            get: function(carId, id) {
+                return core.get("car/" + carId + "/maintenance/" + id);
+            },
+            getForCar: function (carId, startAt, maxResults, sort) {
+                return core.getPaged("car/" + carId + "/maintenance/", startAt, maxResults, sort);
+            },
+            create: function(carId, maintenance) {
+                return core.post("car/" + carId + "/maintenance/", maintenance);
+            },
+            update: function(carId, maintenance) {
+                return core.put("car/" + carId + "/maintenance/", maintenance);
+            },
+            delete: function(carId, id) {
+                return core.delete("car/" + carId + "/maintenance/" + id);
+            }
+	    };
 		
 		self.trip = {
 			get: function(id) {
