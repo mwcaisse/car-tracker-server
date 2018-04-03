@@ -27,6 +27,7 @@ namespace CarTracker.Common.Entities.Auth
         public virtual ICollection<UserRegistrationKeyUse> UserRegistrationKeyUses { get; set; }
         public virtual ICollection<RequestLog>RequestLogs { get; set; }
         public virtual ICollection<UserPlace> UserPlaces { get; set; }
+        public virtual ICollection<PlaceVisit> PlaceVisits { get; set; }
         
     }
 }

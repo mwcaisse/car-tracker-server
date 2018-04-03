@@ -25,5 +25,7 @@ namespace CarTracker.Common.Entities.Places
 
         public ICollection<TripPossiblePlace> TripPossiblePlaces { get; set; }
 
+        public ICollection<PlaceVisit> Visits { get; set; }
+
     }
 }

@@ -36,6 +36,8 @@ namespace CarTracker.Data
 
         public DbSet<GooglePlace> GooglePlaces { get; set; }
 
+        public DbSet<PlaceVisit> PlaceVisits { get; set; }
+
         public DbSet<ReaderLog> ReaderLogs { get; set; }
 
         public DbSet<Reading> Readings { get; set; }
@@ -72,6 +74,7 @@ namespace CarTracker.Data
             modelBuilder.ApplyConfiguration(new PlaceMap());
             modelBuilder.ApplyConfiguration(new UserPlaceMap());
             modelBuilder.ApplyConfiguration(new GooglePlaceMap());
+            modelBuilder.ApplyConfiguration(new PlaceVisitMap());
 
             modelBuilder.ApplyConfiguration(new RequestLogMap());
             modelBuilder.ApplyConfiguration(new ServerLogMap());

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Entities.Places;
+using CarTracker.Common.Enums;
 using CarTracker.Common.Exceptions;
+using CarTracker.Common.Models;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using CarTracker.Data;
@@ -17,11 +20,14 @@ namespace CarTracker.Logic.Services
 
         private readonly CarTrackerDbContext _db;
         private readonly ITripProcessor _tripProcessor;
+        private readonly IRequestInformation _requestInformation;
 
-        public TripService(CarTrackerDbContext db, ITripProcessor tripProcessor)
+        public TripService(CarTrackerDbContext db, ITripProcessor tripProcessor, 
+            IRequestInformation requestInformation)
         {
             this._db = db;
             this._tripProcessor = tripProcessor;
+            this._requestInformation = requestInformation;
         }
 
         public Trip Get(long id)
@@ -127,9 +133,13 @@ namespace CarTracker.Logic.Services
             }
         }
 
-        protected Trip GetTripOrException(long id)
+        protected Trip GetTripOrException(long id, IQueryable<Trip> tripQuery = null)
         {
-            var trip = _db.Trips.FirstOrDefault(x => x.TripId == id);
+            if (null == tripQuery)
+            {
+                tripQuery = _db.Trips;
+            }
+            var trip = tripQuery.FirstOrDefault(x => x.TripId == id);
 
             if (null == trip)
             {
@@ -142,10 +152,12 @@ namespace CarTracker.Logic.Services
         public bool SetStartingPlace(long id, long placeId)
         {
             ValidatePlace(placeId);
-            var trip = GetTripOrException(id);
+            var trip = GetTripOrException(id, _db.Trips.Include(t => t.Readings));
 
             trip.StartPlaceId = placeId;
             _db.SaveChanges();
+
+            RecordPlaceVisit(trip, placeId, TripPossiblePlaceType.Start);
 
             return true;
         }
@@ -153,12 +165,56 @@ namespace CarTracker.Logic.Services
         public bool SetDestinationPlace(long id, long placeId)
         {
             ValidatePlace(placeId);
-            var trip = GetTripOrException(id);
+            var trip = GetTripOrException(id, _db.Trips.Include(t => t.Readings));
 
             trip.DestinationPlaceId = placeId;
             _db.SaveChanges();
 
+            RecordPlaceVisit(trip, placeId, TripPossiblePlaceType.Destination);
+
             return true;
+        }
+
+        protected void RecordPlaceVisit(Trip trip, long placeId, TripPossiblePlaceType type)
+        {
+
+            Reading reading;
+            if (type == TripPossiblePlaceType.Start)
+            {
+                reading = GetFirstReading(trip);
+            }
+            else
+            {
+                reading = GetLastReading(trip);
+            }
+            if (null == reading)
+            {
+                return; // No reading found
+            }
+
+            var placeVisit = new PlaceVisit()
+            {
+                Latitude = reading.Latitude,
+                Longitude = reading.Longitude,
+                PlaceType = type,
+                VisitDate = type == TripPossiblePlaceType.Destination ? trip.EndDate : trip.StartDate,
+                UserSelected = true,
+                PlaceId = placeId,
+                OwnerId = _requestInformation.UserId ?? 0
+            };
+
+            _db.PlaceVisits.Add(placeVisit);
+            _db.SaveChanges();
+        }
+
+        protected Reading GetFirstReading(Trip trip)
+        {
+            return trip.Readings.FirstOrDefault(r => r.Longitude != 0 && r.Latitude != 0);
+        }
+
+        protected Reading GetLastReading(Trip trip)
+        {
+            return trip.Readings.LastOrDefault(r => r.Longitude != 0 && r.Latitude != 0);
         }
     }
 }
