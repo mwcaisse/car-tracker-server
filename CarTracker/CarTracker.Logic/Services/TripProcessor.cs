@@ -51,7 +51,7 @@ namespace CarTracker.Logic.Services
 
         public Trip ProcessTrip(Trip trip)
         {
-            _logger.Debug($"Started processing trip ${trip.TripId}");
+            _logger.Debug($"Started processing trip {trip.TripId}");
 
             if (trip.Status == TripStatus.Processed)
             {
@@ -134,7 +134,7 @@ namespace CarTracker.Logic.Services
                 AddPossiblePlacesToTrip(trip, readings);
             }
 
-            _logger.Debug($"Finished processing trip ${trip.TripId}");
+            _logger.Debug($"Finished processing trip {trip.TripId}");
 
             return trip;
         }
@@ -179,7 +179,7 @@ namespace CarTracker.Logic.Services
             var nonZeroReadings = readings.Where(r => r.Latitude != 0 && r.Longitude != 0).ToList();
             if (!nonZeroReadings.Any())
             {
-                _logger.Debug($"Trip ${trip.TripId} has no non zero readings. Not adding any possible places.");
+                _logger.Debug($"Trip {trip.TripId} has no non zero readings. Not adding any possible places.");
                 return;
             }
 
@@ -207,7 +207,7 @@ namespace CarTracker.Logic.Services
                 _tripPossiblePlaceService.Create(possiblePlace);
             }
 
-            _logger.Debug($"Added possible ${type.ToString()} to trip ${trip.TripId}");
+            _logger.Debug($"Added possible {type.ToString()} to trip {trip.TripId}");
         }
 
         protected void RemovePossiblePlacesFromTrip(Trip trip)
