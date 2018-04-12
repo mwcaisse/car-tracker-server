@@ -14,13 +14,13 @@ namespace CarTracker.Logic.Services
     public class Logger : IRequestLogger, IServerLogger
     {
 
-        private readonly CarTrackerDbContext _db;
+        private readonly CarTrackerDbContextFactory _dbFactory;
         private readonly IRequestInformation _requestInformation;
         private readonly Guid _eventGuid;
 
-        public Logger(CarTrackerDbContext db, IRequestInformation requestInformation)
+        public Logger(CarTrackerDbContextFactory dbFactory, IRequestInformation requestInformation)
         {
-            _db = db;
+            _dbFactory = dbFactory;
             _requestInformation = requestInformation;
             _eventGuid = Guid.NewGuid();
         }
@@ -29,22 +29,26 @@ namespace CarTracker.Logic.Services
             IEnumerable requestHeaders, string requestBody, string responseStatus, 
             IEnumerable responseHeaders, string responseBody)
         {
-            var requestLog = new RequestLog()
+            using (var db = _dbFactory.CreateContext())
             {
-                ClientAddress = clientAddress,
-                RequestUrl = requestUrl,
-                RequestMethod = requestMethod,
-                RequestHeaders = JsonConvert.SerializeObject(requestHeaders),
-                RequestBody = requestBody,
-                ResponseStatus = responseStatus,
-                ResponseHeaders = JsonConvert.SerializeObject(responseHeaders),
-                ResponseBody = responseBody,
-                Type = LogType.Debug,
-                RequestUuid = _eventGuid,
-                UserId = _requestInformation.UserId
-            };
-            _db.RequestLogs.Add(requestLog);
-            _db.SaveChanges();
+                var requestLog = new RequestLog()
+                {
+                    ClientAddress = clientAddress,
+                    RequestUrl = requestUrl,
+                    RequestMethod = requestMethod,
+                    RequestHeaders = JsonConvert.SerializeObject(requestHeaders),
+                    RequestBody = requestBody,
+                    ResponseStatus = responseStatus,
+                    ResponseHeaders = JsonConvert.SerializeObject(responseHeaders),
+                    ResponseBody = responseBody,
+                    Type = LogType.Debug,
+                    RequestUuid = _eventGuid,
+                    UserId = _requestInformation.UserId
+                };
+                db.RequestLogs.Add(requestLog);
+                db.SaveChanges();
+            }
+            
         }
 
         public void Debug(string message)
@@ -89,17 +93,21 @@ namespace CarTracker.Logic.Services
 
         protected void CreateServerLog(LogType type, string message, Exception e = null)
         {
-            var serverLog = new ServerLog()
+            using (var db = _dbFactory.CreateContext())
             {
-                RequestUuid = _eventGuid,
-                Message = message,
-                ExceptionMessage = e?.Message,
-                Type = type,
-                StackTrace = e?.StackTrace
-            };
+                var serverLog = new ServerLog()
+                {
+                    RequestUuid = _eventGuid,
+                    Message = message,
+                    ExceptionMessage = e?.Message,
+                    Type = type,
+                    StackTrace = e?.StackTrace
+                };
 
-            _db.ServerLogs.Add(serverLog);
-            _db.SaveChanges();
+                db.ServerLogs.Add(serverLog);
+                db.SaveChanges();
+            }
+           
         }
     }
 }

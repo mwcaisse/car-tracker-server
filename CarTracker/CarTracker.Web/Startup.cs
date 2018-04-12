@@ -18,6 +18,7 @@ using CarTracker.Scheduler;
 using CarTracker.Scheduler.Jobs;
 using CarTracker.Web.Auth;
 using CarTracker.Web.Configuration;
+using CarTracker.Web.Extensions;
 using CarTracker.Web.Middleware;
 using CarTracker.Web.Model;
 using CarTracker.Web.Util;
@@ -57,8 +58,12 @@ namespace CarTracker.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.AddDbContext<CarTrackerDbContext>(
-                options => options.UseMySql(Configuration.GetSection("connectionString").Value));
+
+            Action<DbContextOptionsBuilder> dbOptions =
+                options => options.UseMySql(Configuration.GetSection("connectionString").Value);
+
+            services.AddCarTrackerDbContextFactory(dbOptions);
+            services.AddDbContext<CarTrackerDbContext>(dbOptions);
 
             //Add the build information
             var buildInformation = Configuration.GetSection("buildInformation").Get<BuildInformation>();
