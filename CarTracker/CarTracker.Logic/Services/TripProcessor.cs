@@ -22,16 +22,14 @@ namespace CarTracker.Logic.Services
         private readonly CarTrackerDbContext _db;
         private readonly IPlaceService _placeService;
         private readonly ITripPossiblePlaceService _tripPossiblePlaceService;
-        private readonly IRequestInformation _requestInformation;
         private readonly IServerLogger _logger;
 
         public TripProcessor(CarTrackerDbContext db, IPlaceService placeService, 
-            ITripPossiblePlaceService tripPossiblePlaceService, IRequestInformation requestInformation, IServerLogger logger)
+            ITripPossiblePlaceService tripPossiblePlaceService, IServerLogger logger)
         {
             this._db = db;
             this._placeService = placeService;
             this._tripPossiblePlaceService = tripPossiblePlaceService;
-            this._requestInformation = requestInformation;
             this._logger = logger;
         }
 
@@ -191,8 +189,9 @@ namespace CarTracker.Logic.Services
 
         protected void AddPossiblePlaceToTrip(Trip trip, Reading reading, TripPossiblePlaceType type)
         {
+            var ownerId = trip.Car.OwnerId;
             var possiblePlaces = _placeService.GetPlacesNearby(reading.Latitude,
-                reading.Longitude, 150, _requestInformation.UserId ?? -1);
+                reading.Longitude, 150, ownerId);
             foreach (var place in possiblePlaces)
             {
                 var possiblePlace = new TripPossiblePlace()

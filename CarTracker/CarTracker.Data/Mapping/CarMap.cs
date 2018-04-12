@@ -27,13 +27,6 @@ namespace CarTracker.Data.Mapping
                 .HasColumnName("NAME")
                 .HasMaxLength(250);
 
-            builder.Property(c => c.OwnerId)
-                .HasColumnName("OWNER_ID");
-
-            builder.HasOne(c => c.Owner)
-                .WithMany(u => u.Cars)
-                .HasForeignKey(c => c.OwnerId);
-
             builder.Property(c => c.Mileage)
                 .HasColumnName("MILEAGE");
 
@@ -41,6 +34,7 @@ namespace CarTracker.Data.Mapping
                 .HasColumnName("MILEAGE_LAST_USER_SET");
 
             builder.AddTrackedEntityProperties();
+            builder.AddOwnedEntityProperties(u => u.Cars);
         }
     }
 }

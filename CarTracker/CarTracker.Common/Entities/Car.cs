@@ -5,7 +5,7 @@ using CarTracker.Common.Entities.Auth;
 
 namespace CarTracker.Common.Entities
 {
-    public class Car : ITrackedEntity
+    public class Car : ITrackedEntity, IOwnedEntity
     {
 
         public long CarId { get; set; }
@@ -14,7 +14,7 @@ namespace CarTracker.Common.Entities
         
         public string Name { get; set; }
 
-        public long? OwnerId { get; set; }
+        public long OwnerId { get; set; }
 
         public double? Mileage { get; set; }
 
