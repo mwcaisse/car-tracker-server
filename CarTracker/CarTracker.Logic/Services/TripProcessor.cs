@@ -113,7 +113,6 @@ namespace CarTracker.Logic.Services
                 trip.MaximumSpeed = maxSpeed;
                 trip.DistanceTraveled = totalDistance;
                 trip.IdleTime = Convert.ToInt64(idleTime.TotalMilliseconds);
-                trip.Status = TripStatus.Processed;
 
                 //if the end date of the trip is null, set its end date to the read date of the
                 //  last reading
@@ -133,6 +132,9 @@ namespace CarTracker.Logic.Services
 
                 AddPossiblePlacesToTrip(trip, readings);
             }
+
+            trip.Status = TripStatus.Processed;
+            _db.SaveChanges();
 
             _logger.Debug($"Finished processing trip {trip.TripId}");
 
