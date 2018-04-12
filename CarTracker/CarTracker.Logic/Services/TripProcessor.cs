@@ -13,6 +13,7 @@ using CarTracker.Common.Services.Places;
 using CarTracker.Data;
 using CarTracker.Data.Extensions;
 using CarTracker.Logic.Util;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace CarTracker.Logic.Services
 {
@@ -222,6 +223,45 @@ namespace CarTracker.Logic.Services
             _logger.Debug("Removing possible places from trip: " + trip.TripId);
 
             _db.SaveChanges();
+        }
+
+        protected void AddGuessedPlacesToTrip(Trip trip)
+        {
+            var placeTypes = new List<TripPossiblePlaceType>
+            {
+                TripPossiblePlaceType.Destination,
+                TripPossiblePlaceType.Start
+            };
+
+            foreach (var placeType in placeTypes)
+            {
+                var place = GuessPlaceForTrip(trip, placeType);
+            }
+        }
+
+        protected Place GuessPlaceForTrip(Trip trip, TripPossiblePlaceType type)
+        {
+            var possiblePlaces = _db.TripPossiblePlaces.Active()
+                .Where(x => x.PlaceType == type && x.TripId == trip.TripId);
+            var ownerId = trip.Car.OwnerId;
+
+            var guessedPlaceId = _db.PlaceVisits.Where(x => x.OwnerId == ownerId && x.PlaceType == type && x.UserSelected)
+                .Join(possiblePlaces,
+                    pv => pv.PlaceId,
+                    pp => pp.PlaceId,
+                    (pv, pp) => pv)
+                .GroupBy(pv => pv.PlaceId, (placeId, visits) => new
+                {
+                    PlaceId = placeId,
+                    Count = visits.Count()
+                })
+                .OrderBy(x => x.Count).FirstOrDefault();
+
+            if (null != guessedPlaceId)
+            {
+                return _db.Places.First(x => x.PlaceId == guessedPlaceId.PlaceId);
+            }
+            return null;
         }
         
     }
