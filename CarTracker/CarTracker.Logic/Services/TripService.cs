@@ -149,7 +149,7 @@ namespace CarTracker.Logic.Services
             return trip;
         }
 
-        public bool SetStartingPlace(long id, long placeId)
+        public bool SetStartingPlace(long id, long placeId, bool userSelected = true)
         {
             ValidatePlace(placeId);
             var trip = GetTripOrException(id, _db.Trips.Include(t => t.Readings));
@@ -157,12 +157,12 @@ namespace CarTracker.Logic.Services
             trip.StartPlaceId = placeId;
             _db.SaveChanges();
 
-            RecordPlaceVisit(trip, placeId, TripPossiblePlaceType.Start);
+            RecordPlaceVisit(trip, placeId, TripPossiblePlaceType.Start, userSelected);
 
             return true;
         }
 
-        public bool SetDestinationPlace(long id, long placeId)
+        public bool SetDestinationPlace(long id, long placeId, bool userSelected = true)
         {
             ValidatePlace(placeId);
             var trip = GetTripOrException(id, _db.Trips.Include(t => t.Readings));
@@ -170,12 +170,12 @@ namespace CarTracker.Logic.Services
             trip.DestinationPlaceId = placeId;
             _db.SaveChanges();
 
-            RecordPlaceVisit(trip, placeId, TripPossiblePlaceType.Destination);
+            RecordPlaceVisit(trip, placeId, TripPossiblePlaceType.Destination, userSelected);
 
             return true;
         }
 
-        protected void RecordPlaceVisit(Trip trip, long placeId, TripPossiblePlaceType type)
+        protected void RecordPlaceVisit(Trip trip, long placeId, TripPossiblePlaceType type, bool userSelected = true)
         {
 
             Reading reading;
@@ -198,7 +198,7 @@ namespace CarTracker.Logic.Services
                 Longitude = reading.Longitude,
                 PlaceType = type,
                 VisitDate = type == TripPossiblePlaceType.Destination ? trip.EndDate : trip.StartDate,
-                UserSelected = true,
+                UserSelected = userSelected,
                 PlaceId = placeId,
                 OwnerId = _requestInformation.UserId ?? 0
             };

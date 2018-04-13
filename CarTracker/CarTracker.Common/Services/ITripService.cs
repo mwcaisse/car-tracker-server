@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CarTracker.Common.Entities;
+using CarTracker.Common.Enums;
 using CarTracker.Common.ViewModels;
 
 namespace CarTracker.Common.Services
@@ -58,15 +59,19 @@ namespace CarTracker.Common.Services
         /// </summary>
         /// <param name="id"></param>
         /// <param name="placeId"></param>
+        /// <param name="userSelected"></param>
         /// <returns></returns>
-        bool SetStartingPlace(long id, long placeId);
+        bool SetStartingPlace(long id, long placeId, bool userSelected = true);
 
         /// <summary>
         /// Sets the destination place of the trip
         /// </summary>
         /// <param name="id"></param>
         /// <param name="placeId"></param>
+        /// /// <param name="userSelected"></param>
         /// <returns></returns>
-        bool SetDestinationPlace(long id, long placeId);
+        bool SetDestinationPlace(long id, long placeId, bool userSelected = true);
+
+        
     }
 }

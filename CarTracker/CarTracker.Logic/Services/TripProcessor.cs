@@ -22,14 +22,17 @@ namespace CarTracker.Logic.Services
 
         private readonly CarTrackerDbContext _db;
         private readonly IPlaceService _placeService;
+        private readonly ITripService _tripService;
         private readonly ITripPossiblePlaceService _tripPossiblePlaceService;
         private readonly IServerLogger _logger;
 
-        public TripProcessor(CarTrackerDbContext db, IPlaceService placeService, 
-            ITripPossiblePlaceService tripPossiblePlaceService, IServerLogger logger)
+        public TripProcessor(CarTrackerDbContext db, IPlaceService placeService,
+            ITripService tripService, ITripPossiblePlaceService tripPossiblePlaceService, 
+            IServerLogger logger)
         {
             this._db = db;
             this._placeService = placeService;
+            this._tripService = tripService;
             this._tripPossiblePlaceService = tripPossiblePlaceService;
             this._logger = logger;
         }
@@ -130,6 +133,7 @@ namespace CarTracker.Logic.Services
                 _db.SaveChanges();
 
                 AddPossiblePlacesToTrip(trip, readings);
+                AddGuessedPlacesToTrip(trip);
             }
 
             trip.Status = TripStatus.Processed;
@@ -227,15 +231,16 @@ namespace CarTracker.Logic.Services
 
         protected void AddGuessedPlacesToTrip(Trip trip)
         {
-            var placeTypes = new List<TripPossiblePlaceType>
-            {
-                TripPossiblePlaceType.Destination,
-                TripPossiblePlaceType.Start
-            };
+            var startPlace = GuessPlaceForTrip(trip, TripPossiblePlaceType.Start);
+            var endPlace = GuessPlaceForTrip(trip, TripPossiblePlaceType.Destination);
 
-            foreach (var placeType in placeTypes)
+            if (null != startPlace)
             {
-                var place = GuessPlaceForTrip(trip, placeType);
+                _tripService.SetStartingPlace(trip.TripId, startPlace.PlaceId, false);
+            }
+            if (null != endPlace)
+            {
+                _tripService.SetDestinationPlace(trip.TripId, endPlace.PlaceId, false);
             }
         }
 
