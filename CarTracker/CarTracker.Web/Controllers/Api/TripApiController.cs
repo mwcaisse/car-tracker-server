@@ -12,10 +12,12 @@ namespace CarTracker.Web.Controllers.Api
     {
 
         private readonly ITripService _tripService;
+        private readonly ITripProcessor _tripProcessor;
 
-        public TripApiController(ITripService tripService)
+        public TripApiController(ITripService tripService, ITripProcessor tripProcessor)
         {
             this._tripService = tripService;
+            this._tripProcessor = tripProcessor;
         }
 
         [HttpGet]
@@ -58,7 +60,7 @@ namespace CarTracker.Web.Controllers.Api
         [Route("trip/process/unprocessed")]
         public IActionResult ProcessUnprocessedTrips()
         {
-            _tripService.ProcessUnprocessedTrips();
+            _tripProcessor.ProcessUnprocessedTrips();
             return Ok(true);
         }
 
@@ -67,7 +69,7 @@ namespace CarTracker.Web.Controllers.Api
         [Route("trip/{id}/process")]
         public IActionResult ProcessTrip(long id)
         {
-            return Ok(_tripService.ProcessTrip(id).ToViewModel());
+            return Ok(_tripProcessor.ProcessTrip(id).ToViewModel());
         }
 
         [HttpPost]

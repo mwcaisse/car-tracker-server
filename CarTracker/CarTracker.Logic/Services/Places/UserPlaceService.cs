@@ -57,7 +57,7 @@ namespace CarTracker.Logic.Services.Places
                     Latitude = toCreate.Latitude,
                     Longitude = toCreate.Longitude,
                 },
-                OwnerId = _requestInformation.UserId ?? 0,
+                OwnerId = _requestInformation.UserId,
                 Active = true
             };
             _db.UserPlaces.Add(userPlace);

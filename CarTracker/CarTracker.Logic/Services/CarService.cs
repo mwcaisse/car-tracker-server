@@ -69,11 +69,6 @@ namespace CarTracker.Logic.Services
 
         public Car Create(CarViewModel toCreate)
         {
-            if (!_requestInformation.UserId.HasValue)
-            {
-                throw new EntityValidationException("User is required to create a car!");
-            }
-
             if (string.IsNullOrWhiteSpace(toCreate.Vin))
             {
                 throw new EntityValidationException("VIN cannot be blank!");
@@ -90,7 +85,7 @@ namespace CarTracker.Logic.Services
                 Name = toCreate.Name,
                 Mileage = toCreate.Mileage,
                 MileageLastUserSet = DateTime.Now,
-                OwnerId = _requestInformation.UserId.Value
+                OwnerId = _requestInformation.UserId
             };
 
             _db.Cars.Add(car);

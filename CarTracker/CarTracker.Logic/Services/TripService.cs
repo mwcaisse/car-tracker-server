@@ -19,14 +19,11 @@ namespace CarTracker.Logic.Services
     {
 
         private readonly CarTrackerDbContext _db;
-        private readonly ITripProcessor _tripProcessor;
         private readonly IRequestInformation _requestInformation;
 
-        public TripService(CarTrackerDbContext db, ITripProcessor tripProcessor, 
-            IRequestInformation requestInformation)
+        public TripService(CarTrackerDbContext db, IRequestInformation requestInformation)
         {
             this._db = db;
-            this._tripProcessor = tripProcessor;
             this._requestInformation = requestInformation;
         }
 
@@ -109,21 +106,6 @@ namespace CarTracker.Logic.Services
             return trip;
         }
 
-        public void ProcessUnprocessedTrips()
-        {
-            _tripProcessor.ProcessUnprocessedTrips();
-        }
-
-        public Trip ProcessTrip(long id)
-        {
-            var trip = Get(id);
-            if (null == trip)
-            {
-                throw new EntityValidationException("The specified trip does not exist.");
-            }
-            return _tripProcessor.ProcessTrip(trip);
-        }
-
         protected void ValidatePlace(long placeId)
         {
             var place = _db.Places.FirstOrDefault(p => p.PlaceId == placeId);
@@ -200,7 +182,7 @@ namespace CarTracker.Logic.Services
                 VisitDate = type == TripPossiblePlaceType.Destination ? trip.EndDate : trip.StartDate,
                 UserSelected = userSelected,
                 PlaceId = placeId,
-                OwnerId = _requestInformation.UserId ?? 0
+                OwnerId = _requestInformation.UserId
             };
 
             _db.PlaceVisits.Add(placeVisit);

@@ -51,7 +51,17 @@ namespace CarTracker.Logic.Services
             }
         }
 
-        public Trip ProcessTrip(Trip trip)
+        public Trip ProcessTrip(long id)
+        {
+            var trip = _db.Trips.FirstOrDefault(t => t.TripId == id);
+            if (null == trip)
+            {
+                throw new EntityValidationException("No Trip with the given Id exists!");
+            }
+            return ProcessTrip(trip);
+        }
+
+        protected Trip ProcessTrip(Trip trip)
         {
             _logger.Debug($"Started processing trip {trip.TripId}");
 

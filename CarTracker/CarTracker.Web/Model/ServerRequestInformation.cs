@@ -11,33 +11,75 @@ namespace CarTracker.Web.Model
     public class ServerRequestInformation : IRequestInformation
     {
 
-        public bool IsAuthenticated { get; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public long? UserId { get; }
+        private HttpContext HttpContext => _httpContextAccessor.HttpContext;
 
-        public string Username { get; }
+        private bool? _isAuthenticated = null;
 
-        public string ClientAddress { get; }
+        public bool IsAuthenticated
+        {
+            get
+            {
+                if (!_isAuthenticated.HasValue)
+                {
+                    _isAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+                }
+                return _isAuthenticated.Value;
+            }
+        }
+
+        private long? _userId = null;
+
+        public long UserId
+        {
+            get
+            {
+                if (!_userId.HasValue)
+                {
+                    var userIdClaim = HttpContext.User.FindFirst(ClaimTypes.Sid);
+                    _userId = Convert.ToInt64(userIdClaim.Value);
+                    if (_userId < 1)
+                    {
+                        _userId = -1;
+                    }
+                }
+                return _userId.Value;
+            }
+        }
+
+        private string _username = null;
+
+        public string Username
+        {
+            get
+            {
+                if (null == _username)
+                {
+                    var usernameClaim = HttpContext.User.FindFirst(ClaimTypes.Name);
+                    _username = usernameClaim?.Value ?? "";
+                }
+                return _username;
+            }
+        }
+
+        private string _clientAddress = null;
+
+        public string ClientAddress
+        {
+            get
+            {
+                if (null == _clientAddress)
+                {
+                    _clientAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+                }
+                return _clientAddress;
+            }
+        }
 
         public ServerRequestInformation(IHttpContextAccessor httpContextAccessor)
         {
-            if (null != httpContextAccessor.HttpContext)
-            {
-                IsAuthenticated = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
-                ClientAddress = httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
-
-                Username = null;
-                UserId = null;
-
-                if (IsAuthenticated)
-                {
-                    var usernameClaim = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name);
-                    Username = usernameClaim?.Value;
-
-                    var userIdClaim = httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Sid);
-                    UserId = Convert.ToInt64(userIdClaim.Value);
-                }
-            }
+            this._httpContextAccessor = httpContextAccessor;
         }
     }
 }

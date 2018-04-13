@@ -11,7 +11,6 @@ namespace CarTracker.Common.Services
 
         void ProcessUnprocessedTrips();
 
-        Trip ProcessTrip(Trip trip);
-
+        Trip ProcessTrip(long id);
     }
 }

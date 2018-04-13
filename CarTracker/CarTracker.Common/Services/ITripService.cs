@@ -43,18 +43,6 @@ namespace CarTracker.Common.Services
         Trip Update(TripViewModel toUpdate);
 
         /// <summary>
-        /// Processes all unprocessed trips
-        /// </summary>
-        void ProcessUnprocessedTrips();
-
-        /// <summary>
-        /// Processes the specified trip
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        Trip ProcessTrip(long id);
-
-        /// <summary>
         /// Sets the starting place of the trip
         /// </summary>
         /// <param name="id"></param>
