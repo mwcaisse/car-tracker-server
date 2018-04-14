@@ -43,8 +43,8 @@ namespace CarTracker.Logic.Services
                     ResponseBody = responseBody,
                     Type = LogType.Debug,
                     RequestUuid = _eventGuid,
-                    UserId = _requestInformation.UserId
-                };
+                    UserId = _requestInformation.IsAuthenticated ? _requestInformation.UserId : (long?) null
+            };
                 db.RequestLogs.Add(requestLog);
                 db.SaveChanges();
             }

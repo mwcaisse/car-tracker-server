@@ -15,7 +15,7 @@ namespace CarTracker.Web.Model
 
         private HttpContext HttpContext => _httpContextAccessor.HttpContext;
 
-        private bool? _isAuthenticated = null;
+        private bool? _isAuthenticated;
 
         public bool IsAuthenticated
         {
@@ -23,13 +23,13 @@ namespace CarTracker.Web.Model
             {
                 if (!_isAuthenticated.HasValue)
                 {
-                    _isAuthenticated = HttpContext.User.Identity.IsAuthenticated;
+                    _isAuthenticated = HttpContext.User?.Identity?.IsAuthenticated == true;
                 }
                 return _isAuthenticated.Value;
             }
         }
 
-        private long? _userId = null;
+        private long? _userId;
 
         public long UserId
         {
@@ -37,9 +37,16 @@ namespace CarTracker.Web.Model
             {
                 if (!_userId.HasValue)
                 {
-                    var userIdClaim = HttpContext.User.FindFirst(ClaimTypes.Sid);
-                    _userId = Convert.ToInt64(userIdClaim.Value);
-                    if (_userId < 1)
+                    if (IsAuthenticated)
+                    {
+                        var userIdClaim = HttpContext.User.FindFirst(ClaimTypes.Sid);
+                        _userId = Convert.ToInt64(userIdClaim.Value);
+                        if(_userId < 1)
+                        {
+                            _userId = -1;
+                        }
+                    }
+                    else
                     {
                         _userId = -1;
                     }
@@ -48,7 +55,7 @@ namespace CarTracker.Web.Model
             }
         }
 
-        private string _username = null;
+        private string _username;
 
         public string Username
         {
@@ -63,7 +70,7 @@ namespace CarTracker.Web.Model
             }
         }
 
-        private string _clientAddress = null;
+        private string _clientAddress;
 
         public string ClientAddress
         {
