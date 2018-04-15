@@ -182,7 +182,7 @@ namespace CarTracker.Logic.Services
                 VisitDate = type == TripPossiblePlaceType.Destination ? trip.EndDate : trip.StartDate,
                 UserSelected = userSelected,
                 PlaceId = placeId,
-                OwnerId = _requestInformation.UserId
+                OwnerId = trip.Car.OwnerId
             };
 
             _db.PlaceVisits.Add(placeVisit);
