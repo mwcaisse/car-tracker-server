@@ -13,6 +13,7 @@ using CarTracker.Common.Services.Places;
 using CarTracker.Data;
 using CarTracker.Data.Extensions;
 using CarTracker.Logic.Util;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace CarTracker.Logic.Services
@@ -254,27 +255,61 @@ namespace CarTracker.Logic.Services
             }
         }
 
-        protected Place GuessPlaceForTrip(Trip trip, TripPossiblePlaceType type)
+        protected Place GuessPlaceForTrip(Trip trip, Reading reading, TripPossiblePlaceType type)
         {
             var possiblePlaces = _db.TripPossiblePlaces.Active()
                 .Where(x => x.PlaceType == type && x.TripId == trip.TripId);
             var ownerId = trip.Car.OwnerId;
 
-            var guessedPlaceId = _db.PlaceVisits.Where(x => x.OwnerId == ownerId && x.PlaceType == type && x.UserSelected)
+            // Bounding box around reading location with a 500m side
+            var boundingBox = GeographyUtils.CalculateBoxAroundPoint(reading.Latitude, reading.Longitude, 250);
+            var guessedPlaceVisit = _db.PlaceVisits.Include(pv => pv.Place)
+                .Where(x => x.OwnerId == ownerId &&
+                            x.PlaceType == type &&
+                            x.UserSelected &&
+                            x.Place.Latitude >= boundingBox.MinPoint.Latitude &&
+                            x.Place.Latitude <= boundingBox.MaxPoint.Latitude &&
+                            x.Place.Longitude >= boundingBox.MinPoint.Longitude &&
+                            x.Place.Longitude <= boundingBox.MaxPoint.Longitude)
                 .Join(possiblePlaces,
                     pv => pv.PlaceId,
                     pp => pp.PlaceId,
                     (pv, pp) => pv)
-                .GroupBy(pv => pv.PlaceId, (placeId, visits) => new
+                .ToList()
+                .Select(pv => new
                 {
-                    PlaceId = placeId,
-                    Count = visits.Count()
-                })
-                .OrderBy(x => x.Count).FirstOrDefault();
+                    Distance = GeographyUtils.CalculateDistanceBetweenLocations(new GeographyUtils.LocationModel()
+                    {
+                        Latitude = reading.Latitude,
+                        Longitude = reading.Longitude
+                    }, new GeographyUtils.LocationModel()
+                    {
+                        Latitude = pv.Latitude,
+                        Longitude = pv.Longitude
+                    }),
+                    pv.PlaceId,
+                    pv.Latitude,
+                    pv.Longitude
 
-            if (null != guessedPlaceId)
+                })
+                .GroupBy(x => x.PlaceId, (key, v) => new
+                {
+                    PlaceId = key,
+                    Count = v.Count(),
+                    AverageDistance = v.Sum(pv => pv.Distance) / v.Count()
+                })
+                .OrderBy(x => (1 - x.AverageDistance) * x.Count)
+                .FirstOrDefault();
+
+            // we have the place visit and the distance of that place visit to the current reading
+            // get the one that is a factor of the closests and most selected
+
+            // distance is in KM? if it is.. it will never be greater than 1 (500 technically?)
+            // (1 - distance) * count
+
+            if (null != guessedPlaceVisit)
             {
-                return _db.Places.First(x => x.PlaceId == guessedPlaceId.PlaceId);
+                return _db.Places.First(x => x.PlaceId == guessedPlaceVisit.PlaceId);
             }
             return null;
         }
