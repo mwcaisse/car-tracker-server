@@ -19,12 +19,10 @@ namespace CarTracker.Logic.Services
     {
 
         private readonly CarTrackerDbContext _db;
-        private readonly IRequestInformation _requestInformation;
 
-        public TripService(CarTrackerDbContext db, IRequestInformation requestInformation)
+        public TripService(CarTrackerDbContext db)
         {
             this._db = db;
-            this._requestInformation = requestInformation;
         }
 
         public Trip Get(long id)
