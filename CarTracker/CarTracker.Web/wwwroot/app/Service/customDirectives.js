@@ -109,6 +109,17 @@ define("Service/customDirectives",
         }
         return JSON.stringify(value, null, 2);
     });
+
+    Vue.filter("prettyNumber", function(value, places) {
+        if (typeof value === "undefined") {
+            return "";
+        }
+        if (typeof places === "undefined") {
+            places = 2;
+        }
+        return util.prettyNumber(value, places);
+
+    });
 	
 	return {};	
 });
