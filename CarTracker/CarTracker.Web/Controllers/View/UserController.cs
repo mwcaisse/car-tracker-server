@@ -49,6 +49,10 @@ namespace CarTracker.Web.Controllers.View
         [Route("login")]
         public async Task<IActionResult> Login(string username, string password)
         {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                return Login(SOURCE_ERROR);
+            }
             var principal = _authenticationManager.LoginPasswordForPrincipal(username, password);
             if (null != principal)
             {
