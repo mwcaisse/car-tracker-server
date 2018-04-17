@@ -9,7 +9,8 @@ define("Components/Car/CarDetails/CarDetails",
 		data: function() {
 			return {
 				name: "",
-				vin: ""
+				vin: "",
+                mileage: 0
 			}
 		},	
 		props: {
@@ -30,7 +31,8 @@ define("Components/Car/CarDetails/CarDetails",
 			},
 			update: function (car) {
 				this.name = car.name;
-				this.vin = car.vin;
+                this.vin = car.vin;
+			    this.mileage = car.mileage;
 			},
 			save: function () {
 				proxy.car.update(this.toCarObject()).then(function (data) {

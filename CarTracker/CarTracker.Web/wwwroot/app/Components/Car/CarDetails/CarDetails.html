@@ -15,12 +15,18 @@
 					<input type="text" class="form-control" placeholder="Name" v-model="name"/>
 				</div>
 			</div>
-			<div class="form-group row">
-				<label class="col-md-2 col-form-label">VIN</label>
-				<div class="col-md-10">
-					<p class="form-control-plaintext"> {{ vin }}</p>
-				</div>
-			</div>
+		    <div class="form-group row">
+		        <label class="col-md-2 col-form-label">VIN</label>
+		        <div class="col-md-10">
+		            <p class="form-control-plaintext"> {{ vin }}</p>
+		        </div>
+		    </div>
+		    <div class="form-group row">
+		        <label class="col-md-2 col-form-label">Mileage</label>
+		        <div class="col-md-10">
+		            <p class="form-control-plaintext"> {{ mileage | round(2) }}</p>
+		        </div>
+		    </div>
 		</form>
 	</div>
 </div>
