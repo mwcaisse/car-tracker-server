@@ -189,10 +189,15 @@ namespace CarTracker.Logic.Services
                 current.Latitude, current.Longitude);
         }
 
+        protected IList<Reading> GetValidReadingsForTrip(Trip trip)
+        {
+            return _db.Readings.Where(r => r.TripId == trip.TripId && r.Latitude != 0 && r.Longitude != 0).ToList();
+        }
+
         protected void AddPossiblePlacesToTrip(Trip trip, IEnumerable<Reading> readings)
         {
             _logger.Debug("Adding possible places to trip: " + trip.TripId);
-            var nonZeroReadings = readings.Where(r => r.Latitude != 0 && r.Longitude != 0).ToList();
+            var nonZeroReadings = GetValidReadingsForTrip(trip);
             if (!nonZeroReadings.Any())
             {
                 _logger.Debug($"Trip {trip.TripId} has no non zero readings. Not adding any possible places.");
@@ -242,8 +247,13 @@ namespace CarTracker.Logic.Services
 
         protected void AddGuessedPlacesToTrip(Trip trip)
         {
-            var startPlace = GuessPlaceForTrip(trip, TripPossiblePlaceType.Start);
-            var endPlace = GuessPlaceForTrip(trip, TripPossiblePlaceType.Destination);
+            var validReadings = GetValidReadingsForTrip(trip);
+            if (!validReadings.Any())
+            {
+                return; // no valid readings
+            }
+            var startPlace = GuessPlaceForTrip(trip, validReadings.First(), TripPossiblePlaceType.Start);
+            var endPlace = GuessPlaceForTrip(trip, validReadings.Last(), TripPossiblePlaceType.Destination);
 
             if (null != startPlace)
             {
