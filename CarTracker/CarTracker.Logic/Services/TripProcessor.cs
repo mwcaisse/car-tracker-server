@@ -252,16 +252,21 @@ namespace CarTracker.Logic.Services
             {
                 return; // no valid readings
             }
-            var startPlace = GuessPlaceForTrip(trip, validReadings.First(), TripPossiblePlaceType.Start);
-            var endPlace = GuessPlaceForTrip(trip, validReadings.Last(), TripPossiblePlaceType.Destination);
-
-            if (null != startPlace)
+            if (null == trip.StartPlaceId)
             {
-                _tripService.SetStartingPlace(trip.TripId, startPlace.PlaceId, false);
+                var startPlace = GuessPlaceForTrip(trip, validReadings.First(), TripPossiblePlaceType.Start);
+                if (null != startPlace)
+                {
+                    _tripService.SetStartingPlace(trip.TripId, startPlace.PlaceId, false);
+                }
             }
-            if (null != endPlace)
+            if (null == trip.DestinationPlaceId)
             {
-                _tripService.SetDestinationPlace(trip.TripId, endPlace.PlaceId, false);
+                var endPlace = GuessPlaceForTrip(trip, validReadings.Last(), TripPossiblePlaceType.Destination);
+                if (null != endPlace)
+                {
+                    _tripService.SetDestinationPlace(trip.TripId, endPlace.PlaceId, false);
+                }
             }
         }
 
