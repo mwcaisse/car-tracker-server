@@ -25,9 +25,14 @@ define("Service/util", ["moment", "moment-duration-format"], function () {
         };
 
         self.prettyNumber = function(num, places)
-	    {
-            num = self.round(num, places);
-	        return num.toLocaleString();
+        {
+            if (!places) {
+                places = 2;
+            }
+            return parseFloat(num).toLocaleString(undefined, {
+                minimumFractionDigits: places,
+                maximumFractionDigits: places
+            });
 	    }
 		
 		self.getURLParameter = function(name, def) {
