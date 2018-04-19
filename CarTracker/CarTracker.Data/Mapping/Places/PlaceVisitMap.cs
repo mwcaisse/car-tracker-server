@@ -41,9 +41,16 @@ namespace CarTracker.Data.Mapping.Places
                 .HasColumnName("PLACE_ID")
                 .IsRequired();
 
+            builder.Property(pv => pv.TripId)
+                .HasColumnName("TRIP_ID");
+
             builder.HasOne(pv => pv.Place)
                 .WithMany(p => p.Visits)
                 .HasForeignKey(pv => pv.PlaceId);
+
+            builder.HasOne(pv => pv.Trip)
+                .WithMany(t => t.PlaceVisits)
+                .HasForeignKey(pv => pv.TripId);
                 
             builder.AddTrackedEntityProperties();
             builder.AddOwnedEntityProperties(u => u.PlaceVisits);

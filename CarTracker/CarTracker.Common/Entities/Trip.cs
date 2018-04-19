@@ -34,6 +34,8 @@ namespace CarTracker.Common.Entities
         public virtual ICollection<Reading> Readings { get; set; }
 
         public virtual ICollection<TripPossiblePlace> TripPossiblePlaces { get; set; }
+
+        public virtual ICollection<PlaceVisit> PlaceVisits { get; set; }
         
     }
 }

@@ -24,12 +24,16 @@ namespace CarTracker.Common.Entities.Places
 
         public long OwnerId { get; set; }
 
+        public long? TripId { get; set; }
+
         public DateTime CreateDate { get; set; }
         public DateTime ModifiedDate { get; set; }
 
         public Place Place { get; set; }
 
         public User Owner { get; set; }
+
+        public Trip Trip { get; set; }
        
     }
 }
