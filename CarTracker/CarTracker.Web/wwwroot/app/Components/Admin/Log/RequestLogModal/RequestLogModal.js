@@ -4,7 +4,8 @@ define("Components/Admin/Log/RequestLogModal/RequestLogModal",
     ["moment", "Service/system", "Service/util", "Service/applicationProxy", "Service/navigation",
         "AMD/text!Components/Admin/Log/RequestLogModal/RequestLogModal.html",
         "Components/Admin/Log/RequestLogMixin",
-        "Components/Common/Modal/Modal"],
+        "Components/Common/Modal/Modal",
+        "Components/Common/CollapsibleCard/CollapsibleCard"],
     function (moment, system, util, proxy, navigation, template, requestLogMixin) {
 
 
@@ -19,13 +20,20 @@ define("Components/Admin/Log/RequestLogModal/RequestLogModal",
             computed: {
                 requestDetailUrl: function() {
                     return navigation.viewRequestLogDetailsLink(this.requestUuid);
-                    
                 }
             },
             template: template,
             created: function () {
                 system.bus.$on("requestLog:view", function (requestLogId) {
+                    this.clear();
                     this.requestLogId = requestLogId;
+                    this.fetchLog();
+                    this.$refs.modal.open();
+                }.bind(this));
+
+                system.bus.$on("requestLog:view:uuid", function (requestUuid) {
+                    this.clear();
+                    this.requestUuid = requestUuid;
                     this.fetchLog();
                     this.$refs.modal.open();
                 }.bind(this));

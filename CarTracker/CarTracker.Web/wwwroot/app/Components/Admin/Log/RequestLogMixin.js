@@ -1,4 +1,4 @@
-﻿"use strict";
+﻿;"use strict";
 
 define("Components/Admin/Log/RequestLogMixin",
     ["moment", "Service/system", "Service/util", "Service/applicationProxy"],

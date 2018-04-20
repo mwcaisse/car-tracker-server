@@ -40,6 +40,10 @@ define("Service/navigation", ["Service/system"], function (system) {
         self.viewRequestLogDetailsLink = function(requestUuid) {
             return system.baseUrl + "admin/log/request/" + requestUuid + "/";
         }
+
+        self.adminServerLogsLink = function () {
+            return system.baseUrl + "admin/log/server";
+        };
 		
 		self.loginLink = function (param) {
 			return system.baseUrl + "login" + (param ? ("?" + param) : "");

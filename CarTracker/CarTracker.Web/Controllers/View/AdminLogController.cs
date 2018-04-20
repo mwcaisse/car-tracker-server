@@ -33,5 +33,11 @@ namespace CarTracker.Web.Controllers.View
             return View("~/Views/Admin/Logs/RequestLogDetails.cshtml");
         }
 
+        [Route("server")]
+        public IActionResult ServerLogs()
+        {
+            return View("~/Views/Admin/Logs/ServerLogs.cshtml");
+        }
+
     }
 }
