@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using CarTracker.Common.Mappers.Logging;
 using CarTracker.Common.Services.Logging;
 using CarTracker.Common.ViewModels;
+using CarTracker.Web.Util;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,17 +33,19 @@ namespace CarTracker.Web.Controllers.Api.Logging
         [HttpGet]
         [Route("server/")]
         public IActionResult GetAll(int skip = DefaultSkip,
-            int take = DefaultTake, SortParam sort = null)
+            int take = DefaultTake, SortParam sort = null, Dictionary<string, string> filters = null)
         {
-            return Ok(_serverLogService.GetAll(skip, take, sort).ToViewModel());
+            return Ok(_serverLogService.GetAll(skip, take, sort, 
+                filters.ConvertToFilterParams()).ToViewModel());
         }
 
         [HttpGet]
         [Route("event/{id}/server")]
         public IActionResult GetForEvent(string id, int skip = DefaultSkip, 
-            int take = DefaultTake, SortParam sort = null)
+            int take = DefaultTake, SortParam sort = null, Dictionary<string, string> filters = null)
         {
-            return Ok(_serverLogService.GetForEvent(id, skip, take, sort).ToViewModel());
+            return Ok(_serverLogService.GetForEvent(id, skip, take, sort, 
+                filters.ConvertToFilterParams()).ToViewModel());
         }
  
     }

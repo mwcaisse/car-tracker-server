@@ -22,8 +22,10 @@ namespace CarTracker.Common.Services.Logging
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <param name="sort"></param>
+        /// <param name="filters"></param>
         /// <returns></returns>
-        PagedViewModel<ServerLog> GetAll(int skip, int take, SortParam sort);
+        PagedViewModel<ServerLog> GetAll(int skip, int take, SortParam sort,
+            IEnumerable<FilterParam> filters);
 
         /// <summary>
         /// Fetches the Server Logs for the given event, with paging
@@ -32,8 +34,10 @@ namespace CarTracker.Common.Services.Logging
         /// <param name="skip"></param>
         /// <param name="take"></param>
         /// <param name="sort"></param>
+        /// <param name="filters"></param>
         /// <returns></returns>
-        PagedViewModel<ServerLog> GetForEvent(string eventId, int skip, int take, SortParam sort);
+        PagedViewModel<ServerLog> GetForEvent(string eventId, int skip, int take, SortParam sort,
+            IEnumerable<FilterParam> filters);
 
     }
 }
