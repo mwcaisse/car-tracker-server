@@ -196,5 +196,26 @@ namespace CarTracker.Logic.Services
         {
             return trip.Readings.LastOrDefault(r => r.Longitude != 0 && r.Latitude != 0);
         }
+
+        /// <summary>
+        /// Calculate the Trip Summary for the given user over the given time span
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        public TripSummaryViewModel GetTripSummary(long userId, DateTime startDate, DateTime? endDate = null)
+        {
+            var trips = _db.Trips.Where(t => t.Car.OwnerId == userId && t.EndDate > startDate).GroupBy(t => t.CarId).Select(
+                tg => new
+                {
+                    NumberOfTrips = tg.Count(),
+                    MilesDriven = tg.Sum(t => t.DistanceTraveled)
+                });
+
+           // var placesVisited = _db.PlaceVisits.Where(pv => pv.OwnerId == userId).OrderByDescending(pv => pv.VisitDate).GroupBy(pv => pv.)
+
+            return null;
+        }
     }
 }
