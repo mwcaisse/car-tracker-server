@@ -145,7 +145,7 @@ namespace CarTracker.Logic.Services
         public bool SetDestinationPlace(long id, long placeId, bool userSelected = true)
         {
             ValidatePlace(placeId);
-            var trip = GetTripOrException(id, _db.Trips.Include(t => t.Readings));
+            var trip = GetTripOrException(id, _db.Trips.Build().Include(t => t.Readings));
 
             trip.DestinationPlaceId = placeId;
             _db.SaveChanges();
