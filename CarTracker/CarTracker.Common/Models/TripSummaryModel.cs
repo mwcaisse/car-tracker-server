@@ -5,7 +5,7 @@ using CarTracker.Common.Entities.Places;
 
 namespace CarTracker.Common.ViewModels
 {
-    public class TripSummaryViewModel
+    public class TripSummaryModel
     {
         public DateTime StartDate { get; set; }
 
@@ -15,8 +15,8 @@ namespace CarTracker.Common.ViewModels
 
         public double MilesDriven { get; set; }
 
-        public IEnumerable<PlaceViewModel> PlacesVisited { get; set; }
+        public IEnumerable<Place> PlacesVisited { get; set; }
 
-        public IEnumerable<PlaceViewModel> NewPlacesVisited { get; set; }
+        public IEnumerable<Place> NewPlacesVisited { get; set; }
     }
 }

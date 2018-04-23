@@ -204,18 +204,43 @@ namespace CarTracker.Logic.Services
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public TripSummaryViewModel GetTripSummary(long userId, DateTime startDate, DateTime? endDate = null)
+        public TripSummaryModel GetTripSummary(long userId, DateTime startDate, DateTime? endDate = null)
         {
-            var trips = _db.Trips.Where(t => t.Car.OwnerId == userId && t.EndDate > startDate).GroupBy(t => t.CarId).Select(
+            if (!endDate.HasValue)
+            {
+                endDate = DateTime.Now;
+            }
+
+            var trips = _db.Trips.Where(t => t.Car.OwnerId == userId && t.EndDate >= startDate && t.StartDate <= endDate).GroupBy(t => t.CarId).Select(
                 tg => new
                 {
                     NumberOfTrips = tg.Count(),
                     MilesDriven = tg.Sum(t => t.DistanceTraveled)
-                });
+                }).First();
 
-           // var placesVisited = _db.PlaceVisits.Where(pv => pv.OwnerId == userId).OrderByDescending(pv => pv.VisitDate).GroupBy(pv => pv.)
+            var placesVisited = _db.PlaceVisits
+                .Where(pv => pv.OwnerId == userId && pv.PlaceType == TripPossiblePlaceType.Destination && pv.VisitDate >= startDate && pv.VisitDate <= endDate)
+                .OrderByDescending(pv => pv.VisitDate)
+                .GroupBy(pv => pv.PlaceId)
+                .Select(pv => pv.First().Place);
 
-            return null;
+            var newPlacesVisited = _db.PlaceVisits
+                .Where(pv => pv.OwnerId == userId && pv.PlaceType == TripPossiblePlaceType.Destination)
+                .OrderBy(pv => pv.VisitDate)
+                .GroupBy(pv => pv.PlaceId)
+                .Select(pv => pv.First())
+                .Where(pv => pv.VisitDate >= startDate && pv.VisitDate <= endDate)
+                .Select(pv => pv.Place);
+
+            return new TripSummaryModel()
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                MilesDriven = trips.MilesDriven ?? 0,
+                NumberOfTrips = trips.NumberOfTrips,
+                NewPlacesVisited = newPlacesVisited,
+                PlacesVisited = placesVisited
+            };
         }
     }
 }

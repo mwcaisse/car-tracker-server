@@ -1,4 +1,5 @@
-﻿using CarTracker.Common.Mappers;
+﻿using System;
+using CarTracker.Common.Mappers;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -88,5 +89,13 @@ namespace CarTracker.Web.Controllers.Api
             return Ok(_tripService.SetDestinationPlace(id, placeId));
         }
 
+        public IActionResult MonthlySummary()
+        {
+            var userId = 2;
+            var startDate = DateTime.Now - TimeSpan.FromDays(30);
+            var endDate = DateTime.Now;
+            return Ok(_tripService.GetTripSummary(userId, startDate, endDate).ToViewModel());
+        }
+            
     }
 }

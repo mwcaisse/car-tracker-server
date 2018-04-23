@@ -60,6 +60,16 @@ namespace CarTracker.Common.Services
         /// <returns></returns>
         bool SetDestinationPlace(long id, long placeId, bool userSelected = true);
 
-        
+        /// <summary>
+        /// Calculate the Trip Summary for the given user over the given time span
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        TripSummaryModel GetTripSummary(long userId, DateTime startDate, DateTime? endDate = null);
+
+
+
     }
 }
