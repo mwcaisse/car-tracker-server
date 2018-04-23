@@ -25,15 +25,17 @@ namespace CarTracker.Logic.Services.Logging
             return _db.ServerLogs.FirstOrDefault(l => l.ServerLogId == id);
         }
 
-        public PagedViewModel<ServerLog> GetAll(int skip, int take, SortParam sort)
+        public PagedViewModel<ServerLog> GetAll(int skip, int take, SortParam sort,
+            IEnumerable<FilterParam> filters)
         {
-            return _db.ServerLogs.PageAndSort(skip, take, sort);
+            return _db.ServerLogs.Filter(filters).PageAndSort(skip, take, sort);
         }
 
-        public PagedViewModel<ServerLog> GetForEvent(string eventId, int skip, int take, SortParam sort)
+        public PagedViewModel<ServerLog> GetForEvent(string eventId, int skip, int take, SortParam sort,
+            IEnumerable<FilterParam> filters)
         {
             var guid = new Guid(eventId);
-            return _db.ServerLogs.Where(l => l.RequestUuid == guid).PageAndSort(skip, take, sort);
+            return _db.ServerLogs.Where(l => l.RequestUuid == guid).Filter(filters).PageAndSort(skip, take, sort);
         }
     }
 }

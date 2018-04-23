@@ -47,7 +47,12 @@ define("Views/Navigation/Navigation",
 								        id: "Admin/RequestLogs",
 								        name: "Request Logs",
 								        link: navigation.adminRequestLogsLink()
-								    });
+                                    });
+                                    adminLink.subLinks.push({
+                                        id: "Admin/ServerLogs",
+                                        name: "Server Logs",
+                                        link: navigation.adminServerLogsLink()
+                                    });
 									
 									this.navigationLinks.push(adminLink);
 									

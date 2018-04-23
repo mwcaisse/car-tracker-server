@@ -162,11 +162,13 @@ define("Service/applicationProxy", ["Service/proxy"], function (core) {
             get: function (id) {
                 return core.get("log/server/" + id);
             },
-            getAllPaged: function (startAt, maxResults, sort) {
-                return core.getPaged("log/server/", startAt, maxResults, sort);
+            getAllPaged: function (startAt, maxResults, sort, filter) {
+                return core.getPaged("log/server/", startAt, maxResults,
+                    sort, filter);
             },
-            getForEvent: function (eventId, startAt, maxResults, sort) {
-                return core.getPaged("log/event/" + eventId + "/server/", startAt, maxResults, sort);
+            getForEvent: function (eventId, startAt, maxResults, sort, filter) {
+                return core.getPaged("log/event/" + eventId + "/server/",
+                    startAt, maxResults, sort, filter);
             }
 	    };
 		

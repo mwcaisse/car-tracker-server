@@ -12,7 +12,7 @@ namespace CarTracker.Data.Extensions
 
         public static IQueryable<Trip> Build(this IQueryable<Trip> query)
         {
-            return query.Include(t => t.StartPlace).Include(t => t.DestinationPlace);
+            return query.Include(t => t.Car).Include(t => t.StartPlace).Include(t => t.DestinationPlace);
         }
 
     }
