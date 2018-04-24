@@ -20,9 +20,12 @@ namespace CarTracker.Logic.Services
 
         private readonly CarTrackerDbContext _db;
 
-        public TripService(CarTrackerDbContext db)
+        private readonly IRequestInformation _requestInformation;
+
+        public TripService(CarTrackerDbContext db, IRequestInformation requestInformation)
         {
             this._db = db;
+            this._requestInformation = requestInformation;
         }
 
         public Trip Get(long id)
@@ -200,12 +203,12 @@ namespace CarTracker.Logic.Services
         /// <summary>
         /// Calculate the Trip Summary for the given user over the given time span
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public TripSummaryModel GetTripSummary(long userId, DateTime startDate, DateTime? endDate = null)
+        public TripSummaryModel GetTripSummary(DateTime startDate, DateTime? endDate = null)
         {
+            long userId = _requestInformation.UserId;
             if (!endDate.HasValue)
             {
                 endDate = DateTime.Now;
@@ -216,7 +219,7 @@ namespace CarTracker.Logic.Services
                 {
                     NumberOfTrips = tg.Count(),
                     MilesDriven = tg.Sum(t => t.DistanceTraveled)
-                }).First();
+                }).FirstOrDefault();
 
             var placesVisited = _db.PlaceVisits
                 .Where(pv => pv.OwnerId == userId && pv.PlaceType == TripPossiblePlaceType.Destination && pv.VisitDate >= startDate && pv.VisitDate <= endDate)
@@ -236,8 +239,8 @@ namespace CarTracker.Logic.Services
             {
                 StartDate = startDate,
                 EndDate = endDate,
-                MilesDriven = trips.MilesDriven ?? 0,
-                NumberOfTrips = trips.NumberOfTrips,
+                MilesDriven = trips?.MilesDriven ?? 0,
+                NumberOfTrips = trips?.NumberOfTrips ?? 0,
                 NewPlacesVisited = newPlacesVisited,
                 PlacesVisited = placesVisited
             };

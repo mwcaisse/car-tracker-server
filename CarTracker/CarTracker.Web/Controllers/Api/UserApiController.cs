@@ -1,4 +1,6 @@
-﻿using CarTracker.Common.Mappers.Auth;
+﻿using System;
+using CarTracker.Common.Mappers;
+using CarTracker.Common.Mappers.Auth;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels.Auth;
 using CarTracker.Web.Auth;
@@ -14,12 +16,15 @@ namespace CarTracker.Web.Controllers.Api
 
         private readonly IUserService _userService;
         private readonly UserAuthenticationManager _authenticationManager;
+        private readonly ITripService _tripService;
 
         public UserApiController(IUserService userService,
-            UserAuthenticationManager authenticationManager)
+            UserAuthenticationManager authenticationManager,
+            ITripService tripService)
         {
             this._userService = userService;
             this._authenticationManager = authenticationManager;
+            this._tripService = tripService;
         }
 
         [HttpPost]
@@ -43,6 +48,16 @@ namespace CarTracker.Web.Controllers.Api
         public IActionResult GetCurrentUser()
         {
             return Ok(_userService.Get(GetCurrentUsername()).ToViewModel());
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("trip-summary/monthly")]
+        public IActionResult GetTripSummary()
+        {
+            var startDate = DateTime.Now - TimeSpan.FromDays(180);
+            var endDate = DateTime.Now;
+            return Ok(_tripService.GetTripSummary(startDate, endDate).ToViewModel());
         }
 
         [HttpPost]

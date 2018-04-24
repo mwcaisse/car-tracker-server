@@ -63,11 +63,10 @@ namespace CarTracker.Common.Services
         /// <summary>
         /// Calculate the Trip Summary for the given user over the given time span
         /// </summary>
-        /// <param name="userId"></param>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        TripSummaryModel GetTripSummary(long userId, DateTime startDate, DateTime? endDate = null);
+        TripSummaryModel GetTripSummary(DateTime startDate, DateTime? endDate = null);
 
 
 
