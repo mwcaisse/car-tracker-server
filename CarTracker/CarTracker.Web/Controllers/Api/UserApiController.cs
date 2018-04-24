@@ -2,6 +2,7 @@
 using CarTracker.Common.Mappers;
 using CarTracker.Common.Mappers.Auth;
 using CarTracker.Common.Services;
+using CarTracker.Common.ViewModels;
 using CarTracker.Common.ViewModels.Auth;
 using CarTracker.Web.Auth;
 using Microsoft.AspNetCore.Authorization;
@@ -52,11 +53,9 @@ namespace CarTracker.Web.Controllers.Api
 
         [HttpGet]
         [Authorize]
-        [Route("trip-summary/monthly")]
-        public IActionResult GetTripSummary()
+        [Route("trip-summary")]
+        public IActionResult GetTripSummary(DateTime startDate, DateTime? endDate)
         {
-            var startDate = DateTime.Now - TimeSpan.FromDays(180);
-            var endDate = DateTime.Now;
             return Ok(_tripService.GetTripSummary(startDate, endDate).ToViewModel());
         }
 
