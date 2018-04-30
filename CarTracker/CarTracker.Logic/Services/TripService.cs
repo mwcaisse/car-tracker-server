@@ -132,7 +132,7 @@ namespace CarTracker.Logic.Services
         public bool SetStartingPlace(long id, long placeId, bool userSelected = true)
         {
             ValidatePlace(placeId);
-            var trip = GetTripOrException(id, _db.Trips.Include(t => t.Readings));
+            var trip = GetTripOrException(id, _db.Trips.Build().Include(t => t.Readings));
 
             trip.StartPlaceId = placeId;
             _db.SaveChanges();
