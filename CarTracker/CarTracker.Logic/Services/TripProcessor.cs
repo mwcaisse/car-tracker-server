@@ -66,6 +66,7 @@ namespace CarTracker.Logic.Services
         {
             _logger.Debug($"Started processing trip {trip.TripId}");
 
+            var currentDistanceTraveled = trip.DistanceTraveled ?? 0;
             if (trip.Status == TripStatus.Processed)
             {
                 // Trip has already been processed. Clean up anything that was done previously
@@ -138,7 +139,7 @@ namespace CarTracker.Logic.Services
                 if (null != car &&
                     (!car.MileageLastUserSet.HasValue || car.MileageLastUserSet < trip.EndDate))
                 {
-                    car.Mileage += trip.DistanceTraveled;
+                    car.Mileage += trip.DistanceTraveled - currentDistanceTraveled;
                 }
 
                 _db.SaveChanges();
