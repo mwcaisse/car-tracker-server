@@ -1,0 +1,10 @@
+﻿{
+  "buildInformation": {
+    "buildDate": [[build_date]],
+    "gitRevision": "[[build_git_revision]]",
+    "gitShortHash": "[[build_git_short_hash]]",
+    "gitLongHash": "[[build_git_long_hash]]",
+    "gitBranch": "[[build_git_branch]]",
+    "buildNumber": [[build_number]]
+  }
+}
