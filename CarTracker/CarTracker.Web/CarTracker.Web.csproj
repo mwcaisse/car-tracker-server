@@ -3,6 +3,16 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="apiKeys.pyb" />
+    <None Remove="buildInformation.pyb" />
+    <None Remove="dbConfig.pyb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="apiKeys.pyb" />
+    <Content Include="buildInformation.pyb" />
+    <Content Include="dbConfig.pyb" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.0-beta3" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.1" />
