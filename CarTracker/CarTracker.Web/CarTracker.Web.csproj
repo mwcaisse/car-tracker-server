@@ -8,9 +8,15 @@
     <None Remove="dbConfig.pyb" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="apiKeys.pyb" />
-    <Content Include="buildInformation.pyb" />
-    <Content Include="dbConfig.pyb" />
+    <Content Include="apiKeys.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="buildInformation.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dbConfig.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.0-beta3" />
