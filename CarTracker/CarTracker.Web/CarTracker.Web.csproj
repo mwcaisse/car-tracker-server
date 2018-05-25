@@ -6,6 +6,7 @@
     <None Remove="apiKeys.pyb" />
     <None Remove="buildInformation.pyb" />
     <None Remove="dbConfig.pyb" />
+    <None Remove="deploymentConfiguration.pyb" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="apiKeys.pyb">
@@ -15,6 +16,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="dbConfig.pyb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="deploymentConfiguration.pyb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
