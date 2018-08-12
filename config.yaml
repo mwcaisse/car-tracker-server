@@ -4,7 +4,7 @@ subProjects:
     - name: CarTracker.Web
       type: web
       packageManager: yarn
-      webpack: true
+      webpack: false
     - name: Database
       type: database
       scriptDirectory: VersionedScripts
