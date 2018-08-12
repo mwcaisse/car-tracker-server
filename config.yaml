@@ -1,0 +1,12 @@
+name: CarTracker
+uuid: 6a99b0a7-bbd1-4327-831e-d39f57beb8c7
+subProjects:
+	- name: CarTracker.Web
+	  type: web
+	  packageManager: yarn
+	  webpack: true
+    - name: Database
+	  type: database
+	  scriptDirectory: VersionedScripts
+	  versionPrefix: V
+	  versionSeparator: _
