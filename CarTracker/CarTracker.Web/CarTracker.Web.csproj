@@ -9,20 +9,6 @@
     <None Remove="deploymentConfiguration.pyb" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="apiKeys.pyb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="buildInformation.pyb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dbConfig.pyb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="deploymentConfiguration.pyb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.0-beta3" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="2.0.1" />
@@ -40,5 +26,19 @@
     <ProjectReference Include="..\CarTracker.GooglePlaceRequester\CarTracker.GooglePlaceRequester.csproj" />
     <ProjectReference Include="..\CarTracker.Logic\CarTracker.Logic.csproj" />
     <ProjectReference Include="..\CarTracker.Scheduler\CarTracker.Scheduler.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="apiKeys.ptd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="buildInformation.ptd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="dbConfig.ptd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="deploymentConfiguration.ptd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
