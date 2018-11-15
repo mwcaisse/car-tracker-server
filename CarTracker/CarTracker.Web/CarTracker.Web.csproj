@@ -28,16 +28,16 @@
     <ProjectReference Include="..\CarTracker.Scheduler\CarTracker.Scheduler.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="apiKeys.ptd">
+    <None Update="apiKeys.json.ptd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="buildInformation.ptd">
+    <None Update="buildInformation.json.ptd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="dbConfig.ptd">
+    <None Update="dbConfig.json.ptd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="deploymentConfiguration.ptd">
+    <None Update="deploymentConfiguration.json.ptd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
