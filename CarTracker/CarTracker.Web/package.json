@@ -9,7 +9,7 @@
     "gulp-environments": "^0.1.2",
     "gulp-rename": "^1.2.3",
     "merge-stream": "^1.0.1",
-    "natives":  "1.1.6" 
+    "natives": "1.1.6"
   },
   "main": "index.js",
   "license": "MIT",
