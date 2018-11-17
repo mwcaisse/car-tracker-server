@@ -46,10 +46,10 @@ const LOG_TYPE = {
 };
 
 const LOG_TYPES = [
-    self.LOG_TYPE.DEBUG,
-    self.LOG_TYPE.INFO,
-    self.LOG_TYPE.WARN,
-    self.LOG_TYPE.ERROR
+    LOG_TYPE.DEBUG,
+    LOG_TYPE.INFO,
+    LOG_TYPE.WARN,
+    LOG_TYPE.ERROR
 ];
 
 const SORT_ORDER = {
@@ -82,6 +82,8 @@ const ALERT_TYPE_INFO = "INFO";
 const EVENT_ALERT_SHOW = "alert:show";
 const EVENT_ALERT_CLEAR = "alert:clear";
 
+const EVENT_NAVIGATION_ACTIVE_CHANGED = "navigation:activeChanged";
+
 const DEGREE_SYMBOL = String.fromCharCode(176);
 
 export {
@@ -103,6 +105,8 @@ export {
     ALERT_TYPE_INFO,
     EVENT_ALERT_SHOW,
     EVENT_ALERT_CLEAR,
+
+    EVENT_NAVIGATION_ACTIVE_CHANGED,
 
     DEGREE_SYMBOL
 }

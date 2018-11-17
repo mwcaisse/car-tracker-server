@@ -1,7 +1,7 @@
-﻿import Vue from "vue"
-import VueConfig from "services/VueCommon.js"
-import "services/CustomDirectives.js"
-import EVENT_ALERT_SHOW from "services/Constants.js"
+﻿import Vue from "vue";
+import VueConfig from "services/VueCommon.js";
+import "services/CustomDirectives.js";
+import { EVENT_ALERT_SHOW } from "services/Constants.js";
 
 class System {
     constructor() {

@@ -1,9 +1,9 @@
-﻿import Vue from "vue"
-import Moment from "moment"
+﻿import Vue from "vue";
+import Moment from "moment";
 
-import Util from "services/Util.js"
-import * as Constants from "services/Constants.js"
-import * as FriendlyConstants from "services/FriendlyConstants.js"
+import Util from "services/Util.js";
+import * as Constants from "services/Constants.js";
+import * as FriendlyConstants from "services/FriendlyConstants.js";
 
 // Register a global mixin to let the constants be available to each vue components
 Vue.mixin({

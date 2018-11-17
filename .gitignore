@@ -67,6 +67,7 @@ Backup/
 UpgradeLog.htm
 
 CarTracker/CarTracker.Web/wwwroot/lib
+CarTracker/CarTracker.Web/wwwroot/views
 
 *.lock.json
 

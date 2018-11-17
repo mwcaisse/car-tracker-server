@@ -7,6 +7,16 @@
     <None Remove="buildInformation.pyb" />
     <None Remove="dbConfig.pyb" />
     <None Remove="deploymentConfiguration.pyb" />
+    <None Remove="web-src\views\Home\Home.js" />
+    <None Remove="web-src\views\Home\Home.vue" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web-src\views\Home\Home.vue">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="web-src\views\Home\Home.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.2.0-beta3" />
@@ -40,9 +50,5 @@
     <None Update="deploymentConfiguration.json.ptd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="web-src\components\" />
-    <Folder Include="web-src\views\" />
   </ItemGroup>
 </Project>

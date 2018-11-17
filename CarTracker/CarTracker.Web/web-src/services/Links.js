@@ -1,6 +1,13 @@
-﻿class Links {
+﻿import System from "services/System.js";
+import { EVENT_NAVIGATION_ACTIVE_CHANGED } from "services/Constants.js";
+
+class Links {
     constructor() {
         this._rootPathPrefix = ($("#rootPathPrefix").val() || "") + "/";
+    }
+
+    setActiveNavigation(navigationId) {
+        System.events.$emit(EVENT_NAVIGATION_ACTIVE_CHANGED, { id: navigationId });
     }
 
     get rootPathPrefix() {
