@@ -1,6 +1,8 @@
-﻿const KM_IN_MI = 0.621371;
+﻿import Q from "q"
 
-function convertMkToMi (km) {
+const KM_IN_MI = 0.621371;
+
+function convertKmToMi (km) {
     return km * KM_IN_MI;
 }
 
@@ -74,8 +76,24 @@ function generateUuid() {
     });
 }
 
-export default {
-    convertMkToMi,
+function jsonp(url, callbackName) {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = url;
+    script.setAttribute("async", "");
+    script.setAttribute("defer", ""); // if async is not supported
+
+    var def = Q.defer();
+    window[callbackName] = def.resolve;
+
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(script, s);
+
+    return def.promise;
+}
+
+export {
+    convertKmToMi,
     convertCelsiusToFah,
     getURLParameter,
     isStringNullOrBlank,
@@ -84,5 +102,6 @@ export default {
     round,
     prettyNumber,
     scrollToTop,
-    generateUuid
+    generateUuid,
+    jsonp
 }

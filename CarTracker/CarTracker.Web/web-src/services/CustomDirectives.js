@@ -1,7 +1,7 @@
 ﻿import Vue from "vue";
 import Moment from "moment";
 
-import Util from "services/Util.js";
+import * as Util from "services/Util.js";
 import * as Constants from "services/Constants.js";
 import * as FriendlyConstants from "services/FriendlyConstants.js";
 
@@ -56,7 +56,7 @@ Vue.filter("formatDuration", function (value, formatString) {
     if (typeof value === "undefined" || typeof value.format !== "function") {
         return "";
     }
-    return util.formatDuration(value, formatString);
+    return Util.formatDuration(value, formatString);
 });
 
 Vue.filter("formatBoolean", function (value, nullIsBlank) {
@@ -84,7 +84,7 @@ Vue.filter("kmToMi", function (value) {
     if (typeof value === "undefined") {
         return "";
     }
-    return util.convertKmToMi(value);
+    return Util.convertKmToMi(value);
 });	
 
 Vue.filter("friendlyConstant", function (value, constantName) {
@@ -97,7 +97,7 @@ Vue.filter("friendlyConstant", function (value, constantName) {
 
 Vue.filter("prettyJson", function (value) {
     if (typeof value === "string") {
-        if (util.isStringNullOrBlank(value)) {
+        if (Util.isStringNullOrBlank(value)) {
             return "";
         }
         try {
@@ -116,6 +116,6 @@ Vue.filter("prettyNumber", function (value, places) {
     if (typeof places === "undefined") {
         places = 2;
     }
-    return util.prettyNumber(value, places);
+    return Util.prettyNumber(value, places);
 
 });
