@@ -65,7 +65,7 @@
                 }
             },
             isFiltered: function() {
-                return Util.isStringNullOrBlank(this.currentFilter);
+                return !Util.isStringNullOrBlank(this.currentFilter);
             },
             filter: function () {
                 if (!this.enableFilter) {
@@ -81,7 +81,7 @@
                         filterObj[Constants.FILTER_OPERATION.LTE] = this.endDate;
                     }
                 }
-                else if (this.filterType === system.constants.FILTER_TYPE.TEXT) {
+                else if (this.filterType === Constants.FILTER_TYPE.TEXT) {
                     if (this.currentFilter !== "") {
                         filterObj[Constants.FILTER_OPERATION.CONT] = this.currentFilter;
                     }

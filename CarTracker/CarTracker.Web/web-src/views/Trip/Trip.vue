@@ -10,7 +10,7 @@
         </div>
         <div class="row py-3">
             <div class="col-md-12">
-                <!-- TODO: <app-reader-log-grid :startDate="tripStartDate" :endDate="tripEndDate"></app-reader-log-grid> -->
+                <app-reader-log-grid :startDate="tripStartDate" :endDate="tripEndDate"></app-reader-log-grid>
             </div>
         </div>
         <div class="row py-3">
@@ -54,6 +54,7 @@
     import TripThrottleChart from "components/Trip/TripChart/TripThrottleChart.vue"
     import TripMAFChart from "components/Trip/TripChart/TripMAFChart.vue"
     import TripTemperatureChart from "components/Trip/TripChart/TripTemperatureChart.vue"
+    import ReaderLogGrid from "components/ReaderLog/ReaderLogGrid.vue"
 
     var tripId = parseInt(getURLParameter("tripId", 92), 10);	
 
@@ -89,6 +90,7 @@
             "app-trip-throttle-chart": TripThrottleChart,
             "app-trip-maf-chart": TripMAFChart,
             "app-trip-temperature-chart": TripTemperatureChart,
+            "app-reader-log-grid": ReaderLogGrid
         }
     }
 </script>
