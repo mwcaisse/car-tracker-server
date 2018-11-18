@@ -1,5 +1,105 @@
 ﻿<template>
-
+    <div class="card">
+        <div class="card-header">
+            Details
+            <span class="float-right">
+                <i class="fa fa-hdd-o action-icon" aria-hidden="true" v-on:click="process" v-tooltip title="Process Trip"></i>
+                &nbsp;
+                <i class="fa fa-floppy-o action-icon" aria-hidden="true" v-on:click="save" v-tooltip title="Save"></i>
+                &nbsp;
+                <i class="fa fa-refresh action-icon" aria-hidden="true" v-on:click="refresh" v-tooltip title="Refresh"></i>
+            </span>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Name</label>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control" placeholder="Name" v-model="name" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Status</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ status | friendlyConstant("TRIP_STATUS") }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Start Date</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ startDate | formatDateTime }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">End Date</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ endDate | formatDateTime }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Trip Length</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ tripLength | formatDuration }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Average Speed</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ averageSpeed | kmToMi | round(2) }} mph</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Maximum Speed</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ maximumSpeed | kmToMi | round(2) }} mph</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Average Engine Speed</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ averageEngineRpm | round(2) }} RPM</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Max Engine Speed</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ maxEngineRpm | round(2) }} RPM</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Distance Traveled</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ distanceTraveled | kmToMi | round(2) }} mi</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Idle Time</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext"> {{ idleTime | formatDuration }}</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Start</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext">
+                            <span v-if="startingPlaceName.length > 0">{{ startingPlaceName }}&nbsp;</span>
+                            <i class="fa fa-pencil action-icon" aria-hidden="true" v-on:click="selectPossiblePlacesStart" v-tooltip title="Select Starting Place"></i>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-5 col-form-label">Destination</label>
+                    <div class="col-md-7">
+                        <p class="form-control-plaintext">
+                            <span v-if="destinationPlaceName.length > 0">{{ destinationPlaceName }}&nbsp;</span>
+                            <i class="fa fa-pencil action-icon" aria-hidden="true" v-on:click="selectPossiblePlacesDestination" v-tooltip title="Select Destination Place"></i>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <app-trip-possible-places :tripId="tripId" v-on:trip:possible-place:selected="placeSelected"></app-trip-possible-places>
+    </div>
 </template>
 
 <script>
@@ -7,6 +107,8 @@
     import System from "services/System.js"
     import * as Constants from "services/Constants.js"
     import { TripService } from "services/ApplicationProxy.js"
+
+    import TripPossiblePlaces from "components/Trip/TripPossiblePlaces.vue"
 
     export default {
         data: function () {
@@ -109,6 +211,9 @@
         },
         created: function () {
             this.fetch();
+        },
+        components: {
+            "app-trip-possible-places": TripPossiblePlaces
         }
     }
 </script>

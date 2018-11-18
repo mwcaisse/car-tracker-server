@@ -49,8 +49,7 @@
     import Pager from "components/Common/Pager.vue"
     import ColumnHeader from "components/Common/ColumnHeader.vue"
     import CarMaintenanceModal from "components/Car/CarMaintenanceModal.vue"
-    //TODO: Car Maintenance Modal
-
+   
     export default {
         mixins: [PagedGridMixin],
         data: function () {

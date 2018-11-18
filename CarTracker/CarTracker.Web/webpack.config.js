@@ -9,7 +9,8 @@ module.exports = {
     entry: {
         "navigation": "./web-src/views/Navigation/Navigation.js",
         "home": "./web-src/views/Home/Home.js",
-        "car": "./web-src/views/Car/Car.js"
+        "car": "./web-src/views/Car/Car.js",
+        "trip": "./web-src/views/Trip/Trip.js"
     },
     output: {
         path: path.resolve(__dirname, "wwwroot"),
