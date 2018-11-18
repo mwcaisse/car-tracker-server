@@ -34,6 +34,7 @@
     import { TripPossiblePlacesService } from "services/ApplicationProxy.js"
 
     import PagedGridMixin from "components/Common/PagedGridMixin.vue"
+    import Pager from "components/Common/Pager.vue"
     import ColumnHeader from "components/Common/ColumnHeader.vue"
     import Modal from "components/Common/Modal.vue"
     import PlaceRow from "components/Trip/TripPossiblePlacesRow.vue"
@@ -43,7 +44,8 @@
         components: {
             "app-column-header": ColumnHeader,
             "app-modal": Modal,
-            "app-trip-possible-places-row": PlaceRow
+            "app-trip-possible-places-row": PlaceRow,
+            "app-pager": Pager
         },
         data: function () {
             return {
