@@ -6,6 +6,9 @@
 </template>
 
 <script>
+    import * as Constants from "services/Constants.js"
+    import { TripService } from "services/ApplicationProxy.js"
+
     export default {  
         data: function () {
             return {
@@ -25,11 +28,11 @@
         },     
         methods: {
             setPlace: function () {
-                if (this.placeType === system.constants.TRIP_POSSIBLE_PLACE_TYPE.START) {
-                    proxy.trip.setStartingPlace(this.tripId, this.placeId);
+                if (this.placeType === Constants.TRIP_POSSIBLE_PLACE_TYPE.START) {
+                    TripService.setStartingPlace(this.tripId, this.placeId);
                 }
                 else {
-                    proxy.trip.setDestinationPlace(this.tripId, this.placeId);
+                    TripService.setDestinationPlace(this.tripId, this.placeId);
                 }
                 this.$emit("trip:possible-place:selected", this.possiblePlace);
             },

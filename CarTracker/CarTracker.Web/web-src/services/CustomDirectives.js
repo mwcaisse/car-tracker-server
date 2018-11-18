@@ -1,5 +1,6 @@
 ﻿import Vue from "vue";
 import Moment from "moment";
+import Highcharts from "highcharts"
 
 import * as Util from "services/Util.js";
 import * as Constants from "services/Constants.js";
@@ -26,8 +27,7 @@ Vue.directive("tooltip", {
  */
 Vue.directive("highcharts", function (el, binding) {
     if (typeof binding.oldValue === "undefined" || binding.oldValue !== binding.value) {
-        var $el = $(el);
-        $el.highcharts(binding.value);
+        Highcharts.chart(el, binding.value);
     }
 });
 
