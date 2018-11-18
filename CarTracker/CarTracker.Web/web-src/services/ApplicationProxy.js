@@ -81,7 +81,7 @@ var TripPossiblePlacesService = {
     }
 };
 
-var UserPlacesService = {
+var UserPlaceService = {
     get: function(id) {
         return Proxy.get(`place/user/${id}`);
     },
@@ -184,7 +184,7 @@ export {
     CarMaintenanceService,
     TripService,
     TripPossiblePlacesService,
-    UserPlacesService,
+    UserPlaceService,
     ReadingService,
     UserService,
     RegistrationKeyService,
