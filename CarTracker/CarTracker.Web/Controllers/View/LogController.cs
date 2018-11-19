@@ -19,7 +19,7 @@ namespace CarTracker.Web.Controllers.View
 
         public IActionResult Reader()
         {
-            return View();
+            return VueView("views/ReaderLog", "Log - Reader");
         }
     }
 }

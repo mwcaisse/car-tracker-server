@@ -17,7 +17,7 @@ namespace CarTracker.Web.Controllers.View
 
         public IActionResult Index()
         {
-            return View();
+            return VueView("views/User/Places", "User Places");
         }
         
     }

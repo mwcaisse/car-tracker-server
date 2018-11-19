@@ -21,7 +21,7 @@ namespace CarTracker.Web.Controllers.View
         [Route("registration-keys")]
         public IActionResult RegistrationKeys()
         {
-            return View();
+            return VueView("views/Admin/RegistrationKeys", "Registration Keys");
         }
     }
 }

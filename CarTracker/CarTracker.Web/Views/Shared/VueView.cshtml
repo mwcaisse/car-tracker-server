@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = ViewBag.ViewTitle;
+    var viewName = ViewBag.ViewName;
+    var properties = ViewBag.Properties;
+}
+@foreach (var property in @properties)
+{
+    <input type="hidden" id="@property.Name" value="@property.Value"/>
+}
+<vc:vue view-name="@viewName"></vc:vue>

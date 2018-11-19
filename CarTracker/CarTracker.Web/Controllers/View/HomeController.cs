@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CarTracker.Web.Controllers.View
 {
     [Authorize]
+    [Route("")]
     public class HomeController : BaseViewController
     {
         public HomeController(ApplicationConfiguration applicationConfiguration,
@@ -19,7 +20,7 @@ namespace CarTracker.Web.Controllers.View
 
         public IActionResult Index()
         {
-            return View();
+            return VueView("views/Home");
         }
     }
 }

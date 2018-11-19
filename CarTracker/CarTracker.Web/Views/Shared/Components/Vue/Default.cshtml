@@ -10,15 +10,10 @@
 <script type="text/javascript">
     navigationPromise.then(function() {
         require(['@Model.ViewName'], function (vm) {
-            if (typeof vm === "function") {
-                vm("#@Model.VmElementId");
-            }
-            else {
-                new Vue({
-                    el: "#@Model.VmElementId",
-                     render: h => h(vm.default)
-                });
-            }
+            new Vue({
+                el: "#@Model.VmElementId",
+                render: h => h(vm.default)
+            });
         });
     })
 </script>

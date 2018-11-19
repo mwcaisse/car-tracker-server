@@ -69,7 +69,7 @@ namespace CarTracker.Web.Controllers.View
         [Route("register")]
         public IActionResult Register()
         {
-            return View();
+            return VueView("views/Register", "Register");
         }
 
         [Route("logout")]
@@ -84,7 +84,7 @@ namespace CarTracker.Web.Controllers.View
         [Route("user/tokens")]
         public IActionResult Tokens()
         {
-            return View();
+            return VueView("views/User/Tokens", "Authentication Tokens");
         }
     }
 }

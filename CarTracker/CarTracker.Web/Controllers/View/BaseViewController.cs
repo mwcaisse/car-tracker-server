@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CarTracker.Web.Configuration;
+using CarTracker.Web.Util;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -28,6 +29,14 @@ namespace CarTracker.Web.Controllers.View
             ViewBag.RootPathPrefix = ApplicationConfiguration.RootPathPrefix;
 
             ViewBag.BuildInformation = BuildInformation;
+        }
+
+        protected IActionResult VueView(string viewName, string title = "", params VueViewProperty[] properties)
+        {
+            ViewBag.ViewName = viewName;
+            ViewBag.ViewTitle = title;
+            ViewBag.Properties = properties;
+            return View("VueView");
         }
 
         protected bool IsAuthenticated()
