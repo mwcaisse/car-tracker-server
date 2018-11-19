@@ -5,6 +5,7 @@ subProjects:
       type: web
       packageManager: yarn
       webpack: true
+      serviceName: cartracker
     - name: Database
       type: database
       scriptDirectory: VersionedScripts
