@@ -37,7 +37,7 @@
 
     export default {
         components: {
-            "app-man": Map
+            "app-map": Map
         },
         data: function () {
             return {

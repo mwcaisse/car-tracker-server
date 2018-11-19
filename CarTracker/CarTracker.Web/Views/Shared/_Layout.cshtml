@@ -54,24 +54,34 @@
     <input id="isAuthenticated" type="hidden" value="@isAuthenticated" />
     <input id="rootPathPrefix" type="hidden" value="@rootPathPrefix" />
 
-    <!--  need to load up the requrie config, after the google map api key -->
-    <script src="@rootPathPrefix/app/Common.js" type="text/javascript"></script>
+    <!--  Configure require -->
+    <script type="text/javascript">
+        require.config({
+        });
+    </script>
 
     <div id="container">
         <!--  Element + vue model to load the navigation -->
+        <script src="@rootPathPrefix/views/Navigation.js" type="text/javascript"></script>
         <div id="navigationvm">
             <script type="text/javascript">
                 var navigationDeferred = Q.defer();
                 var navigationPromise = navigationDeferred.promise;
 
-                //TODO: How to do this with webpack stuffs
-                navigationDeferred.resolve();            
+                require(["views/Navigation"], function (vm) {
+                    new Vue({
+                        el: "#navigationvm",
+                        render: h => h(vm.default)
+                    });
+
+                    navigationDeferred.resolve();
+                });
             </script>
         </div>
         <!-- the body of the page -->
         <div class="content">
             <div class="container">
-                <vc:vue view-name="Views/PageAlert/PageAlert"></vc:vue>
+                <vc:vue view-name="views/PageAlert"></vc:vue>
                 @RenderBody()
             </div>
         </div>
@@ -84,7 +94,7 @@
     </div>
 
     <!-- Load the Navigation bar-->
-    <script src="@rootPathPrefix/views/navigation.js" type="text/javascript"></script>
+
 
 </body>
 </html>

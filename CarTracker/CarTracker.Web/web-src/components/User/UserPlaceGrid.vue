@@ -42,15 +42,15 @@
 </template>
 
 <script>
-    import System from "services/Sysem.js"
-    import UserPlaceService from "services/ApplicationProxy.js"
+    import System from "services/System.js"
+    import { UserPlaceService } from "services/ApplicationProxy.js"
 
-    import PageGridMixin from "components/Common/PageGridMixin.vue"
+    import PagedGridMixin from "components/Common/PagedGridMixin.vue"
     import Pager from "components/Common/Pager.vue"
     import ColumnHeader from "components/Common/ColumnHeader.vue"
 
     export default {
-        mixins: [PageGridMixin],
+        mixins: [PagedGridMixin],
         components: {
             "app-pager": Pager,
             "app-column-header": ColumnHeader

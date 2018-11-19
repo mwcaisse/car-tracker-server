@@ -41,7 +41,7 @@
     import System from "services/System.js"
     import { AuthTokenService } from "services/ApplicationProxy.js"
 
-    import PagedGridMixin from "components/Common/PagedGridMixins.vue"
+    import PagedGridMixin from "components/Common/PagedGridMixin.vue"
     import Pager from "components/Common/Pager.vue"
     import ColumnHeader from "components/Common/ColumnHeader.vue"
 

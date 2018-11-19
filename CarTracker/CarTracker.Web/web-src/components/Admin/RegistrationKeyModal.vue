@@ -19,16 +19,7 @@
             <div class="form-group row">
                 <label class="col-md-2 col-form-label">Active</label>
                 <div class="col-md-10">
-                    <label class="custom-control custom-radio">
-                        <input name="active" type="radio" class="custom-control-input" :value="true" v-model="active" />
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">Yes</span>
-                    </label>
-                    <label class="custom-control custom-radio">
-                        <input name="active" type="radio" class="custom-control-input" :value="false" v-model="active" />
-                        <span class="custom-control-indicator"></span>
-                        <span class="custom-control-description">No</span>
-                    </label>
+                    <input type="checkbox" class="form-check-input" v-model="active"/>
                 </div>
             </div>
         </form>
@@ -44,11 +35,12 @@
     import * as Util from "services/Util.js"
     import { RegistrationKeyService } from "services/ApplicationProxy.js"
     import Modal from "components/Common/Modal.vue"
-    import RegistrationKeyUses from "components/Common/Admin/RegistrationKeyUses.vue"
+    import RegistrationKeyUses from "components/Admin/RegistrationKeyUses.vue"
 
     export default {
         components: {
-            "app-modal": Modal
+            "app-modal": Modal,
+            "app-registration-key-uses": RegistrationKeyUses
         },
 		data: function() {
 			return {

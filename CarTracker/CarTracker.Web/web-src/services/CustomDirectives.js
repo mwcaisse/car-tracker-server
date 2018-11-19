@@ -1,5 +1,4 @@
-﻿import Vue from "vue";
-import Moment from "moment";
+﻿import Moment from "moment";
 import Highcharts from "highcharts"
 
 import * as Util from "services/Util.js";

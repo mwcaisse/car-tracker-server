@@ -42,7 +42,7 @@
     import { RegistrationKeyService } from "services/ApplicationProxy.js"
 
     import PagedGridMixin from "components/Common/PagedGridMixin.vue"
-    import Pager from "component/Common/Pager.vue"
+    import Pager from "components/Common/Pager.vue"
     import ColumnHeader from "components/Common/ColumnHeader.vue"
 
     import RegistrationKeyModal from "components/Admin/RegistrationKeyModal.vue"
@@ -59,8 +59,7 @@
                 keys: [],
                 currentSort: { propertyId: "CreateDate", ascending: false }
             }
-        },
-        template: template,
+        },        
         methods: {
             fetch: function () {
                 RegistrationKeyService.getAllPaged(this.startAt, this.take, this.currentSort).then(function (data) {

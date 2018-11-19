@@ -97,14 +97,17 @@
 
 <script>
     import System from "services/System.js"
-
+    import Links from "services/Links.js"
+    
+    import Modal from "components/Common/Modal.vue"
     import CollapsibleCard from "components/Common/CollapsibleCard.vue"
     import RequestLogMixin from "components/Admin/Log/RequestLogMixin.vue"
 
     export default {
         mixins: [RequestLogMixin],
         components: {
-            "app-collapsible-card": CollapsibleCard
+            "app-collapsible-card": CollapsibleCard,
+            "app-modal": Modal
         },
         data: function () {
             return {
@@ -113,9 +116,9 @@
         },
         computed: {
             requestDetailUrl: function () {
-                return navigation.viewRequestLogDetailsLink(this.requestUuid);
+                return Links.adminRequestLogsDetails(this.requestUuid);
             }
-        }, 
+        },
         created: function () {
             System.events.$on("requestLog:view", function (requestLogId) {
                 this.clear();

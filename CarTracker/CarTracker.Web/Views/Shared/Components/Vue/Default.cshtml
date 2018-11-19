@@ -1,10 +1,24 @@
 ﻿@model CarTracker.Web.ViewComponents.VueViewComponent.VueElement
+@{
+    var rootPathPrefix = ViewBag.RootPathPrefix;
+    var viewUrl = rootPathPrefix + "/" + Model.ViewName + ".js";
+}
+
 
 <div id="@Model.VmElementId"></div>
+<script type="text/javascript" src="@viewUrl"></script>
 <script type="text/javascript">
     navigationPromise.then(function() {
-        require(['@Model.ViewName'], function(vm) {
-            vm('#@Model.VmElementId');
+        require(['@Model.ViewName'], function (vm) {
+            if (typeof vm === "function") {
+                vm("#@Model.VmElementId");
+            }
+            else {
+                new Vue({
+                    el: "#@Model.VmElementId",
+                     render: h => h(vm.default)
+                });
+            }
         });
     })
 </script>

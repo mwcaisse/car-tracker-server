@@ -7,14 +7,9 @@
     <None Remove="buildInformation.pyb" />
     <None Remove="dbConfig.pyb" />
     <None Remove="deploymentConfiguration.pyb" />
-    <None Remove="web-src\views\Home\Home.js" />
-    <None Remove="web-src\views\Home\Home.vue" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="web-src\views\Home\Home.vue">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="web-src\views\Home\Home.js">
+    <Content Include="web-src\views\Home.vue">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>

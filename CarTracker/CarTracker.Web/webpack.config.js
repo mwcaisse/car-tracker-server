@@ -3,18 +3,25 @@
 const { VueLoaderPlugin } = require("vue-loader");
 const path = require("path");
 
+const glob = require("glob");
+var mypath = path.resolve(__dirname, "wwwroot");
+
+var views = {};
+for (var file of glob.sync("./web-src/views/**/*.vue")) {
+    views[file.replace("./web-src/", "").replace(".vue", "")] = file;    
+}
+
+//console.log(JSON.stringify(views));
 
 module.exports = {
     mode: "development",
-    entry: {
-        "navigation": "./web-src/views/Navigation/Navigation.js",
-        "home": "./web-src/views/Home/Home.js",
-        "car": "./web-src/views/Car/Car.js",
-        "trip": "./web-src/views/Trip/Trip.js"
-    },
+    entry: views,
     output: {
         path: path.resolve(__dirname, "wwwroot"),
-        filename: "views/[name].js"
+        filename: "[name].js",
+        libraryTarget: "amd",
+        library: "[name]",
+        umdNamedDefine: true
     },
     module: {
         rules: [
