@@ -93,7 +93,7 @@
     import Pager from "components/Common/Pager.vue"
     import ColumnHeader from "components/Common/ColumnHeader.vue"
 
-    import RequestLogModal from "Components/Admin/Log/RequestLogModal.vue"
+    import RequestLogModal from "components/Admin/Log/RequestLogModal.vue"
 
     export default {
         mixins: [PagedGridMixin],
