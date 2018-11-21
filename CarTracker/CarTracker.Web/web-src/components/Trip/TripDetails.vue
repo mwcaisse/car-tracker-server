@@ -141,6 +141,11 @@
             }
 
         },
+        watch: {
+            tripId: function (val) {
+                this.refresh()
+            }
+        },
         methods: {
             fetch: function () {
                 TripService.get(this.tripId).then(function (data) {

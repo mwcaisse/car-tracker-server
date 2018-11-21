@@ -2,8 +2,9 @@
     <tr :class="rowCss">
         <td>
             <a :href="viewLink" class="no-color">
-                <i class="fa fa-th-list action-icon" aria-hidden="true" v-tooltip title="View Trip"></i>
-            </a>
+                <i class="fa fa-th-list action-icon" aria-hidden="true" v-tooltip title="View Trip Details"></i>
+            </a>        
+            <i class="fa fa-external-link action-icon" aria-hidden="true" v-tooltip title="View Trip" v-on:click="viewModal"></i>      
             <i class="fa fa-hdd-o action-icon" aria-hidden="true" v-tooltip title="Process Trip" v-if="canProcess" v-on:click="process"></i>
         </td>
         <td> {{ name }} </td>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+    import System from "services/System.js"
     import * as Constants from "services/Constants.js"
     import Links from "services/Links.js"
     import { TripService } from "services/ApplicationProxy.js"
@@ -82,6 +84,9 @@
                 this.distanceTraveled = data.distanceTraveled;
                 this.startPlace = data.startPlace;
                 this.destinationPlace = data.destinationPlace;
+            },
+            viewModal: function () {      
+                System.events.$emit("tripModal:show", this.id);
             }
         },
         created: function () {

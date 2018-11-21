@@ -30,6 +30,7 @@
         <div class="card-body text-center" v-else>
             <p class="card-text">No trips have been recorded for this car yet.</p>
         </div>
+        <app-trip-modal></app-trip-modal>
     </div>
 </template>
 
@@ -41,12 +42,14 @@
     import TripRow from "components/Trip/TripRow.vue"
     import ColumnHeader from "components/Common/ColumnHeader.vue"
     import Pager from "components/Common/Pager.vue"
+    import TripModal from "components/Trip/TripModal.vue"
     
 
     export default {
         mixins: [PagedGridMixin],
         components: {
             "app-trip-row": TripRow,
+            "app-trip-modal": TripModal,
             "app-column-header": ColumnHeader,
             "app-pager": Pager
         },

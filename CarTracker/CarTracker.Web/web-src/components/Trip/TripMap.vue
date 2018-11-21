@@ -21,7 +21,8 @@
         data: function () {
             return {
                 map: {},
-                routePathes: []
+                routePathes: [],
+                markers: []
             }
         },
         props: {
@@ -30,17 +31,30 @@
                 required: true
             }
         },
+        watch: {
+            tripId: function (val) {
+                this.clearMap();
+                this.refresh()
+            }
+        },
         methods: {
+            clearMap: function () {
+                //clear any existing route paths and/or markers from the map
+                if (this.routePathes.length > 0) {
+                    $.each(this.routePathes, function (ind, elm) {
+                        elm.setMap(null);
+                    });
+                }
+                if (this.markers.length > 0) {
+                    $.each(this.markers, function (ind, elm) {
+                        elm.setMap(null);
+                    });
+                }
+            },
             fetch: function () {
-                ReadingService.getAllForTrip(this.tripId).then(function (data) {
-
-                    //if we have an existing route path remove it from the map
-                    if (this.routePathes.length > 0) {
-                        $.each(this.routePathes, function (elm) {
-                            elm.setMap(null);
-                        });
-                    }
-
+                ReadingService.getAllForTrip(this.tripId).then(function (data) {                    
+                    this.clearMap();
+                    
                     var coords = $.map(data, function (elm) {
                         if (elm.longitude === 0 && elm.latitude === 0) {
                             return null; // ignore any coordinates that have 0 as lat an long (data issue)
@@ -53,7 +67,7 @@
                             }
                         };
                     });
-
+                    
                     var mapBounds = new google.maps.LatLngBounds();
                     $.each(coords, function (ind, elm) {
                         mapBounds.extend(elm.coords);
@@ -92,6 +106,8 @@
                             map: this.map,
                             title: "End"
                         });
+
+                        this.markers.push(endMarker);
                     }
                 }.bind(this),
                     function (error) {
