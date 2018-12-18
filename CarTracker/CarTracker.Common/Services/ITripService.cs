@@ -28,6 +28,15 @@ namespace CarTracker.Common.Services
         PagedViewModel<Trip> GetForCar(long carId, int skip, int take, SortParam sort);
 
         /// <summary>
+        /// Fetch the Trip History for the given car between the given dates
+        /// </summary>
+        /// <param name="carId"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <returns></returns>
+        TripHistoryViewModel GetTripHistory(long carId, DateTime startDate, DateTime endDate);
+
+        /// <summary>
         /// Creates the given trip for the given car
         /// </summary>
         /// <param name="carId"></param>

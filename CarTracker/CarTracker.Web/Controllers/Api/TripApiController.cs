@@ -1,4 +1,5 @@
-﻿using CarTracker.Common.Mappers;
+﻿using System;
+using CarTracker.Common.Mappers;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -39,6 +40,15 @@ namespace CarTracker.Web.Controllers.Api
             int take = DefaultTake, SortParam sort = null)
         {
             return Ok(_tripService.GetForCar(carId, skip, take, sort).ToViewModel());
+        }
+
+        [HttpGet]
+        [Route("car/{carId}/trip/history/")]
+        public IActionResult GetTripHistoryForCar(long carId, long startDate, long endDate)
+        {
+            return Ok(_tripService.GetTripHistory(carId, 
+                DateTimeOffset.FromUnixTimeMilliseconds(startDate).DateTime.ToLocalTime(), 
+                DateTimeOffset.FromUnixTimeMilliseconds(endDate).DateTime.ToLocalTime()));
         }
 
         [HttpPost]

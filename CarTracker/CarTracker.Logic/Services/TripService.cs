@@ -6,6 +6,7 @@ using CarTracker.Common.Entities;
 using CarTracker.Common.Entities.Places;
 using CarTracker.Common.Enums;
 using CarTracker.Common.Exceptions;
+using CarTracker.Common.Mappers;
 using CarTracker.Common.Models;
 using CarTracker.Common.Services;
 using CarTracker.Common.ViewModels;
@@ -195,6 +196,26 @@ namespace CarTracker.Logic.Services
         protected Reading GetLastReading(Trip trip)
         {
             return trip.Readings.LastOrDefault(r => r.Longitude != 0 && r.Latitude != 0);
+        }
+
+        public TripHistoryViewModel GetTripHistory(long carId, DateTime startDate, DateTime endDate)
+        {
+            var trips =
+                _db.Trips.Include(t => t.Readings).Include(t => t.DestinationPlace)
+                    .Where(t => t.CarId == carId && t.EndDate >= startDate && t.StartDate <= endDate)
+                    .ToList();
+            var readings = trips.SelectMany(t => t.Readings).ToList();
+            var destinations = trips.Select(t => t.DestinationPlace).ToHashSet();
+
+            return new TripHistoryViewModel()
+            {
+                CarId = carId,
+                StartDate = startDate,
+                EndDate = endDate,
+                Trips = trips.ToViewModel(),
+                Readings = readings.ToViewModel(),
+                Destinations = destinations.ToViewModel()
+            };
         }
     }
 }
